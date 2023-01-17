@@ -55,7 +55,7 @@ Data Master Harga
                                     <td>{{ $harga->harga_satuan }}</td>
                                     <td>
 
-                                        <a href="/dataharga/editharga/{{ $harga->id_harga }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>
+                                        {{-- <a href="/dataharga/editharga/{{ $harga->id_harga }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a> --}}
 
                                         <a href="#" onclick="deleteharga({{$harga->id_harga}})" title="Hapus" class="btn btn-danger btn-xs" role="button"><i class="fas fa-trash"></i></a>
                                     </td>
@@ -90,7 +90,7 @@ Data Master Harga
                                         {{ csrf_field() }}
 
                                         <div class="form-group">
-                                            <input type="text" name="harga" required="required" class="form-control form-control-sm" placeholder="Harga">
+                                            <input type="text" name="harga_satuan" required="required" class="form-control form-control-sm" placeholder="Harga">
                                         </div>
 
                                         <br>
