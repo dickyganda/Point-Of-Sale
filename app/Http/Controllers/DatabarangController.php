@@ -44,9 +44,9 @@ class DatabarangController extends Controller
         $add = new M_Barang;
         $add->id_barang = $request->input('id_barang');
         $add->id_rekanan = $request->input('id_rekanan');
-        $add->qty_barang = $request->input('qty_barang');
         $add->nama_barang = $request->input('nama_barang');
-        $add->harga_satuan = $request->input('harga_satuan');
+        $add->harga_barang = $request->input('harga_barang');
+        $add->tgl_edit_barang = Date('Y-m-d');
         $add->save();
 
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Tambah Data'));
@@ -67,8 +67,7 @@ class DatabarangController extends Controller
     {
         DB::table('m_barang')->where('id_barang', $request->id_barang)->update([
             'nama_barang' => $request->nama_barang,
-            'qty_barang' => $request->qty_barang,
-
+            'tgl_edit_barang' => Date('Y-m-d'),
         ]);
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Edit Data'));
     }

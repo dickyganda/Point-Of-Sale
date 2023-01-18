@@ -36,8 +36,8 @@ Route::post('datarekanan/updaterekanan', 'DatarekananController@updaterekanan');
 Route::get('datarekanan/deleterekanan/{id_rekanan}', 'DatarekananController@deleterekanan');
 
 Route::get('/databarang/index', 'DatabarangController@index');
-Route::post('databarang/tambahbarang', 'DatabarangController@tambahrekanan');
-Route::get('databarang/editbarang/{id_barang}', 'DatabarangController@editrekanan');
+Route::post('databarang/tambahbarang', 'DatabarangController@tambahbarang');
+Route::get('databarang/editbarang/{id_barang}', 'DatabarangController@editbarang');
 Route::post('databarang/updatebarang', 'DatabarangController@updatebarang');
 Route::get('databarang/deletebarang/{id_barang}', 'DatabarangController@deletebarang');
 
@@ -46,6 +46,12 @@ Route::post('dataharga/tambahharga', 'DatahargaController@tambahharga');
 Route::get('dataharga/editharga/{id_harga}', 'DatahargaController@editharga');
 Route::post('dataharga/updateharga', 'DatahargaController@updateharga');
 Route::get('dataharga/deleteharga/{id_harga}', 'DatahargaController@deleteharga');
+
+Route::get('/datauser/index', 'DatauserController@index');
+Route::post('datauser/tambahuser', 'DatauserController@tambahuser');
+Route::get('datauser/edituser/{id_user}', 'DatauserController@edituser');
+Route::post('datauser/updateuser', 'DatauserController@updateuser');
+Route::get('datauser/deleteuser/{id_user}', 'DatauserController@deleteuser');
 
 Route::get('/token', function () {
     return csrf_token();

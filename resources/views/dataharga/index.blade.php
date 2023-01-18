@@ -42,7 +42,11 @@ Data Master Harga
                             <thead class="thead-dark">
                                 <tr>
                                     <th>No.</th>
+                                    <th>Nama Barang</th>
                                     <th>Harga</th>
+                                    <th>Status</th>
+                                    <th>Rekanan</th>
+                                    <th>Update</th>
                                     <th>Aksi</th>
 
                                 </tr>
@@ -52,7 +56,11 @@ Data Master Harga
                                 @foreach($dataharga as $harga)
                                 <tr>
                                     <td>{{ $i++ }}</td>
+                                    <td>{{ $harga->nama_barang }}</td>
                                     <td>{{ $harga->harga_satuan }}</td>
+                                    <td>{{ $harga->status_harga }}</td>
+                                    <td>{{ $harga->nama_rekanan }}</td>
+                                    <td>{{ $harga->tgl_edit_harga }}</td>
                                     <td>
 
                                         {{-- <a href="/dataharga/editharga/{{ $harga->id_harga }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a> --}}
@@ -65,7 +73,11 @@ Data Master Harga
                             <tfoot>
                                 <tr>
                                     <th>No.</th>
+                                    <th>Nama Barang</th>
                                     <th>Harga</th>
+                                    <th>Status</th>
+                                    <th>Rekanan</th>
+                                    <th>Update</th>
                                     <th>Aksi</th>
 
                                 </tr>
@@ -90,7 +102,25 @@ Data Master Harga
                                         {{ csrf_field() }}
 
                                         <div class="form-group">
+                                            <select id="id_barang" name="id_barang" class="form-control form-control-sm select2" required>
+                                                <option></option>
+                                                @foreach ($databarang as $harga)
+                                                <option value="{{$harga->id_barang}}">{{$harga->nama_barang}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
                                             <input type="text" name="harga_satuan" required="required" class="form-control form-control-sm" placeholder="Harga">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <select id="id_rekanan" name="id_rekanan" class="form-control form-control-sm select2" required>
+                                                <option></option>
+                                                @foreach ($datarekanan as $harga)
+                                                <option value="{{$harga->id_rekanan}}">{{$harga->nama_rekanan}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
 
                                         <br>

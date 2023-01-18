@@ -55,10 +55,11 @@ class DatarekananController extends Controller
         DB::table('m_rekanan')->where('id_rekanan', $request->id_rekanan)->update([
             'nama_rekanan' => $request->nama_rekanan,
             'alamat_rekanan' => $request->alamat_rekanan,
-            'no_telepon_rekanan' => $request->nomor_telepon_rekanan,
+            'no_telepon_rekanan' => $request->no_telepon_rekanan,
             'email_rekanan' => $request->email_rekanan,
 
         ]);
+        // dd($request);
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Edit Data'));
     }
 

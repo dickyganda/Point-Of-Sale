@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-Data Master Rekanan
+Data Master User
 @endsection
 
 @push('styles')
@@ -14,13 +14,9 @@ Data Master Rekanan
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Data Master Rekanan</h1>
+                <h1 class="m-0">Data Master User</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
-                {{-- <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Starter Page</li>
-          </ol> --}}
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -44,27 +40,27 @@ Data Master Rekanan
                             <tr>
                                 <th>No.</th>
                                 <th>Nama</th>
-                                <th>Alamat</th>
-                                <th>Telepon</th>
-                                <th>Email</th>
+                                <th>Password</th>
+                                <th>Level</th>
+                                <th>Tgl Edit</th>
                                 <th>Aksi</th>
 
                             </tr>
                         </thead>
                         <tbody height="10px">
                             @php $i=1 @endphp
-                            @foreach($datarekanan as $rekanan)
+                            @foreach($datauser as $user)
                             <tr>
                                 <td>{{ $i++ }}</td>
-                                <td>{{ $rekanan->nama_rekanan }}</td>
-                                <td>{{ $rekanan->alamat_rekanan }}</td>
-                                <td>{{ $rekanan->no_telepon_rekanan }}</td>
-                                <td>{{ $rekanan->email_rekanan }}</td>
+                                <td>{{ $rekanan->nama_user }}</td>
+                                <td>{{ $rekanan->password_user }}</td>
+                                <td>{{ $rekanan->level_user }}</td>
+                                <td>{{ $rekanan->tgl_edit_user }}</td>
                                 <td>
 
-                                    <a href="/datarekanan/editrekanan/{{ $rekanan->id_rekanan }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>
+                                    <a href="/datauser/edituser/{{ $user->id_user }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>
 
-                                    <a href="#" onclick="deleterekanan({{$rekanan->id_rekanan}})" title="Hapus" class="btn btn-danger btn-xs" role="button"><i class="fas fa-trash"></i></a>
+                                    <a href="#" onclick="deleteuser({{$user->id_user}})" title="Hapus" class="btn btn-danger btn-xs" role="button"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
                             @endforeach
@@ -73,9 +69,9 @@ Data Master Rekanan
                             <tr>
                                 <th>No.</th>
                                 <th>Nama</th>
-                                <th>Alamat</th>
-                                <th>Telepon</th>
-                                <th>Email</th>
+                                <th>Password</th>
+                                <th>Level</th>
+                                <th>Tgl Edit</th>
                                 <th>Aksi</th>
 
                             </tr>
@@ -90,29 +86,25 @@ Data Master Rekanan
 
                             <!-- Modal Header -->
                             <div class="modal-header">
-                                <h4 class="modal-title">Tambah Data Rekanan</h4>
+                                <h4 class="modal-title">Tambah Data User</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
 
                             <!-- Modal body -->
                             <div class="modal-body">
-                                <form id="tambahrekanan" method="post">
+                                <form id="tambahuser" method="post">
                                     {{ csrf_field() }}
 
                                     <div class="form-group">
-                                        <input type="text" name="nama_rekanan" required="required" class="form-control form-control-sm" placeholder="Nama">
+                                        <input type="text" name="nama_user" required="required" class="form-control form-control-sm" placeholder="Nama">
                                     </div>
 
                                     <div class="form-group">
-                                        <input type="textarea" name="alamat_rekanan" required="required" class="form-control form-control-sm" placeholder="Alamat">
+                                        <input type="password" name="password_user" required="required" class="form-control form-control-sm" placeholder="Password">
                                     </div>
 
                                     <div class="form-group">
-                                        <input type="text" name="no_telepon_rekanan" required="required" class="form-control form-control-sm" placeholder="Telepon">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <input type="email" name="email_rekanan" required="required" class="form-control form-control-sm" placeholder="Email">
+                                        <input type="text" name="level_user" required="required" class="form-control form-control-sm" placeholder="Level">
                                     </div>
 
                                     <br>
@@ -196,13 +188,13 @@ Data Master Rekanan
                     table.column(4).search("^" + status_pelanggan + "$", true, false).draw();
                 })
             });
-            $("#tambahrekanan").submit(function(event) {
+            $("#tambahuser").submit(function(event) {
                 event.preventDefault();
                 var formdata = new FormData(this);
                 $.ajax({
                     type: 'POST'
                     , dataType: 'json'
-                    , url: '/datarekanan/tambahrekanan'
+                    , url: '/datauser/tambahuser'
                     , data: formdata
                     , contentType: false
                     , cache: false
@@ -213,13 +205,13 @@ Data Master Rekanan
                             , data.reason
                             , 'success'
                         ).then(() => {
-                            location.replace("/datarekanan/index");
+                            location.replace("/datauser/index");
                         });
                     }
                 });
             });
 
-            function deleterekanan(id_rekanan) {
+            function deleteuser(id_user) {
                 Swal.fire({
                     title: 'Hapus Data ?'
                     , text: "Anda tidak akan dapat mengembalikan ini!"
@@ -233,7 +225,7 @@ Data Master Rekanan
                         $.ajax({
                             type: 'GET'
                             , dataType: 'json'
-                            , url: '/datarekanan/deleterekanan/' + id_rekanan
+                            , url: '/datauser/deleteuser/' + id_user
                             , success: function(data) {
                                 Swal.fire(
                                     'Sukses!'

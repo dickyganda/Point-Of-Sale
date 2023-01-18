@@ -40,9 +40,9 @@ Data Master Barang
                                 <tr>
                                     <th>No.</th>
                                     <th>Nama Barang</th>
-                                    <th>Qty</th>
                                     <th>Rekanan</th>
                                     <th>Harga</th>
+                                    <th>Update</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -52,9 +52,9 @@ Data Master Barang
                                 <tr>
                                     <td>{{ $i++ }}</td>
                                     <td>{{ $barang->nama_barang }}</td>
-                                    <td>{{ $barang->qty_barang }}</td>
-                                    <td>{{ $barang->id_rekanan }}</td>
-                                    <td>{{ $barang->id_harga }}</td>
+                                    <td>{{ $barang->nama_rekanan }}</td>
+                                    <td>{{ $barang->harga_barang }}</td>
+                                    <td>{{ $barang->tgl_edit_barang }}</td>
                                     <td>
 
                                         <a href="/databarang/editbarang/{{ $barang->id_barang }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>
@@ -68,9 +68,9 @@ Data Master Barang
                                 <tr>
                                     <th>No.</th>
                                     <th>Nama Barang</th>
-                                    <th>Qty</th>
                                     <th>Rekanan</th>
                                     <th>Harga</th>
+                                    <th>Update</th>
                                     <th>Aksi</th>
 
                                 </tr>
@@ -99,21 +99,16 @@ Data Master Barang
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="text" name="qty_barang" required="required" class="form-control form-control-sm" placeholder="Qty">
-                                        </div>
-
-                                        <div class="form-group">
                                             <select id="id_rekanan" name="id_rekanan" class="form-control form-control-sm select2" required>
                                                 <option></option>
                                                 @foreach ($datarekanan as $rekanan)
                                                 <option value="{{$rekanan->id_rekanan}}">{{$rekanan->nama_rekanan}}</option>
                                                 @endforeach
                                             </select>
-                                            {{-- <input type="text" name="id_rekanan" required="required" class="form-control form-control-sm" placeholder="Rekanan"> --}}
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="text" name="id_harga" required="required" class="form-control form-control-sm" placeholder="Harga">
+                                            <input type="text" name="harga_barang" required="required" class="form-control form-control-sm" placeholder="Harga">
                                         </div>
                                         <br>
                                         <button class="btn btn-primary" type="submit">Tambah</button>
