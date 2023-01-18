@@ -28,11 +28,13 @@ class DatauserController extends Controller
     function tambahuser(Request $request)
     {
 
-        $add = new M_Pelanggan;
-        $add->id_pelanggan = $request->input('id_pelanggan');
-        $add->nama_pelanggan = $request->input('nama_pelanggan');
-        $add->alamat_pelanggan = $request->input('alamat_pelanggan');
-        $add->status_pelanggan = $request->input('status_pelanggan');
+        $add = new M_User();
+        $add->id_user = $request->input('id_user');
+        $add->nama_user = $request->input('nama_user');
+        $add->password_user = $request->input('password_user');
+        $add->level_user = $request->input('level_user');
+        $add->status_user = 1;
+        $add->tgl_edit_user = Date('Y-m-d');
         $add->save();
 
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Tambah Data'));
@@ -40,21 +42,23 @@ class DatauserController extends Controller
 
     public function edituser($id_user)
     {
-        $datapelanggan = DB::table('m_pelanggan')
-            ->where('id_pelanggan', $id_pelanggan)
+        $datauser = DB::table('m_user')
+            ->where('id_user', $id_user)
             ->get();
 
-        return view('/datapelanggan/editpelanggan', [
-            'datapelanggan' => $datapelanggan,
+        return view('/datauser/edituser', [
+            'datauser' => $datauser,
         ]);
     }
 
     public function updateuser(Request $request)
     {
-        DB::table('m_pelanggan')->where('id_pelanggan', $request->id_pelanggan)->update([
-            'nama_pelanggan' => $request->nama_pelanggan,
-            'alamat_pelanggan' => $request->alamat_pelanggan,
-            'status_pelanggan' => $request->status_pelanggan,
+        DB::table('m_user')->where('id_user', $request->id_user)->update([
+            'nama_user' => $request->nama_user,
+            'password_user' => $request->password_user,
+            'level_user' => $request->level_user,
+            'status_user' => $request->status_user,
+            'tgl_edit_user' => Date('Y-m-d'),
 
         ]);
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Edit Data'));
@@ -63,7 +67,7 @@ class DatauserController extends Controller
     public function deleteuser($id_user)
     {
         // menghapus data warga berdasarkan id yang dipilih
-        DB::table('m_pelanggan')->where('id_pelanggan', $id_pelanggan)->delete();
+        DB::table('m_user')->where('id_user', $id_user)->delete();
 
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Hapus Data'));
     }

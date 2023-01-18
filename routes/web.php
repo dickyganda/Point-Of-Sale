@@ -53,6 +53,12 @@ Route::get('datauser/edituser/{id_user}', 'DatauserController@edituser');
 Route::post('datauser/updateuser', 'DatauserController@updateuser');
 Route::get('datauser/deleteuser/{id_user}', 'DatauserController@deleteuser');
 
+Route::get('/transaksipenjualan/index', 'TransaksipenjualanController@index');
+Route::post('transaksipenjualan/tambahpenjualan', 'TransaksipenjualanController@tambahuser');
+Route::get('transaksipenjualan/edituser/{id_user}', 'TransaksipenjualanController@edituser');
+Route::post('transaksipenjualan/updateuser', 'TransaksipenjualanController@updateuser');
+Route::get('transaksipenjualan/deleteuser/{id_user}', 'TransaksipenjualanController@deleteuser');
+
 Route::get('/token', function () {
     return csrf_token();
 });

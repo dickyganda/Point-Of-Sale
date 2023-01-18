@@ -52,10 +52,10 @@ Data Master User
                             @foreach($datauser as $user)
                             <tr>
                                 <td>{{ $i++ }}</td>
-                                <td>{{ $rekanan->nama_user }}</td>
-                                <td>{{ $rekanan->password_user }}</td>
-                                <td>{{ $rekanan->level_user }}</td>
-                                <td>{{ $rekanan->tgl_edit_user }}</td>
+                                <td>{{ $user->nama_user }}</td>
+                                <td>{{ $user->password_user }}</td>
+                                <td>{{ $user->level_user }}</td>
+                                <td>{{ $user->tgl_edit_user }}</td>
                                 <td>
 
                                     <a href="/datauser/edituser/{{ $user->id_user }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>
