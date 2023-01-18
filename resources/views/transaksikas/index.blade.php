@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-Data Master Pelanggan
+Data Transaksi Kas
 @endsection
 
 @push('styles')
@@ -14,13 +14,9 @@ Data Master Pelanggan
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Data Master Pelanggan</h1>
+                <h1 class="m-0">Data Transaksi Kas</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
-                {{-- <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Starter Page</li>
-          </ol> --}}
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -37,44 +33,37 @@ Data Master Pelanggan
                 <div class="card card-primary card-outline">
                     <div class="card-body">
                         <a href="" class="btn btn-success btn-xs" title="Tambah Data Baru" role="button" data-toggle="modal" data-target="#modaltambahdata"><i class="fas fa-plus-circle"></i></a><br><br>
-                        {{-- filter --}}
-                        {{-- <div class="row">
-                            <div class="col-sm-3">
-                                <select id="status_pelanggan" name="id_class" class="form-control select2 form-select-sm" required>
-                                    <option></option>
-                                    <option value="1">Aktif</option>
-                                    <option value="0">Tidak Aktif</option>
-                                </select><br>
-                            </div>
-                            <br><br>
-                        </div> --}}
-                        {{-- endfilter --}}
+
                         <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped">
                             <thead class="thead-dark">
                                 <tr>
                                     <th>No.</th>
-                                    <th>Nama</th>
-                                    <th>Alamat</th>
-                                    <th>Telepon</th>
-                                    <th>Status</th>
+                                    <th>Debit</th>
+                                    <th>kredit</th>
+                                    <th>Rekanan</th>
+                                    <th>Ket</th>
+                                    <th>Tgl Debit</th>
+                                    <th>Tgl Kredit</th>
                                     <th>Aksi</th>
 
                                 </tr>
                             </thead>
                             <tbody height="10px">
                                 @php $i=1 @endphp
-                                @foreach($datapelanggan as $pelanggan)
+                                @foreach($t_kas as $kas)
                                 <tr>
                                     <td>{{ $i++ }}</td>
-                                    <td>{{ $pelanggan->nama_pelanggan }}</td>
-                                    <td>{{ $pelanggan->alamat_pelanggan }}</td>
-                                    <td>{{ $pelanggan->no_telepon_pelanggan }}</td>
-                                    <td>{{ $pelanggan->status_pelanggan }}</td>
+                                    <td>{{ $kas->debit }}</td>
+                                    <td>{{ $kas->kredit }}</td>
+                                    <td>{{ $kas->nama_rekanan }}</td>
+                                    <td>{{ $kas->keterangan }}</td>
+                                    <td>{{ $kas->tgl_debit }}</td>
+                                    <td>{{ $kas->tgl_kredit }}</td>
                                     <td>
 
-                                        <a href="/datapelanggan/editpelanggan/{{ $pelanggan->id_pelanggan }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>
+                                        {{-- <a href="/dataharga/editharga/{{ $harga->id_harga }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a> --}}
 
-                                        <a href="#" onclick="deletepelanggan({{$pelanggan->id_pelanggan}})" title="Hapus" class="btn btn-danger btn-xs" role="button"><i class="fas fa-trash"></i></a>
+                                        <a href="#" onclick="deleteharga({{$kas->id_kas}})" title="Hapus" class="btn btn-danger btn-xs" role="button"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -82,10 +71,11 @@ Data Master Pelanggan
                             <tfoot>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Nama</th>
-                                    <th>Alamat</th>
-                                    <th>Telepon</th>
+                                    <th>Nama Barang</th>
+                                    <th>Harga</th>
                                     <th>Status</th>
+                                    <th>Rekanan</th>
+                                    <th>Update</th>
                                     <th>Aksi</th>
 
                                 </tr>
@@ -100,32 +90,36 @@ Data Master Pelanggan
 
                                 <!-- Modal Header -->
                                 <div class="modal-header">
-                                    <h4 class="modal-title">Tambah Data Pelanggan</h4>
+                                    <h4 class="modal-title">Tambah Data Harga</h4>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
 
                                 <!-- Modal body -->
                                 <div class="modal-body">
-                                    <form id="tambahpelanggan" method="post">
+                                    <form id="tambahharga" method="post">
                                         {{ csrf_field() }}
 
                                         <div class="form-group">
-                                            <input type="text" name="nama_pelanggan" required="required" class="form-control form-control-sm" placeholder="Nama">
+                                            <select id="id_barang" name="id_barang" class="form-control form-control-sm select2" required>
+                                                <option></option>
+                                                @foreach ($databarang as $harga)
+                                                <option value="{{$harga->id_barang}}">{{$harga->nama_barang}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="textarea" name="alamat_pelanggan" required="required" class="form-control form-control-sm" placeholder="Alamat">
+                                            <input type="text" name="harga_satuan" required="required" class="form-control form-control-sm" placeholder="Harga">
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="text" name="no_telepon_pelanggan" required="required" class="form-control form-control-sm" placeholder="Telepon">
+                                            <select id="id_rekanan" name="id_rekanan" class="form-control form-control-sm select2" required>
+                                                <option></option>
+                                                @foreach ($datarekanan as $harga)
+                                                <option value="{{$harga->id_rekanan}}">{{$harga->nama_rekanan}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
-
-                                        Status <br>
-                                        <input type=radio name="status_pelanggan" value="1" {{ $pelanggan->status_pelanggan == '1' ? 'checked' : ''}}>Aktif</option>
-                                        <input type=radio name="status_pelanggan" value="0" {{ $pelanggan->status_pelanggan == '0' ? 'checked' : ''}}>Tidak Aktif</option>
-
-                                        </td>
 
                                         <br>
                                         <button class="btn btn-primary" type="submit">Tambah</button>
@@ -208,13 +202,13 @@ Data Master Pelanggan
                         table.column(4).search("^" + status_pelanggan + "$", true, false).draw();
                     })
                 });
-                $("#tambahpelanggan").submit(function(event) {
+                $("#tambahharga").submit(function(event) {
                     event.preventDefault();
                     var formdata = new FormData(this);
                     $.ajax({
                         type: 'POST'
                         , dataType: 'json'
-                        , url: '/datapelanggan/tambahpelanggan'
+                        , url: '/dataharga/tambahharga'
                         , data: formdata
                         , contentType: false
                         , cache: false
@@ -225,13 +219,13 @@ Data Master Pelanggan
                                 , data.reason
                                 , 'success'
                             ).then(() => {
-                                location.replace("/datapelanggan/index");
+                                location.replace("/dataharga/index");
                             });
                         }
                     });
                 });
 
-                function deletepelanggan(id_pelanggan) {
+                function deleteharga(id_harga) {
                     Swal.fire({
                         title: 'Hapus Data ?'
                         , text: "Anda tidak akan dapat mengembalikan ini!"
@@ -245,7 +239,7 @@ Data Master Pelanggan
                             $.ajax({
                                 type: 'GET'
                                 , dataType: 'json'
-                                , url: '/datapelanggan/deletepelanggan/' + id_pelanggan
+                                , url: '/dataharga/deleteharga/' + id_harga
                                 , success: function(data) {
                                     Swal.fire(
                                         'Sukses!'

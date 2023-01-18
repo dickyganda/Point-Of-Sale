@@ -36,18 +36,9 @@ class DatapelangganController extends Controller
         // $add->kode_pelanggan = $request->input('rt') . '1' . str_pad(($dataconfig->nilai_config + 1), 4, '0', STR_PAD_LEFT);
         $add->nama_pelanggan = $request->input('nama_pelanggan');
         $add->alamat_pelanggan = $request->input('alamat_pelanggan');
+        $add->no_telepon_pelanggan = $request->input('no_telepon_pelanggan');
         $add->status_pelanggan = $request->input('status_pelanggan');
-        // $add->tgl_add_pelanggan =  Date('Y-m-d');
-        // $add->tgl_edit = $request->input('tgl_edit');
-        // $add->rt = $request->input('rt');
-        // $add->id_class = $request->input('id_class');
-        // $add->no_sambung = $request->input('no_sambung');
         $add->save();
-        // DB::table('m_config')->where('nama_config', 'running_number_sequence')->update([
-        //     'nilai_config' => ($dataconfig->nilai_config + 1),
-        // ]);
-
-        // dd($add);
 
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Tambah Data'));
     }

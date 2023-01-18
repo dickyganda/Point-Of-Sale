@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\DB;
 use Session;
 
 use App\Models\T_Penjualan;
+use App\Models\M_Barang;
+use App\Models\M_Harga;
+use App\Models\M_Pelanggan;
+
 
 class TransaksipenjualanController extends Controller
 {
@@ -15,12 +19,15 @@ class TransaksipenjualanController extends Controller
     {
 
         $t_penjualan = DB::table('t_penjualan')
-            ->join('m_barang', 'm_barang.id_barang', '=', 't_penjualan.id_barang')
-            ->join('m_harga', 'm_harga.id_harga', '=', 't_penjualan.id_harga')
             ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_penjualan.id_pelanggan')
+            ->join('m_barang', 'm_barang.id_barang', '=', 't_penjualan.id_barang')
+            // ->join('m_harga', 'm_harga.id_harga', '=', 't_penjualan.id_harga')
             ->get();
+        // dd($t_penjualan);
 
         $databarang = DB::table('m_barang')->get();
+
+        // $dataharga = DB::table('m_harga')->get();
 
         $datapelanggan = DB::table('m_pelanggan')->get();
 
@@ -29,6 +36,7 @@ class TransaksipenjualanController extends Controller
             [
                 't_penjualan' => $t_penjualan,
                 'databarang' => $databarang,
+                // 'dataharga' => $dataharga,
                 'datapelanggan' => $datapelanggan,
 
             ]

@@ -85,7 +85,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="/transaksipenjualan/index" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Transaksi
@@ -94,7 +94,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="/transaksikas/index" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Transaksi Kas

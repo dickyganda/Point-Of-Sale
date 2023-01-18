@@ -59,6 +59,12 @@ Route::get('transaksipenjualan/edituser/{id_user}', 'TransaksipenjualanControlle
 Route::post('transaksipenjualan/updateuser', 'TransaksipenjualanController@updateuser');
 Route::get('transaksipenjualan/deleteuser/{id_user}', 'TransaksipenjualanController@deleteuser');
 
+Route::get('/transaksikas/index', 'TransaksikasController@index');
+Route::post('transaksipenjualan/tambahpenjualan', 'TransaksipenjualanController@tambahuser');
+Route::get('transaksipenjualan/edituser/{id_user}', 'TransaksipenjualanController@edituser');
+Route::post('transaksipenjualan/updateuser', 'TransaksipenjualanController@updateuser');
+Route::get('transaksipenjualan/deleteuser/{id_user}', 'TransaksipenjualanController@deleteuser');
+
 Route::get('/token', function () {
     return csrf_token();
 });

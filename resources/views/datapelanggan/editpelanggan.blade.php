@@ -40,6 +40,8 @@ Edit Pelanggan
 
                             <input type="textarea" name="alamat_pelanggan" class="form-control form-control-sm" style="width:30%;" value="{{ $pelanggan->alamat_pelanggan }}"> <br>
 
+                            <input type="text" name="no_telepon_pelanggan" class="form-control form-control-sm" style="width:30%;" value="{{ $pelanggan->no_telepon_pelanggan }}"> <br>
+
                             Status
 
                             @if ( $pelanggan->status_pelanggan == '1' )

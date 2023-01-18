@@ -8,26 +8,26 @@ use Session;
 
 use App\Models\M_Harga;
 
-class DatahargaController extends Controller
+class TransaksikasController extends Controller
 {
 
     function Index()
     {
 
-        $dataharga = DB::table('m_harga')
-            ->join('m_barang', 'm_barang.id_barang', '=', 'm_harga.id_barang')
-            ->join('m_rekanan', 'm_rekanan.id_rekanan', '=', 'm_harga.id_rekanan')
+        $t_kas = DB::table('t_kas')
+            ->join('m_rekanan', 'm_rekanan.id_rekanan', '=', 't_kas.id_rekanan')
+            // ->join('m_rekanan', 'm_rekanan.id_rekanan', '=', 'm_harga.id_rekanan')
             ->get();
 
-        $databarang = DB::table('m_barang')->get();
+        // $databarang = DB::table('m_barang')->get();
 
         $datarekanan = DB::table('m_rekanan')->get();
 
         return view(
             'dataharga/index',
             [
-                'dataharga' => $dataharga,
-                'databarang' => $databarang,
+                't_kas' => $t_kas,
+                // 'databarang' => $databarang,
                 'datarekanan' => $datarekanan,
 
             ]
