@@ -37,7 +37,15 @@ Edit User
 
                             <input type="password" name="password_user" class="form-control form-control-sm" style="width:30%;" value="{{ $user->password_user }}"> <br>
 
-                            <input type="text" name="level_user" class="form-control form-control-sm" style="width:30%;" value="{{ $user->level_user }}"> <br>
+                            <div class="form-group">
+                                <select id="level_user" name="level_user" class="form-control form-control-sm select2" style="width:100%;" required>
+                                    <option></option>
+                                    <option value="administrator">Administrator</option>
+                                    <option value="kasir">Kasir</option>
+                                    <option value="rekanan">Rekanan</option>
+                                </select>
+                            </div>
+                            {{-- <input type="text" name="level_user" class="form-control form-control-sm" style="width:30%;" value="{{ $user->level_user }}"> <br> --}}
 
                             Status
 
@@ -94,12 +102,8 @@ Edit User
             });
         });
         $(document).ready(function() {
-            $('#class').select2({
-                placeholder: "Pilih Kelas"
-
-            });
-            $('#rt').select2({
-                placeholder: "Pilih RT"
+            $('#level_user').select2({
+                placeholder: "Pilih Level"
 
             });
         });

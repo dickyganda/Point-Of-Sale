@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Session;
 
 use App\Models\M_Pelanggan;
+use App\Models\T_Cuci;
 
 class DatapelangganController extends Controller
 {
@@ -16,10 +17,17 @@ class DatapelangganController extends Controller
 
         $datapelanggan = DB::table('m_pelanggan')->get();
 
+        $jumlahcuci = T_Cuci::selectRaw('count(*) as total')
+            // ->where('id_pelanggan', '=', 'id_pelanggan')
+            ->groupBy('id_pelanggan')
+            ->first();
+        // dd($jumlahcuci);
+
         return view(
             'datapelanggan/index',
             [
                 'datapelanggan' => $datapelanggan,
+                'jumlahcuci' => $jumlahcuci,
 
             ]
         );
@@ -27,9 +35,6 @@ class DatapelangganController extends Controller
 
     function tambahpelanggan(Request $request)
     {
-        // $dataconfig = DB::table('m_config')
-        //     ->where('nama_config', 'running_number_sequence')
-        //     ->first();
 
         $add = new M_Pelanggan;
         $add->id_pelanggan = $request->input('id_pelanggan');
@@ -37,7 +42,7 @@ class DatapelangganController extends Controller
         $add->nama_pelanggan = $request->input('nama_pelanggan');
         $add->alamat_pelanggan = $request->input('alamat_pelanggan');
         $add->no_telepon_pelanggan = $request->input('no_telepon_pelanggan');
-        $add->status_pelanggan = $request->input('status_pelanggan');
+        $add->status_pelanggan = 1;
         $add->save();
 
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Tambah Data'));

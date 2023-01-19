@@ -57,6 +57,7 @@ Data Master Pelanggan
                                     <th>Alamat</th>
                                     <th>Telepon</th>
                                     <th>Status</th>
+                                    <th>Jumlah Cuci</th>
                                     <th>Aksi</th>
 
                                 </tr>
@@ -69,7 +70,12 @@ Data Master Pelanggan
                                     <td>{{ $pelanggan->nama_pelanggan }}</td>
                                     <td>{{ $pelanggan->alamat_pelanggan }}</td>
                                     <td>{{ $pelanggan->no_telepon_pelanggan }}</td>
-                                    <td>{{ $pelanggan->status_pelanggan }}</td>
+                                    @if($pelanggan->status_pelanggan == '1')
+                                    <td><span class="badge badge-success">Aktif</span></td>
+                                    @else
+                                    <td><span class="badge badge-danger">Tidak Aktif</span></td>
+                                    @endif
+                                    <td>{{ $jumlahcuci->total }}</td>
                                     <td>
 
                                         <a href="/datapelanggan/editpelanggan/{{ $pelanggan->id_pelanggan }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>
@@ -86,6 +92,7 @@ Data Master Pelanggan
                                     <th>Alamat</th>
                                     <th>Telepon</th>
                                     <th>Status</th>
+                                    <th>jumlah Cuci</th>
                                     <th>Aksi</th>
 
                                 </tr>
@@ -120,10 +127,6 @@ Data Master Pelanggan
                                         <div class="form-group">
                                             <input type="text" name="no_telepon_pelanggan" required="required" class="form-control form-control-sm" placeholder="Telepon">
                                         </div>
-
-                                        Status <br>
-                                        <input type=radio name="status_pelanggan" value="1" {{ $pelanggan->status_pelanggan == '1' ? 'checked' : ''}}>Aktif</option>
-                                        <input type=radio name="status_pelanggan" value="0" {{ $pelanggan->status_pelanggan == '0' ? 'checked' : ''}}>Tidak Aktif</option>
 
                                         </td>
 

@@ -31,8 +31,8 @@ Data Master User
 
                 <div class="card card-primary card-outline">
                     <div class="card-body">
-                        <a href="" class="btn btn-success btn-xs" title="Tambah Data Baru" role="button" data-toggle="modal" data-target="#modaltambahdata"><i class="fas fa-plus-circle"></i></a><br><br>
-                        <br><br>
+                        <a href="" class="btn btn-success btn-xs" title="Tambah Data Baru" role="button" data-toggle="modal" data-target="#modaltambahdata"><i class="fas fa-plus-circle"></i></a>
+
                     </div>
                     {{-- endfilter --}}
                     <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped">
@@ -104,7 +104,12 @@ Data Master User
                                     </div>
 
                                     <div class="form-group">
-                                        <input type="text" name="level_user" required="required" class="form-control form-control-sm" placeholder="Level">
+                                        <select id="level_user" name="level_user" class="form-control form-control-sm select2" style="width:100%;" required>
+                                            <option></option>
+                                            <option value="administrator">Administrator</option>
+                                            <option value="kasir">Kasir</option>
+                                            <option value="rekanan">Rekanan</option>
+                                        </select>
                                     </div>
 
                                     <br>
@@ -164,7 +169,7 @@ Data Master User
                 var table = $('#dt-basic-example').DataTable({
                     dom: 'Bfrtip'
                     , buttons: [
-                        'excel'
+
                     , ]
                 , });
 
@@ -241,15 +246,9 @@ Data Master User
             }
 
             $(document).ready(function() {
-                $('#rt').select2({
-                    placeholder: "Pilih RT"
+                $('#level_user').select2({
+                    placeholder: "Pilih Level"
 
-                });
-            });
-
-            $(document).ready(function() {
-                $('#status_pelanggan').select2({
-                    placeholder: "Pilih Status"
                 });
             });
 

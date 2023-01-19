@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Session;
 
-use App\Models\M_Harga;
+use App\Models\T_Kas;
 
 class TransaksikasController extends Controller
 {
@@ -34,27 +34,19 @@ class TransaksikasController extends Controller
         );
     }
 
-    function tambahharga(Request $request)
+    function tambahkas(Request $request)
     {
-        DB::table('m_harga')->where('id_barang', $request->id_barang)->update([
-            'status_harga' => 0,
-            'tgl_edit_harga' => Date('Y-m-d')
-        ]);
 
-        $add = new M_Harga;
-        $add->id_harga = $request->input('id_harga');
-        $add->id_barang = $request->input('id_barang');
+        $add = new T_Kas;
+        $add->id_kas = $request->input('id_kas');
         $add->id_rekanan = $request->input('id_rekanan');
-        $add->harga_satuan = $request->input('harga_satuan');
-        $add->status_harga = 1;
-        $add->tgl_edit_harga = Date('Y-m-d');
+        $add->debit = $request->input('debit');
+        $add->kredit = $request->input('kredit');;
+        $add->keterangan = $request->input('keterangan');
+        $add->tgl_debit = Date('Y-m-d');
+        $add->tgl_kredit = Date('Y-m-d');
         $add->save();
         // dd($add);
-
-        DB::table('m_barang')->where('id_barang', $request->id_barang)->update([
-            'harga_barang' => $request->harga_satuan,
-            'tgl_edit_barang' => Date('Y-m-d')
-        ]);
 
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Tambah Data'));
     }

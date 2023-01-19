@@ -36,7 +36,7 @@ Data Master Harga
 
                 <div class="card card-primary card-outline">
                     <div class="card-body">
-                        <a href="" class="btn btn-success btn-xs" title="Tambah Data Baru" role="button" data-toggle="modal" data-target="#modaltambahdata"><i class="fas fa-plus-circle"></i></a><br><br>
+                        {{-- <a href="" class="btn btn-success btn-xs" title="Tambah Data Baru" role="button" data-toggle="modal" data-target="#modaltambahdata"><i class="fas fa-plus-circle"></i></a><br><br> --}}
 
                         <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped">
                             <thead class="thead-dark">
@@ -58,14 +58,19 @@ Data Master Harga
                                     <td>{{ $i++ }}</td>
                                     <td>{{ $harga->nama_barang }}</td>
                                     <td>{{ $harga->harga_satuan }}</td>
-                                    <td>{{ $harga->status_harga }}</td>
+                                    @if($harga->status_harga == '1')
+                                    <td><span class="badge badge-success">Aktif</span></td>
+                                    @else
+                                    <td><span class="badge badge-danger">Tidak Aktif</span></td>
+                                    @endif
+                                    {{-- <td>{{ $jumlahcuci->total }}</td> --}}
                                     <td>{{ $harga->nama_rekanan }}</td>
                                     <td>{{ $harga->tgl_edit_harga }}</td>
                                     <td>
 
                                         {{-- <a href="/dataharga/editharga/{{ $harga->id_harga }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a> --}}
 
-                                        <a href="#" onclick="deleteharga({{$harga->id_harga}})" title="Hapus" class="btn btn-danger btn-xs" role="button"><i class="fas fa-trash"></i></a>
+                                        {{-- <a href="#" onclick="deleteharga({{$harga->id_harga}})" title="Hapus" class="btn btn-danger btn-xs" role="button"><i class="fas fa-trash"></i></a> --}}
                                     </td>
                                 </tr>
                                 @endforeach
@@ -180,7 +185,7 @@ Data Master Harga
                     var table = $('#dt-basic-example').DataTable({
                         dom: 'Bfrtip'
                         , buttons: [
-                            'excel'
+
                         , ]
                     , });
 
@@ -257,15 +262,15 @@ Data Master Harga
                 }
 
                 $(document).ready(function() {
-                    $('#rt').select2({
-                        placeholder: "Pilih RT"
+                    $('#id_harga').select2({
+                        placeholder: "Pilih Barang"
 
                     });
                 });
 
                 $(document).ready(function() {
-                    $('#status_pelanggan').select2({
-                        placeholder: "Pilih Status"
+                    $('#id_rekanan').select2({
+                        placeholder: "Pilih Rekanan"
                     });
                 });
 

@@ -90,35 +90,34 @@ Data Transaksi Kas
 
                                 <!-- Modal Header -->
                                 <div class="modal-header">
-                                    <h4 class="modal-title">Tambah Data Harga</h4>
+                                    <h4 class="modal-title">Tambah Transaksi Kas</h4>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
 
                                 <!-- Modal body -->
                                 <div class="modal-body">
-                                    <form id="tambahharga" method="post">
+                                    <form id="tambahkas" method="post">
                                         {{ csrf_field() }}
-
-                                        <div class="form-group">
-                                            <select id="id_barang" name="id_barang" class="form-control form-control-sm select2" required>
-                                                <option></option>
-                                                @foreach ($databarang as $harga)
-                                                <option value="{{$harga->id_barang}}">{{$harga->nama_barang}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input type="text" name="harga_satuan" required="required" class="form-control form-control-sm" placeholder="Harga">
-                                        </div>
 
                                         <div class="form-group">
                                             <select id="id_rekanan" name="id_rekanan" class="form-control form-control-sm select2" required>
                                                 <option></option>
-                                                @foreach ($datarekanan as $harga)
-                                                <option value="{{$harga->id_rekanan}}">{{$harga->nama_rekanan}}</option>
+                                                @foreach ($datarekanan as $rekanan)
+                                                <option value="{{$rekanan->id_rekanan}}">{{$rekanan->nama_rekanan}}</option>
                                                 @endforeach
                                             </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="text" name="debit" class="form-control form-control-sm" placeholder="Debit">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="text" name="kredit" class="form-control form-control-sm" placeholder="Kredit">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="text" name="keterangan" class="form-control form-control-sm" placeholder="Keterangan">
                                         </div>
 
                                         <br>
@@ -202,13 +201,13 @@ Data Transaksi Kas
                         table.column(4).search("^" + status_pelanggan + "$", true, false).draw();
                     })
                 });
-                $("#tambahharga").submit(function(event) {
+                $("#tambahkas").submit(function(event) {
                     event.preventDefault();
                     var formdata = new FormData(this);
                     $.ajax({
                         type: 'POST'
                         , dataType: 'json'
-                        , url: '/dataharga/tambahharga'
+                        , url: '/transaksikas/tambahkas'
                         , data: formdata
                         , contentType: false
                         , cache: false
@@ -219,7 +218,7 @@ Data Transaksi Kas
                                 , data.reason
                                 , 'success'
                             ).then(() => {
-                                location.replace("/dataharga/index");
+                                location.replace("/transaksikas/index");
                             });
                         }
                     });

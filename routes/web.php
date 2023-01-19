@@ -62,10 +62,10 @@ Route::post('transaksipenjualan/getbarang', 'TransaksipenjualanController@getbar
 Route::get('print/printpenjualan/{id_cart}', 'TransaksipenjualanController@printthermal');
 
 Route::get('/transaksikas/index', 'TransaksikasController@index');
-Route::post('transaksikas/tambahpenjualan', 'TransaksipenjualanController@tambahuser');
-Route::get('transaksikas/edituser/{id_user}', 'TransaksipenjualanController@edituser');
-Route::post('transaksikas/updateuser', 'TransaksipenjualanController@updateuser');
-Route::get('transaksikas/deleteuser/{id_user}', 'TransaksipenjualanController@deleteuser');
+Route::post('transaksikas/tambahkas', 'TransaksikasController@tambahkas');
+Route::get('transaksikas/editkas/{id_kas}', 'TransaksikasController@edituser');
+Route::post('transaksikas/updatekas', 'TransaksikasController@updateuser');
+Route::get('transaksikas/deletekas/{id_kas}', 'TransaksikasController@deleteuser');
 
 Route::get('/transaksicuci/index', 'TransaksicuciController@index');
 Route::post('transaksicuci/tambahtransaksicuci', 'TransaksicuciController@tambahtransaksicuci');

@@ -23,6 +23,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{ asset('assets/css/jquery.dataTables.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/buttons.dataTables.min.css') }}">
 
+    {{-- Select2 --}}
+    <link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/select2-bootstrap.min.css') }}">
+
+    {{-- date filter datatables --}}
+    <link rel="stylesheet" href="{{ asset('assets/css/dataTables.dateTime.min.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/daterangepicker.css') }}" />
+
     @stack('style')
 </head>
 
@@ -54,8 +63,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- REQUIRED SCRIPTS -->
 
     <!-- jQuery -->
-    <script src="{{ asset('assets/plugins/jquery/jquery.min.js' ) }}"></script>
     <!-- Bootstrap 4 -->
+    <script type="text/javascript" src="{{ asset('assets/js/jquery.min.js') }}"></script>
+
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js' ) }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('assets/js/adminlte.min.js ' ) }}"></script>
@@ -66,7 +76,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script type="text/javascript" src="{{ asset('assets/js/sweetalert2.js') }}"></script>
     <script src="{{ asset('assets/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('assets/js/select2.min.js') }}"></script>
-
+    <script src="{{ asset('assets/js/chart.js') }}"></script>
+    <script src="{{ asset('assets/js/jspdf.umd.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jspdf.debug.js') }}"></script>
+    <script src="{{ asset('assets/js/jszip.min.js') }}"></script>
+    <script src="{{ asset('assets/js/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('assets/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('assets/js/buttons.print.min.js') }}"></script>
     <script>
         $.ajaxSetup({
             headers: {

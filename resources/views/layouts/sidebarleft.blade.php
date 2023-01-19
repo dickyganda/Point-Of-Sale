@@ -53,31 +53,31 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="/datapelanggan/index" class="nav-link">
+                            <a href="/datapelanggan/index" class="nav-link {{ (request()->is('datapelanggan/index')) ? 'active' : ' ' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Master Pelanggan</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/datarekanan/index" class="nav-link">
+                            <a href="/datarekanan/index" class="nav-link {{ (request()->is('datarekanan/index')) ? 'active' : ' ' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Rekanan</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/databarang/index" class="nav-link">
+                            <a href="/databarang/index" class="nav-link {{ (request()->is('databarang/index')) ? 'active' : ' ' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Barang</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/dataharga/index" class="nav-link">
+                            <a href="/dataharga/index" class="nav-link {{ (request()->is('dataharga/index')) ? 'active' : ' ' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Harga</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/datauser/index" class="nav-link">
+                            <a href="/datauser/index" class="nav-link {{ (request()->is('datauser/index')) ? 'active' : ' ' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data User</p>
                             </a>
@@ -85,16 +85,16 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="/transaksipenjualan/index" class="nav-link">
+                    <a href="/transaksipenjualan/index" class="nav-link {{ (request()->is('transaksipenjualan/index')) ? 'active' : ' ' }}">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
-                            Transaksi
+                            Transaksi Penjualan
                             {{-- <span class="right badge badge-danger">New</span> --}}
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/transaksicuci/index" class="nav-link">
+                    <a href="/transaksicuci/index" class="nav-link {{ (request()->is('transaksicuci/index')) ? 'active' : ' ' }}">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Transaksi Cuci
@@ -103,7 +103,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/report/index" class="nav-link">
+                    <a href="/transaksikas/index" class="nav-link {{ (request()->is('transaksikas/index')) ? 'active' : ' ' }}">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Transaksi Kas
@@ -112,7 +112,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/transaksicuci/index" class="nav-link">
+                    <a href="/closing/index" class="nav-link {{ (request()->is('closing/index')) ? 'active' : ' ' }}">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Closing
@@ -121,7 +121,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/closing/index" class="nav-link">
+                    <a href="/report/index" class="nav-link {{ (request()->is('report/index')) ? 'active' : ' ' }}">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Report

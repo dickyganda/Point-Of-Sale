@@ -245,8 +245,8 @@ Data Master Barang
                 }
 
                 $(document).ready(function() {
-                    $('#status_pelanggan').select2({
-                        placeholder: "Pilih Status"
+                    $('#id_rekanan').select2({
+                        placeholder: "Pilih rekanan"
                     });
                 });
 
