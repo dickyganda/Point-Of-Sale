@@ -55,9 +55,11 @@ Route::get('datauser/deleteuser/{id_user}', 'DatauserController@deleteuser');
 
 Route::get('/transaksipenjualan/index', 'TransaksipenjualanController@index');
 Route::post('transaksipenjualan/tambahpenjualan', 'TransaksipenjualanController@tambahtransaksipenjualan');
-Route::get('transaksipenjualan/edituser/{id_user}', 'TransaksipenjualanController@edituser');
-Route::post('transaksipenjualan/updateuser', 'TransaksipenjualanController@updateuser');
-Route::get('transaksipenjualan/deleteuser/{id_user}', 'TransaksipenjualanController@deleteuser');
+// Route::get('transaksipenjualan/edituser/{id_user}', 'TransaksipenjualanController@edituser');
+// Route::post('transaksipenjualan/updateuser', 'TransaksipenjualanController@updateuser');
+// Route::get('transaksipenjualan/deleteuser/{id_user}', 'TransaksipenjualanController@deleteuser');
+Route::post('transaksipenjualan/getbarang', 'TransaksipenjualanController@getbarang');
+Route::get('print/printpenjualan/{id_cart}', 'TransaksipenjualanController@printthermal');
 
 Route::get('/transaksikas/index', 'TransaksikasController@index');
 Route::post('transaksikas/tambahpenjualan', 'TransaksipenjualanController@tambahuser');

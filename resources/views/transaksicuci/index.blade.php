@@ -38,10 +38,10 @@ Transaksi Cuci
                             <thead class="thead-dark">
                                 <tr>
                                     <th>No.</th>
+                                    <th>Pelanggan</th>
                                     <th>Nama Barang</th>
                                     <th>Harga</th>
-                                    <th>Pelanggan</th>
-                                    <th>Tgl Cuci</th>
+                                    <th>Tgl Transaksi</th>
                                     <th>Aksi</th>
 
                                 </tr>
@@ -51,17 +51,17 @@ Transaksi Cuci
                                 @foreach($t_cuci as $cuci)
                                 <tr>
                                     <td>{{ $i++ }}</td>
+                                    <td>{{ $cuci->nama_pelanggan }}</td>
                                     <td>{{ $cuci->nama_barang }}</td>
                                     <td>{{ $cuci->harga_barang }}</td>
-                                    <td>{{ $cuci->nama_pelanggan }}</td>
                                     <td>{{ $cuci->tgl_cuci }}</td>
                                     <td>
 
-                                        <a href="/transaksicuci/edittransaksicuci/{{ $cuci->id_cuci }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>
+                                        <a href="/transaksicuci/editcuci/{{ $cuci->id_cuci }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>
+                                        <a href="#" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-print"></i></a>
 
-                                        {{-- <a href="#" onclick="deleteharga({{$harga->id_harga}})" title="Hapus"
-                                        class="btn btn-danger btn-xs" role="button"><i class="fas fa-trash"></i></a>
-                                        --}}
+                                        {{-- <a href="#" onclick="deleteharga({{$harga->id_harga}})" title="Hapus" class="btn btn-danger btn-xs" role="button"><i class="fas fa-trash"></i></a> --}}
+
                                     </td>
                                 </tr>
                                 @endforeach
@@ -69,10 +69,10 @@ Transaksi Cuci
                             <tfoot>
                                 <tr>
                                     <th>No.</th>
+                                    <th>Pelanggan</th>
                                     <th>Nama Barang</th>
                                     <th>Harga</th>
-                                    <th>Pelanggan</th>
-                                    <th>Tgl Cuci</th>
+                                    <th>Tgl Transaksi</th>
                                     <th>Aksi</th>
 
                                 </tr>
@@ -96,10 +96,20 @@ Transaksi Cuci
                                     <form id="tambahtransaksicuci" method="post">
                                         {{ csrf_field() }}
                                         <div class="form-group">
-                                            <input type="text" name="nama_pelanggan" required="required" class="form-control form-control-sm" placeholder="Nama">
+                                            <input type="text" id="id_pelanggan" name="id_pelanggan" required="required" class="form-control form-control-sm" placeholder="ID Pelanggan">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <select id="id_barang" name="id_barang" class="form-control form-control-sm select2" required>
+                                                <option></option>
+                                                @foreach ($databarang as $barang)
+                                                <option value="{{$barang->id_barang}}">{{$barang->nama_barang}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                         <br>
-                                        {{-- <button class="btn btn-primary" type="submit">Tambah</button> --}}
+
+                                        <button class="btn btn-primary" type="submit">Tambah</button>
                                     </form>
                                 </div>
 
@@ -179,13 +189,14 @@ Transaksi Cuci
                         table.column(4).search("^" + status_pelanggan + "$", true, false).draw();
                     })
                 });
-                $("#tambahtransaksipenjualan").submit(function(event) {
+
+                $("#tambahtransaksicuci").submit(function(event) {
                     event.preventDefault();
                     var formdata = new FormData(this);
                     $.ajax({
                         type: 'POST'
                         , dataType: 'json'
-                        , url: '/transaksipenjualan/tambahpenjualan'
+                        , url: '/transaksicuci/tambahtransaksicuci'
                         , data: formdata
                         , contentType: false
                         , cache: false
@@ -194,7 +205,7 @@ Transaksi Cuci
                             Swal.fire(
                                 'Sukses!', data.reason, 'success'
                             ).then(() => {
-                                location.replace("/checkout/viewcheckout");
+                                location.replace("/transaksicuci/index");
                             });
                         }
                     });
@@ -261,6 +272,32 @@ Transaksi Cuci
                         rowCount--;
                     } else {
                         alert('There should be atleast one row');
+                    }
+                }
+
+                function selectTypeNamabarang(item) {
+                    var formdata = new FormData();
+                    formdata.append('id_barang', item.options[item.selectedIndex].value);
+                    $.ajax({
+                        type: 'POST'
+                        , dataType: 'json'
+                        , url: '/transaksipenjualan/getbarang'
+                        , data: formdata
+                        , contentType: false
+                        , cache: false
+                        , processData: false
+                        , success: function(data) {
+                            $('#harga_barang').val(data.harga_barang);
+                        }
+                    })
+                }
+
+                function sum() {
+                    var txtFirstNumberValue = document.getElementById('qty_penjualan').value;
+                    var txtSecondNumberValue = document.getElementById('harga_barang').value;
+                    var result = parseInt(txtFirstNumberValue) * parseInt(txtSecondNumberValue);
+                    if (!isNaN(result)) {
+                        document.getElementById('total_penjualan').value = result;
                     }
                 }
 

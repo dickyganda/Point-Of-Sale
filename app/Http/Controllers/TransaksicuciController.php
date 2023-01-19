@@ -25,10 +25,6 @@ class TransaksicuciController extends Controller
             ->join('m_barang', 'm_barang.id_barang', '=', 't_cuci.id_barang')
             ->get();
         // dd($t_penjualan);
-        // $t_cart = DB::table('t_cart')
-        //     ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_penjualan.id_pelanggan')
-        //     ->join('m_barang', 'm_barang.id_barang', '=', 't_penjualan.id_barang')
-        //     ->get();
 
         $databarang = DB::table('m_barang')->get();
 
@@ -38,7 +34,6 @@ class TransaksicuciController extends Controller
             'transaksicuci/index',
             [
                 't_cuci' => $t_cuci,
-                // 't_cart' => $t_cart,
                 'databarang' => $databarang,
                 'datapelanggan' => $datapelanggan,
 

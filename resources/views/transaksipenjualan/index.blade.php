@@ -40,7 +40,7 @@ Transaksi Penjualan
                                     <th>No.</th>
                                     <th>Nama Barang</th>
                                     <th>Harga</th>
-                                    <th>Pelanggan</th>
+                                    {{-- <th>Pelanggan</th> --}}
                                     <th>Qty</th>
                                     <th>Total</th>
                                     <th>Tgl Transaksi</th>
@@ -55,7 +55,7 @@ Transaksi Penjualan
                                     <td>{{ $i++ }}</td>
                                     <td>{{ $penjualan->nama_barang }}</td>
                                     <td>{{ $penjualan->harga_barang }}</td>
-                                    <td>{{ $penjualan->nama_pelanggan }}</td>
+                                    {{-- <td>{{ $penjualan->nama_pelanggan }}</td> --}}
                                     <td>{{ $penjualan->qty_penjualan }}</td>
                                     <td>{{ $penjualan->total_penjualan }}</td>
                                     <td>{{ $penjualan->tgl_transaksi_penjualan }}</td>
@@ -76,7 +76,7 @@ Transaksi Penjualan
                                     <th>No.</th>
                                     <th>Nama Barang</th>
                                     <th>Harga</th>
-                                    <th>Pelanggan</th>
+                                    {{-- <th>Pelanggan</th> --}}
                                     <th>Qty</th>
                                     <th>Total</th>
                                     <th>Tgl Transaksi</th>
@@ -106,11 +106,12 @@ Transaksi Penjualan
                                                 <th>Nama Barang</th>
                                                 <th>Qty</th>
                                                 <th>Harga</th>
+                                                <th>Total</th>
                                             </tr>
                                             <tr>
                                                 <td id="col0">
                                                     <div class="form-group">
-                                                        <select id="id_barang" name="id_barang" class="form-control form-control-sm select2" required>
+                                                        <select id="id_barang" name="id_barang" class="form-control form-control-sm select2" onchange="selectTypeNamabarang(this)" required>
                                                             <option></option>
                                                             @foreach ($databarang as $penjualan)
                                                             <option value="{{$penjualan->id_barang}}">
@@ -121,12 +122,17 @@ Transaksi Penjualan
                                                 </td>
                                                 <td id="col1">
                                                     <div class="form-group">
-                                                        <input type="number" name="qty_penjualan" required="required" class="form-control form-control-sm" placeholder="Qty">
+                                                        <input type="text" onkeyup="sum();" id="qty_penjualan" name="qty_penjualan" required="required" class="form-control form-control-sm" placeholder="Qty">
                                                     </div>
                                                 </td>
                                                 <td id="col2">
                                                     <div class="form-group">
-                                                        <input type="text" name="total_penjualan" required="required" class="form-control form-control-sm" placeholder="Total">
+                                                        <input type="text" onkeyup="sum();" id="harga_barang" name="harga_barang" id="harga_barang" required="required" class="form-control form-control-sm" placeholder="Harga">
+                                                    </div>
+                                                </td>
+                                                <td id="col3">
+                                                    <div class="form-group">
+                                                        <input type="text" id="total_penjualan" name="total_penjualan" required="required" class="form-control form-control-sm" placeholder="Total">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -219,6 +225,7 @@ Transaksi Penjualan
                         table.column(4).search("^" + status_pelanggan + "$", true, false).draw();
                     })
                 });
+
                 $("#tambahtransaksipenjualan").submit(function(event) {
                     event.preventDefault();
                     var formdata = new FormData(this);
@@ -234,7 +241,7 @@ Transaksi Penjualan
                             Swal.fire(
                                 'Sukses!', data.reason, 'success'
                             ).then(() => {
-                                location.replace("/checkout/viewcheckout");
+                                location.replace("/print/printpenjualan");
                             });
                         }
                     });
@@ -301,6 +308,32 @@ Transaksi Penjualan
                         rowCount--;
                     } else {
                         alert('There should be atleast one row');
+                    }
+                }
+
+                function selectTypeNamabarang(item) {
+                    var formdata = new FormData();
+                    formdata.append('id_barang', item.options[item.selectedIndex].value);
+                    $.ajax({
+                        type: 'POST'
+                        , dataType: 'json'
+                        , url: '/transaksipenjualan/getbarang'
+                        , data: formdata
+                        , contentType: false
+                        , cache: false
+                        , processData: false
+                        , success: function(data) {
+                            $('#harga_barang').val(data.harga_barang);
+                        }
+                    })
+                }
+
+                function sum() {
+                    var txtFirstNumberValue = document.getElementById('qty_penjualan').value;
+                    var txtSecondNumberValue = document.getElementById('harga_barang').value;
+                    var result = parseInt(txtFirstNumberValue) * parseInt(txtSecondNumberValue);
+                    if (!isNaN(result)) {
+                        document.getElementById('total_penjualan').value = result;
                     }
                 }
 
