@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Session;
 
 use App\Models\M_Barang;
+use App\Models\M_Harga;
 use App\Models\M_Rekanan;
 
 class DatabarangController extends Controller
@@ -22,6 +23,7 @@ class DatabarangController extends Controller
         $datarekanan = DB::table('m_rekanan')
             // ->groupBy('nama_rekanan')
             ->get();
+        // dd($datarekanan);
 
         $dataharga = DB::table('m_harga')
             // ->groupBy('harga')
@@ -67,8 +69,25 @@ class DatabarangController extends Controller
     {
         DB::table('m_barang')->where('id_barang', $request->id_barang)->update([
             'nama_barang' => $request->nama_barang,
+            'harga_barang' => $request->harga_barang,
             'tgl_edit_barang' => Date('Y-m-d'),
         ]);
+
+        DB::table('m_harga')->where('id_barang', $request->id_barang)->update([
+            'status_harga' => 0,
+            'tgl_edit_harga' => Date('Y-m-d')
+        ]);
+
+        $add = new M_Harga;
+        $add->id_harga = $request->id_harga;
+        $add->id_barang = $request->id_barang;
+        $add->id_rekanan = $request->id_rekanan;
+        $add->harga_satuan = $request->harga_barang;
+        $add->status_harga = 1;
+        $add->tgl_edit_harga = Date('Y-m-d');
+        $add->save();
+        // dd($add);
+
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Edit Data'));
     }
 

@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-Transaksi Penjualan
+Transaksi Cuci
 @endsection
 
 @push('styles')
@@ -14,7 +14,7 @@ Transaksi Penjualan
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Transaksi Penjualan</h1>
+                <h1 class="m-0">Transaksi Cuci</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
             </div><!-- /.col -->
@@ -41,28 +41,23 @@ Transaksi Penjualan
                                     <th>Nama Barang</th>
                                     <th>Harga</th>
                                     <th>Pelanggan</th>
-                                    <th>Qty</th>
-                                    <th>Total</th>
-                                    <th>Tgl Transaksi</th>
-                                    {{-- <th>Aksi</th> --}}
+                                    <th>Tgl Cuci</th>
+                                    <th>Aksi</th>
 
                                 </tr>
                             </thead>
                             <tbody height="10px">
                                 @php $i=1 @endphp
-                                @foreach($t_penjualan as $penjualan)
+                                @foreach($t_cuci as $cuci)
                                 <tr>
                                     <td>{{ $i++ }}</td>
-                                    <td>{{ $penjualan->nama_barang }}</td>
-                                    <td>{{ $penjualan->harga_barang }}</td>
-                                    <td>{{ $penjualan->nama_pelanggan }}</td>
-                                    <td>{{ $penjualan->qty_penjualan }}</td>
-                                    <td>{{ $penjualan->total_penjualan }}</td>
-                                    <td>{{ $penjualan->tgl_transaksi_penjualan }}</td>
+                                    <td>{{ $cuci->nama_barang }}</td>
+                                    <td>{{ $cuci->harga_barang }}</td>
+                                    <td>{{ $cuci->nama_pelanggan }}</td>
+                                    <td>{{ $cuci->tgl_cuci }}</td>
                                     <td>
 
-                                        {{-- <a href="/dataharga/editharga/{{ $harga->id_harga }}" title="Edit"
-                                        class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a> --}}
+                                        <a href="/transaksicuci/edittransaksicuci/{{ $cuci->id_cuci }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>
 
                                         {{-- <a href="#" onclick="deleteharga({{$harga->id_harga}})" title="Hapus"
                                         class="btn btn-danger btn-xs" role="button"><i class="fas fa-trash"></i></a>
@@ -77,9 +72,8 @@ Transaksi Penjualan
                                     <th>Nama Barang</th>
                                     <th>Harga</th>
                                     <th>Pelanggan</th>
-                                    <th>Qty</th>
-                                    <th>Total</th>
-                                    <th>Tgl Transaksi</th>
+                                    <th>Tgl Cuci</th>
+                                    <th>Aksi</th>
 
                                 </tr>
                             </tfoot>
@@ -93,51 +87,17 @@ Transaksi Penjualan
 
                                 <!-- Modal Header -->
                                 <div class="modal-header">
-                                    <h4 class="modal-title">Tambah Transaksi Penjualan</h4>
+                                    <h4 class="modal-title">Tambah Transaksi Cuci</h4>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
 
                                 <!-- Modal body -->
                                 <div class="modal-body">
-                                    <form id="tambahtransaksipenjualan" method="post">
+                                    <form id="tambahtransaksicuci" method="post">
                                         {{ csrf_field() }}
-                                        <table id="form_penjualan">
-                                            <tr>
-                                                <th>Nama Barang</th>
-                                                <th>Qty</th>
-                                                <th>Harga</th>
-                                            </tr>
-                                            <tr>
-                                                <td id="col0">
-                                                    <div class="form-group">
-                                                        <select id="id_barang" name="id_barang" class="form-control form-control-sm select2" required>
-                                                            <option></option>
-                                                            @foreach ($databarang as $penjualan)
-                                                            <option value="{{$penjualan->id_barang}}">
-                                                                {{$penjualan->nama_barang}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </td>
-                                                <td id="col1">
-                                                    <div class="form-group">
-                                                        <input type="number" name="qty_penjualan" required="required" class="form-control form-control-sm" placeholder="Qty">
-                                                    </div>
-                                                </td>
-                                                <td id="col2">
-                                                    <div class="form-group">
-                                                        <input type="text" name="total_penjualan" required="required" class="form-control form-control-sm" placeholder="Total">
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                        <table>
-                                            <tr>
-                                                <td><input type="button" value="Add Row" onclick="addRows()" /></td>
-                                                <td><input type="button" value="Delete Row" onclick="deleteRows()" /></td>
-                                                <td><input type="submit" value="Submit" /></td>
-                                            </tr>
-                                        </table>
+                                        <div class="form-group">
+                                            <input type="text" name="nama_pelanggan" required="required" class="form-control form-control-sm" placeholder="Nama">
+                                        </div>
                                         <br>
                                         {{-- <button class="btn btn-primary" type="submit">Tambah</button> --}}
                                     </form>

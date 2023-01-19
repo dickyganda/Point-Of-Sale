@@ -94,10 +94,37 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/transaksikas/index" class="nav-link">
+                    <a href="/transaksicuci/index" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Transaksi Cuci
+                            {{-- <span class="right badge badge-danger">New</span> --}}
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/report/index" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Transaksi Kas
+                            {{-- <span class="right badge badge-danger">New</span> --}}
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/transaksicuci/index" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Closing
+                            {{-- <span class="right badge badge-danger">New</span> --}}
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/closing/index" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Report
                             {{-- <span class="right badge badge-danger">New</span> --}}
                         </p>
                     </a>

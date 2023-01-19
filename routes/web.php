@@ -54,16 +54,23 @@ Route::post('datauser/updateuser', 'DatauserController@updateuser');
 Route::get('datauser/deleteuser/{id_user}', 'DatauserController@deleteuser');
 
 Route::get('/transaksipenjualan/index', 'TransaksipenjualanController@index');
-Route::post('transaksipenjualan/tambahpenjualan', 'TransaksipenjualanController@tambahuser');
+Route::post('transaksipenjualan/tambahpenjualan', 'TransaksipenjualanController@tambahtransaksipenjualan');
 Route::get('transaksipenjualan/edituser/{id_user}', 'TransaksipenjualanController@edituser');
 Route::post('transaksipenjualan/updateuser', 'TransaksipenjualanController@updateuser');
 Route::get('transaksipenjualan/deleteuser/{id_user}', 'TransaksipenjualanController@deleteuser');
 
 Route::get('/transaksikas/index', 'TransaksikasController@index');
-Route::post('transaksipenjualan/tambahpenjualan', 'TransaksipenjualanController@tambahuser');
-Route::get('transaksipenjualan/edituser/{id_user}', 'TransaksipenjualanController@edituser');
-Route::post('transaksipenjualan/updateuser', 'TransaksipenjualanController@updateuser');
-Route::get('transaksipenjualan/deleteuser/{id_user}', 'TransaksipenjualanController@deleteuser');
+Route::post('transaksikas/tambahpenjualan', 'TransaksipenjualanController@tambahuser');
+Route::get('transaksikas/edituser/{id_user}', 'TransaksipenjualanController@edituser');
+Route::post('transaksikas/updateuser', 'TransaksipenjualanController@updateuser');
+Route::get('transaksikas/deleteuser/{id_user}', 'TransaksipenjualanController@deleteuser');
+
+Route::get('/transaksicuci/index', 'TransaksicuciController@index');
+Route::post('transaksicuci/tambahtransaksicuci', 'TransaksicuciController@tambahtransaksicuci');
+Route::get('transaksicuci/edittransaksicuci/{id_cuci}', 'TransaksicuciController@edittransaksicuci');
+Route::post('transaksicuci/updatetransaksicuci', 'TransaksicuciController@updatetransaksicuci');
+Route::get('transaksicuci/deleteuser/{id_user}', 'TransaksicuciController@deleteuser');
+
 
 Route::get('/token', function () {
     return csrf_token();

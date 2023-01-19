@@ -19,15 +19,15 @@ class TransaksikasController extends Controller
             // ->join('m_rekanan', 'm_rekanan.id_rekanan', '=', 'm_harga.id_rekanan')
             ->get();
 
-        // $databarang = DB::table('m_barang')->get();
+        $databarang = DB::table('m_barang')->get();
 
         $datarekanan = DB::table('m_rekanan')->get();
 
         return view(
-            'dataharga/index',
+            'transaksikas/index',
             [
                 't_kas' => $t_kas,
-                // 'databarang' => $databarang,
+                'databarang' => $databarang,
                 'datarekanan' => $datarekanan,
 
             ]

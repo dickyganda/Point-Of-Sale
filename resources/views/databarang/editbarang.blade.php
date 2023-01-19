@@ -34,6 +34,18 @@ Edit Barang
 
                             <input type="text" name="nama_barang" class="form-control form-control-sm" style="width:30%;" value="{{ $barang->nama_barang }}"> <br>
 
+                            <input type="text" name="harga_barang" class="form-control form-control-sm" style="width:30%;" value="{{ $barang->harga_barang }}"> <br>
+
+                            <div class="form-group">
+                                <select id="id_rekanan" name="id_rekanan" value="{{ $barang->id_rekanan }}" class="form-control form-control-sm select2" required>
+                                    <option></option>
+                                    @foreach ($databarang as $rekanan)
+                                    <option value="{{$rekanan->id_rekanan}}">{{$rekanan->id_rekanan}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+
                             <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Simpan</button>
                             <a href="/datarekanan/index" class="btn btn-warning btn-sm" role="button"><i class="fas fa-arrow-alt-circle-left"></i> Kembali</a>
                         </form>
