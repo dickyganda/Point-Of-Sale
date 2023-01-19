@@ -17,17 +17,18 @@ class DatapelangganController extends Controller
 
         $datapelanggan = DB::table('m_pelanggan')->get();
 
-        $jumlahcuci = T_Cuci::selectRaw('count(*) as total')
-            // ->where('id_pelanggan', '=', 'id_pelanggan')
-            ->groupBy('id_pelanggan')
-            ->first();
+        // $jumlahcuci = DB::table('t_cuci')
+        //     ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_cuci.id_pelanggan')
+        //     ->select(DB::raw('count(*) as user_count'))
+        //     ->groupBy('id_pelanggan')
+        //     ->get();
         // dd($jumlahcuci);
 
         return view(
             'datapelanggan/index',
             [
                 'datapelanggan' => $datapelanggan,
-                'jumlahcuci' => $jumlahcuci,
+                // 'jumlahcuci' => $jumlahcuci,
 
             ]
         );

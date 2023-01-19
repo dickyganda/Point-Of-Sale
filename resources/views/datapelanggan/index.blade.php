@@ -75,7 +75,7 @@ Data Master Pelanggan
                                     @else
                                     <td><span class="badge badge-danger">Tidak Aktif</span></td>
                                     @endif
-                                    <td>{{ $jumlahcuci->total }}</td>
+                                    {{-- <td>{{ $jumlahcuci->total }}</td> --}}
                                     <td>
 
                                         <a href="/datapelanggan/editpelanggan/{{ $pelanggan->id_pelanggan }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>

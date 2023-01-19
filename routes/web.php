@@ -14,14 +14,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('dashboard');
+    return view('dashboard/index');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/dashboard', 'DashboardController@index');
+Route::get('/autentikasi/login', 'AuthController@login');
+Route::post('/dashboard/login', 'AuthController@postlogin2');
+Route::get('autentikasi/ubahpassord/{id_user}', 'AuthController@ubahpassword');
+Route::post('autentikasi/updatepassword', 'AuthController@updatepassword');
+Route::get('/logout', 'AuthController@logout2');
+
+Route::get('/dashboard/index', 'DashboardController@index');
 
 Route::get('/datapelanggan/index', 'DatapelangganController@index');
 Route::post('datapelanggan/tambahpelanggan', 'DatapelangganController@tambahpelanggan');

@@ -177,7 +177,7 @@ Data Transaksi Kas
                     var table = $('#dt-basic-example').DataTable({
                         dom: 'Bfrtip'
                         , buttons: [
-                            'excel'
+
                         , ]
                     , });
 
