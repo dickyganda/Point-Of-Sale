@@ -9,138 +9,88 @@
     <title>Receipt example</title>
 
     <style>
-        * {
-            font-size: 10px;
-            font-family: 'Times New Roman';
+        .page {
+            width: 80mm;
+            height: 80mm;
         }
 
-        td,
-        th,
-        tr,
         table {
-            border-top: 1px solid black;
             border-collapse: collapse;
-            font-family: Arial, Helvetica, sans-serif;
+            width: 98%;
+            margin: auto
         }
 
-        td.description,
-        th.description {
-            width: 75px;
-            max-width: 75px;
-        }
-
-        td.quantity,
-        th.quantity {
-            width: 40px;
-            max-width: 40px;
-            word-break: break-all;
-        }
-
-        td.price,
-        th.price {
-            width: 40px;
-            max-width: 40px;
-            word-break: break-all;
-        }
-
-        .centered {
+        th,
+        td {
+            padding: .4rem .8rem;
             text-align: center;
-            align-content: center;
+            border-bottom: 1px solid #ddd;
         }
 
-        .ticket {
-            width: 155px;
-            max-width: 155px;
+        th {
+            font-weight: normal;
+            font-size: .7rem;
+            color: #666;
+            background: #eee;
         }
 
-        img {
-            max-width: inherit;
-            width: 50px;
-            height: 50px;
+        td {
+            font-size: .6rem;
         }
 
         @media print {
+            .page {
+                width: 80mm;
+                height: 80mm;
+            }
 
-            .hidden-print,
-            .hidden-print * {
+            .hidden-print {
                 display: none !important;
             }
         }
-
     </style>
 </head>
 
 <body>
-    {{-- @foreach($datatransaksi as $key => $transaksi) --}}
-    <div class="ticket">
-        <img src="{{asset('assets/img/logo.png') }}" alt="Logo">
-        <p class="centered">BADAN PENGELOLAN SARANA PENYEDIAAN AIR MINUM<br>
-            (BP-SPAMS) "TIRTA SUMARI"</p>
+    {{-- @foreach ($datatransaksi as $key => $transaksi) --}}
+    <div class="page" style="margin:auto">
         <table>
-            <tr>
-                <th class="quantity">Kd Plg</th>
-                {{-- <td class="description">{{ $transaksi->kode_pelanggan}}</td> --}}
-            </tr>
-            <tr>
-                <th class="quantity">Nama</th>
-                {{-- <td class="description">{{ $transaksi->nama}}</td> --}}
-            </tr>
-            <tr>
-                <th class="quantity">Alamat</th>
-                {{-- <td class="description">{{ $transaksi->alamat}}</td> --}}
-            </tr>
-            <tr>
-                <th class="quantity">RT</th>
-                {{-- <td class="description">{{ $transaksi->rt}}</td> --}}
-            </tr>
-            <tr>
-                <th class="quantity">Bln/Th</th>
-                {{-- <td class="description">{{ $transaksi->tgl_scan}}</td> --}}
-            </tr>
-            <tr>
-                <th class="quantity">St Akhir</th>
-                {{-- <td class="description">{{ $transaksi->stand_meter_bulan_lalu}}</td> --}}
-            </tr>
-            <tr>
-                <th class="quantity">St Awal</th>
-                {{-- <td class="description">{{ $transaksi->stand_meter_bulan_ini}}</td> --}}
-            </tr>
-            <tr>
-                <th class="quantity">Pmkn</th>
-                {{-- <td class="description">{{ $transaksi->pemakaian}}</td> --}}
-            </tr>
-            <tr>
-                <th class="quantity">Tghn</th>
-                {{-- <td class="description">{{ $transaksi->tagihan}}</td> --}}
-            </tr>
-            <tr>
-                <th class="quantity">Biaya Adm</th>
-                {{-- <td class="description">{{ $transaksi->biaya_admin}}</td> --}}
-            </tr>
-            <tr>
-                <th class="quantity">Biaya Prwtn</th>
-                {{-- <td class="description">{{ $transaksi->biaya_perawatan}}</td> --}}
-            </tr>
-            <tr>
-                <th class="quantity">Tgkn</th>
-                {{-- <td class="description">{{ $transaksi->tunggakan}}</td> --}}
-            </tr>
-            <tr>
-                <th class="quantity">Total</th>
-                {{-- <td class="description">{{ $transaksi->saldo}}</td> --}}
-            </tr>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Barang</th>
+                    <th>Qty</th>
+                    <th>Harga</th>
+                </tr>
+            </thead>
+            <tbody>
+                @php
+                    $totalBayar = 0;
+                @endphp
+                @foreach ($detailPenjualan as $item)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $item->nama_barang }}</td>
+                        <td>{{ $item->qty_penjualan }}</td>
+                        <td>{{ $item->total_penjualan }}</td>
+                    </tr>
+                    @php
+                        $totalBayar += $item->total_penjualan;
+                    @endphp
+                @endforeach
+                <tr>
+                    <td colspan="3">Total Harga</td>
+                    <td>{{ $totalBayar }}</td>
+                </tr>
+            </tbody>
         </table>
-        <p class="centered">Thanks for your purchase!
-            <br>BP SPAMS "TIRTA SUMARI"</p>
     </div>
     <button id="btnPrint" class="hidden-print">Print</button>
-    @endforeach
     <script>
         const $btnPrint = document.querySelector("#btnPrint");
         $btnPrint.addEventListener("click", () => {
             window.print();
         });
-
     </script>
 </body>
 

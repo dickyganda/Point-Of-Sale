@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DT_Penjualan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Session;
 
 use App\Models\T_Penjualan;
-use App\Models\T_Cart;
 use App\Models\M_Barang;
 use App\Models\M_Harga;
 use App\Models\M_Pelanggan;
@@ -19,15 +19,8 @@ class TransaksipenjualanController extends Controller
     function Index()
     {
 
-        $t_penjualan = DB::table('t_penjualan')
-            // ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_penjualan.id_pelanggan')
-            ->join('m_barang', 'm_barang.id_barang', '=', 't_penjualan.id_barang')
-            ->get();
-        // dd($t_penjualan);
-        // $t_cart = DB::table('t_cart')
-        //     ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_penjualan.id_pelanggan')
-        //     ->join('m_barang', 'm_barang.id_barang', '=', 't_penjualan.id_barang')
-        //     ->get();
+        $t_penjualan = T_Penjualan::latest()->get();
+        // ->join('m_barang', 'm_barang.id_barang', '=', 't_penjualan.id_barang')
 
         $databarang = DB::table('m_barang')->get();
 
@@ -48,25 +41,21 @@ class TransaksipenjualanController extends Controller
     function tambahtransaksipenjualan(Request $request)
     {
 
-        $add = new T_Cart;
-        $add->id_barang = $request->input('id_barang');
-        // $add->id_pelanggan = $request->input('id_pelanggan');
-        $add->qty_penjualan = $request->input('qty_penjualan');
-        $add->total_penjualan = $request->input('total_penjualan');
-        $add->tgl_transaksi_penjualan = Date('Y-m-d');
-        $add->save();
-        // dd($add);
+        $penjualan = new T_Penjualan;
+        $penjualan->status_closing = 0;
+        $penjualan->save();
 
-        $add = new T_Penjualan;
-        $add->id_barang = $request->input('id_barang');
-        // $add->id_pelanggan = $request->input('id_rekanan');
-        $add->qty_penjualan = $request->input('qty_penjualan');
-        $add->total_penjualan = $request->input('total_penjualan');
-        $add->tgl_transaksi_penjualan = Date('Y-m-d');
-        $add->save();
-        // dd($add);
+        foreach ($request->id_barang as $key => $value) {
+            $add = new DT_Penjualan();
+            $add->id_barang = $value;
+            $add->id_t_penjualan = $penjualan->id_penjualan;
+            $add->qty_penjualan = $request->qty_penjualan[$key];
+            $add->total_penjualan = $request->total_penjualan[$key];
+            $add->tgl_transaksi_penjualan = Date('Y-m-d');
+            $add->save();
+        }
 
-        return response()->json(array('status' => 'success', 'reason' => 'Sukses Tambah Data'));
+        return response()->json(array('status' => 'success', 'reason' => 'Sukses Tambah Data', 'id_penjualan' => $penjualan->id_penjualan));
     }
 
     public function deleteharga($id_harga)
@@ -86,16 +75,17 @@ class TransaksipenjualanController extends Controller
         return response()->json($getbarang);
     }
 
-    function printthermal($id_cart)
+    function printthermal($id_penjualan)
     {
-
-        $print_thermal = DB::table('t_cart')
-            ->join('m_barang', 'm_barang.id_barang', '=', 't_cart.id_barang')
-            ->where('id_cart', $id_cart)
+        $detailPenjualan = DB::table('t_penjualan')
+            ->join('dt_penjualan', 'dt_penjualan.id_t_penjualan', '=', 't_penjualan.id_penjualan')
+            ->join('m_barang', 'm_barang.id_barang', '=', 'dt_penjualan.id_barang')
+            ->where('id_penjualan', $id_penjualan)
             ->get();
+        // dd($detailPenjualan);
 
         return view('/print/printpenjualan', [
-            'print_thermal' => $print_thermal,
+            'detailPenjualan' => $detailPenjualan,
         ]);
     }
 }

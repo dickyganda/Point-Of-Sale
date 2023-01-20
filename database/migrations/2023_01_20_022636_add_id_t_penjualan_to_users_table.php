@@ -3,8 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use doctrine\DBal;
 
-class CreatePasswordResetsTable extends Migration
+class AddIdTPenjualanToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +14,9 @@ class CreatePasswordResetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('password_resets', function (Blueprint $table) {
-            $table->string('email')->index();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
+        Schema::table('dt_penjualan', function (Blueprint $table) {
+            $table->string('id_t_penjualan')->after('id_cart');
+            $table->renameColumn('id_cart', 'id_dt_penjualan');
         });
     }
 
@@ -27,6 +27,8 @@ class CreatePasswordResetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('password_resets');
+        Schema::table('dt_penjualan', function (Blueprint $table) {
+            //
+        });
     }
 }
