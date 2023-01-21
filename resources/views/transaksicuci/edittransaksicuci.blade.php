@@ -89,11 +89,9 @@ Edit Barang
         $(document).ready(function() {
             $('#class').select2({
                 placeholder: "Pilih Kelas"
-
             });
             $('#rt').select2({
                 placeholder: "Pilih RT"
-
             });
         });
 

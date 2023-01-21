@@ -15,7 +15,8 @@ class DatapelangganController extends Controller
     function Index()
     {
 
-        $datapelanggan = DB::table('m_pelanggan')->get();
+        // $datapelanggan = DB::table('m_pelanggan')->get();
+        $datapelanggan = M_Pelanggan::get();
 
         // $jumlahcuci = DB::table('t_cuci')
         //     ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_cuci.id_pelanggan')
@@ -44,6 +45,7 @@ class DatapelangganController extends Controller
         $add->alamat_pelanggan = $request->input('alamat_pelanggan');
         $add->no_telepon_pelanggan = $request->input('no_telepon_pelanggan');
         $add->status_pelanggan = 1;
+        $add->tgl_add_pelanggan = Date('Y-m-d');;
         $add->save();
 
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Tambah Data'));

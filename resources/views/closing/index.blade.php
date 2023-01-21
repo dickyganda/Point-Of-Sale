@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-Transaksi Penjualan
+Closing
 @endsection
 
 @push('styles')
@@ -14,7 +14,7 @@ Transaksi Penjualan
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Transaksi Penjualan</h1>
+                <h1 class="m-0">Closing</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
             </div><!-- /.col -->
@@ -32,55 +32,42 @@ Transaksi Penjualan
 
                 <div class="card card-primary card-outline">
                     <div class="card-body">
-                        <a href="" class="btn btn-success btn-xs" title="Tambah Data Baru" role="button" data-toggle="modal" data-target="#modaltambahdata"><i class="fas fa-plus-circle"></i>Tambah</a><br><br>
-                        <a href="/transaksipenjualan/closingpenjualan" class="btn btn-success btn-xs"><i class="fas fa-plus-circle"></i>Closing</a><br><br>
-
+                        <a href="" class="btn btn-success btn-xs" title="Tambah Data Baru" role="button" data-toggle="modal" data-target="#"><i class="fas fa-plus-circle"></i>Closing</a><br><br>
+                        {{-- <a href="" class="btn btn-success btn-xs" title="Closing" role="button" data-toggle="modal" data-target="#modaltambahdata"><i class=""></i>Closing</a><br><br> --}}
 
                         <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped">
                             <thead class="thead-dark">
                                 <tr>
                                     <th>No.</th>
-                                    <th>Pelanggan</th>
                                     <th>Nama Barang</th>
-                                    <th>Jumlah Barang</th>
-                                    <th>Total Harga</th>
+                                    <th>Harga</th>
+                                    <th>Qty</th>
+                                    <th>Total</th>
                                     <th>Tgl Transaksi</th>
-                                    <th>Aksi</th>
 
                                 </tr>
                             </thead>
                             <tbody height="10px">
                                 @php $i=1 @endphp
-                                @foreach ($dt_penjualan as $penjualan)
+                                @foreach($t_penjualan as $closing)
                                 <tr>
                                     <td>{{ $i++ }}</td>
-                                    <td>{{ $penjualan->namaPelanggan() }}</td>
-                                    <td>{{ $penjualan->namaBarang() }}</td>
-                                    <td>{{ $penjualan->qty_penjualan }}</td>
-                                    <td>{{ $penjualan->total_penjualan }}</td>
-                                    <td>{{ $penjualan->tgl_transaksi_penjualan }}</td>
-
-                                    <td>
-                                        @if($penjualan->closing())
-                                        <a href="/print/printpenjualan/{{ $penjualan->id_t_penjualan }}" class="btn btn-primary"><i class="fa fa-print"></i></a>
-
-                                        <a href="/transaksipenjualan/editpenjualan/{{ $penjualan->id_dt_penjualan }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>
-
-                                        <a href="#" onclick="deletepenjualan({{$penjualan->id_dt_penjualan}})" title="Hapus" class="btn btn-danger btn-xs" role="button"><i class="fas fa-trash"></i></a>
-                                        @endif
-
-                                    </td>
+                                    <td>{{ $closing->nama_barang }}</td>
+                                    <td>{{ $closing->harga_barang }}</td>
+                                    <td>{{ $closing->qty_penjualan }}</td>
+                                    <td>{{ $closing->total_penjualan }}</td>
+                                    <td>{{ $closing->tgl_transaksi_penjualan }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Jumlah Barang</th>
-                                    <th>Total Harga</th>
-                                    {{-- <th>Pelanggan</th> --}}
+                                    <th>Nama Barang</th>
+                                    <th>Harga</th>
+                                    <th>Qty</th>
+                                    <th>Total</th>
                                     <th>Tgl Transaksi</th>
-                                    <th>Aksi</th>
 
                                 </tr>
                             </tfoot>
@@ -102,8 +89,6 @@ Transaksi Penjualan
                                 <div class="modal-body">
                                     <form id="tambahtransaksipenjualan" method="post">
                                         {{ csrf_field() }}
-                                        <input type="text" name="id_pelanggan" class="form-control" placeholder="ID Pelanggan">
-
                                         <table id="form_penjualan">
                                             <tr>
                                                 <th>Nama Barang</th>
@@ -114,28 +99,28 @@ Transaksi Penjualan
                                             <tr>
                                                 <td id="col0">
                                                     <div class="form-group">
-                                                        <select id="id_barang" name="id_barang[]" class="form-control form-control-sm select2" onchange="selectTypeNamabarang(this)" required>
+                                                        <select id="id_barang" name="id_barang" class="form-control form-control-sm select2" onchange="selectTypeNamabarang(this)" required>
                                                             <option></option>
                                                             @foreach ($databarang as $penjualan)
-                                                            <option value="{{ $penjualan->id_barang }}">
-                                                                {{ $penjualan->nama_barang }}</option>
+                                                            <option value="{{$penjualan->id_barang}}">
+                                                                {{$penjualan->nama_barang}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
                                                 </td>
                                                 <td id="col1">
                                                     <div class="form-group">
-                                                        <input type="text" onkeyup="sum(this.parentElement.parentElement.parentElement);" id="qty_penjualan" name="qty_penjualan[]" required="required" class="form-control form-control-sm" placeholder="Qty">
+                                                        <input type="text" onkeyup="sum();" id="qty_penjualan" name="qty_penjualan" required="required" class="form-control form-control-sm" placeholder="Qty">
                                                     </div>
                                                 </td>
                                                 <td id="col2">
                                                     <div class="form-group">
-                                                        <input type="text" onkeyup="sum(this.parentElement.parentElement.parentElement);" id="harga_barang" name="harga_barang[]" id="harga_barang" required="required" class="form-control form-control-sm" placeholder="Harga" readonly>
+                                                        <input type="text" onkeyup="sum();" id="harga_barang" name="harga_barang" id="harga_barang" required="required" class="form-control form-control-sm" placeholder="Harga">
                                                     </div>
                                                 </td>
                                                 <td id="col3">
                                                     <div class="form-group">
-                                                        <input type="text" id="total_penjualan" name="total_penjualan[]" required="required" class="form-control form-control-sm" placeholder="Total" readonly>
+                                                        <input type="text" id="total_penjualan" name="total_penjualan" required="required" class="form-control form-control-sm" placeholder="Total">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -143,8 +128,7 @@ Transaksi Penjualan
                                         <table>
                                             <tr>
                                                 <td><input type="button" value="Add Row" onclick="addRows()" /></td>
-                                                <td><input type="button" value="Delete Row" onclick="deleteRows()" />
-                                                </td>
+                                                <td><input type="button" value="Delete Row" onclick="deleteRows()" /></td>
                                                 <td><input type="submit" value="Submit" /></td>
                                             </tr>
                                         </table>
@@ -205,7 +189,7 @@ Transaksi Penjualan
                     var table = $('#dt-basic-example').DataTable({
                         dom: 'Bfrtip'
                         , buttons: [
-                            'excel'
+
                         , ]
                     , });
 
@@ -245,13 +229,13 @@ Transaksi Penjualan
                             Swal.fire(
                                 'Sukses!', data.reason, 'success'
                             ).then(() => {
-                                location.replace("/print/printpenjualan/" + data.id_penjualan);
+                                location.replace("/print/printpenjualan");
                             });
                         }
                     });
                 });
 
-                function deletepenjualan(id_dt_penjualan) {
+                function deleteharga(id_harga) {
                     Swal.fire({
                         title: 'Hapus Data ?'
                         , text: "Anda tidak akan dapat mengembalikan ini!"
@@ -265,7 +249,7 @@ Transaksi Penjualan
                             $.ajax({
                                 type: 'GET'
                                 , dataType: 'json'
-                                , url: '/transaksipenjualan/deletepenjualan/' + id_dt_penjualan
+                                , url: '/transaksipenjualan/deletetransaksipenjualan/' + id_penjualan
                                 , success: function(data) {
                                     Swal.fire(
                                         'Sukses!', data.reason, 'success'
@@ -316,7 +300,6 @@ Transaksi Penjualan
                 }
 
                 function selectTypeNamabarang(item) {
-                    var parent = item.parentElement.parentElement.parentElement;
                     var formdata = new FormData();
                     formdata.append('id_barang', item.options[item.selectedIndex].value);
                     $.ajax({
@@ -328,19 +311,17 @@ Transaksi Penjualan
                         , cache: false
                         , processData: false
                         , success: function(data) {
-                            parent.querySelector("#harga_barang").value = data.harga_barang;
-                            // $('#harga_barang').val(data.harga_barang);
+                            $('#harga_barang').val(data.harga_barang);
                         }
                     })
                 }
 
-                function sum(tableRow) {
-                    // console.log(tableRow.querySelector("#harga_barang").value);
-                    var txtFirstNumberValue = tableRow.querySelector("#qty_penjualan").value;
-                    var txtSecondNumberValue = tableRow.querySelector("#harga_barang").value;
+                function sum() {
+                    var txtFirstNumberValue = document.getElementById('qty_penjualan').value;
+                    var txtSecondNumberValue = document.getElementById('harga_barang').value;
                     var result = parseInt(txtFirstNumberValue) * parseInt(txtSecondNumberValue);
                     if (!isNaN(result)) {
-                        tableRow.querySelector("#total_penjualan").value = result;
+                        document.getElementById('total_penjualan').value = result;
                     }
                 }
 

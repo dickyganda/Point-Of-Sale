@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('dashboard/index');
+    return view('autentikasi/login');
 });
 
 Auth::routes();
@@ -22,12 +22,12 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/autentikasi/login', 'AuthController@login');
-Route::post('/dashboard/login', 'AuthController@postlogin2');
-Route::get('autentikasi/ubahpassord/{id_user}', 'AuthController@ubahpassword');
-Route::post('autentikasi/updatepassword', 'AuthController@updatepassword');
+Route::post('/dashboard/index', 'AuthController@postlogin2');
+// Route::get('autentikasi/ubahpassord/{id_user}', 'AuthController@ubahpassword');
+// Route::post('autentikasi/updatepassword', 'AuthController@updatepassword');
 Route::get('/logout', 'AuthController@logout2');
 
-Route::get('/dashboard/index', 'DashboardController@index');
+Route::get('/dashboard/index', 'DashboardController@index')->name('dashboard');;
 
 Route::get('/datapelanggan/index', 'DatapelangganController@index');
 Route::post('datapelanggan/tambahpelanggan', 'DatapelangganController@tambahpelanggan');
@@ -61,11 +61,12 @@ Route::get('datauser/deleteuser/{id_user}', 'DatauserController@deleteuser');
 
 Route::get('/transaksipenjualan/index', 'TransaksipenjualanController@index');
 Route::post('transaksipenjualan/tambahpenjualan', 'TransaksipenjualanController@tambahtransaksipenjualan');
-// Route::get('transaksipenjualan/edituser/{id_user}', 'TransaksipenjualanController@edituser');
-// Route::post('transaksipenjualan/updateuser', 'TransaksipenjualanController@updateuser');
-// Route::get('transaksipenjualan/deleteuser/{id_user}', 'TransaksipenjualanController@deleteuser');
+Route::get('transaksipenjualan/editpenjualan/{id_penjualan}', 'TransaksipenjualanController@editpenjualan');
+Route::post('transaksipenjualan/updatepenjualan', 'TransaksipenjualanController@updatepenjualan');
+Route::get('transaksipenjualan/deletepenjualan/{id_dt_penjualan}', 'TransaksipenjualanController@deletepenjualan');
 Route::post('transaksipenjualan/getbarang', 'TransaksipenjualanController@getbarang');
 Route::get('print/printpenjualan/{id_cart}', 'TransaksipenjualanController@printthermal');
+Route::get('transaksipenjualan/closingpenjualan', 'TransaksipenjualanController@closingpenjualan');
 
 Route::get('/transaksikas/index', 'TransaksikasController@index');
 Route::post('transaksikas/tambahkas', 'TransaksikasController@tambahkas');
@@ -75,9 +76,11 @@ Route::get('transaksikas/deletekas/{id_kas}', 'TransaksikasController@deleteuser
 
 Route::get('/transaksicuci/index', 'TransaksicuciController@index');
 Route::post('transaksicuci/tambahtransaksicuci', 'TransaksicuciController@tambahtransaksicuci');
-Route::get('transaksicuci/edittransaksicuci/{id_cuci}', 'TransaksicuciController@edittransaksicuci');
-Route::post('transaksicuci/updatetransaksicuci', 'TransaksicuciController@updatetransaksicuci');
+Route::get('transaksicuci/edittransaksicuci/{id_cuci}', 'TransaksicuciController@editcuci');
+Route::post('transaksicuci/updatetransaksicuci', 'TransaksicuciController@updatecuci');
 Route::get('transaksicuci/deleteuser/{id_user}', 'TransaksicuciController@deleteuser');
+
+Route::get('/closing/index', 'ClosingController@index');
 
 
 Route::get('/token', function () {

@@ -53,11 +53,13 @@ Data Master Pelanggan
                             <thead class="thead-dark">
                                 <tr>
                                     <th>No.</th>
+                                    <th>ID</th>
                                     <th>Nama</th>
                                     <th>Alamat</th>
                                     <th>Telepon</th>
                                     <th>Status</th>
                                     <th>Jumlah Cuci</th>
+                                    <th>Tgl Add</th>
                                     <th>Aksi</th>
 
                                 </tr>
@@ -67,6 +69,7 @@ Data Master Pelanggan
                                 @foreach($datapelanggan as $pelanggan)
                                 <tr>
                                     <td>{{ $i++ }}</td>
+                                    <td>{{ $pelanggan->id_pelanggan }}</td>
                                     <td>{{ $pelanggan->nama_pelanggan }}</td>
                                     <td>{{ $pelanggan->alamat_pelanggan }}</td>
                                     <td>{{ $pelanggan->no_telepon_pelanggan }}</td>
@@ -75,7 +78,8 @@ Data Master Pelanggan
                                     @else
                                     <td><span class="badge badge-danger">Tidak Aktif</span></td>
                                     @endif
-                                    {{-- <td>{{ $jumlahcuci->total }}</td> --}}
+                                    <td>{{ $pelanggan->jumlahCuci() }}</td>
+                                    <td>{{ $pelanggan->tgl_add_pelanggan }}</td>
                                     <td>
 
                                         <a href="/datapelanggan/editpelanggan/{{ $pelanggan->id_pelanggan }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>
@@ -93,6 +97,7 @@ Data Master Pelanggan
                                     <th>Telepon</th>
                                     <th>Status</th>
                                     <th>jumlah Cuci</th>
+                                    <th>Tgl Add</th>
                                     <th>Aksi</th>
 
                                 </tr>

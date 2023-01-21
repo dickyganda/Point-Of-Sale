@@ -20,22 +20,22 @@ class AuthController extends Controller
 {
     public function login()
     {
-    	return view('/autentikasi/login')->with('sukses','Anda Berhasil Login');
+        return view('/autentikasi/login')->with('sukses', 'Anda Berhasil Login');
     }
 
-    function postlogin2(Request $request ){
-        $email = $request->input('email');
-        $password = $request->input('password');
+    function postlogin2(Request $request)
+    {
+        $nama_user = $request->input('nama_user');
+        $password_user = $request->input('password_user');
 
         $query = DB::table('m_user')
-        ->join('m_user_level', 'm_user_level.id_level', '=', 'm_user.id_level')
-        ->where('email', $email)
-        ->where('password' ,md5($password))
-        ->first();
-        if(empty($query)){
+            ->where('nama_user', $nama_user)
+            ->where('password_user', md5($password_user))
+            ->first();
+        if (empty($query)) {
             return response()->json(array('status' => 'failed', 'reason' => 'data tidak ada'));
         }
-        Session::put('nama_level',$query->nama_level);
+        Session::put('level_user', $query->level_user);
         return response()->json(array('status' => 'success', 'reason' => 'sukses'));
 
         // if($request->Session()->has('email', 'password'))
@@ -52,25 +52,21 @@ class AuthController extends Controller
         Session::save();
 
         return redirect('/autentikasi/login');
-
     }
 
     public function ubahpassword($id_user)
     {
-        $datauser = DB::table('m_user')->where('id_user',$id_user)->get();
+        $datauser = DB::table('m_user')->where('id_user', $id_user)->get();
 
-        return view('/autentikasi/ubahpassword',['datauser' => $datauser]);
-    
+        return view('/autentikasi/ubahpassword', ['datauser' => $datauser]);
     }
 
     public function updatepassword(Request $request)
-{
-	DB::table('m_user')->where('id_user',$request->id_user)->update([
-		'password' => $request->password,
-	]);
+    {
+        DB::table('m_user')->where('id_user', $request->id_user)->update([
+            'password' => $request->password,
+        ]);
 
-    return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
-    
-}
-
+        return response()->json(array('status' => 'success', 'reason' => 'Sukses Edit Data'));
+    }
 }

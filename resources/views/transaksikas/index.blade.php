@@ -33,7 +33,7 @@ Data Transaksi Kas
                 <div class="card card-primary card-outline">
                     <div class="card-body">
                         <a href="" class="btn btn-success btn-xs" title="Tambah Data Baru" role="button" data-toggle="modal" data-target="#modaltambahdata"><i class="fas fa-plus-circle"></i></a><br><br>
-
+                        <h4>Total Saldo Kas : {{$dataSaldo->debit - $dataSaldo->kredit}}</h4>
                         <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped">
                             <thead class="thead-dark">
                                 <tr>
@@ -57,8 +57,7 @@ Data Transaksi Kas
                                     <td>{{ $kas->kredit }}</td>
                                     <td>{{ $kas->nama_rekanan }}</td>
                                     <td>{{ $kas->keterangan }}</td>
-                                    <td>{{ $kas->tgl_debit }}</td>
-                                    <td>{{ $kas->tgl_kredit }}</td>
+                                    <td>{{ $kas->tgl_kas }}</td>
                                     <td>
 
                                         {{-- <a href="/dataharga/editharga/{{ $harga->id_harga }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a> --}}
@@ -100,7 +99,7 @@ Data Transaksi Kas
                                         {{ csrf_field() }}
 
                                         <div class="form-group">
-                                            <select id="id_rekanan" name="id_rekanan" class="form-control form-control-sm select2" required>
+                                            <select id="id_rekanan" name="id_rekanan" class="form-control form-control-sm select2">
                                                 <option></option>
                                                 @foreach ($datarekanan as $rekanan)
                                                 <option value="{{$rekanan->id_rekanan}}">{{$rekanan->nama_rekanan}}</option>

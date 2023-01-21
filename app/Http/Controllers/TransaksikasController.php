@@ -14,10 +14,13 @@ class TransaksikasController extends Controller
     function Index()
     {
 
+
         $t_kas = DB::table('t_kas')
-            ->join('m_rekanan', 'm_rekanan.id_rekanan', '=', 't_kas.id_rekanan')
-            // ->join('m_rekanan', 'm_rekanan.id_rekanan', '=', 'm_harga.id_rekanan')
+            ->leftJoin('m_rekanan', 'm_rekanan.id_rekanan', '=', 't_kas.id_rekanan')
             ->get();
+
+        $dataSaldo = DB::table('t_kas')->select(DB::raw('sum(t_kas.debit) as debit, sum(t_kas.kredit) as kredit'))->first();
+
 
         $databarang = DB::table('m_barang')->get();
 
@@ -26,6 +29,7 @@ class TransaksikasController extends Controller
         return view(
             'transaksikas/index',
             [
+                'dataSaldo' => $dataSaldo,
                 't_kas' => $t_kas,
                 'databarang' => $databarang,
                 'datarekanan' => $datarekanan,
@@ -43,8 +47,7 @@ class TransaksikasController extends Controller
         $add->debit = $request->input('debit');
         $add->kredit = $request->input('kredit');;
         $add->keterangan = $request->input('keterangan');
-        $add->tgl_debit = Date('Y-m-d');
-        $add->tgl_kredit = Date('Y-m-d');
+        $add->tgl_kas = Date('Y-m-d');
         $add->save();
         // dd($add);
 

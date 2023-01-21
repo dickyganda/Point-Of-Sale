@@ -56,14 +56,6 @@ Edit Pelanggan
                             <label for="tidakaktif">Tidak Aktif</label>
                             <br />
 
-                            {{-- <select id="class" name="id_class" class="form-control form-control-sm select2" style="width:30%;" value="{{ $pelanggan->id_class }}">
-                            <option></option>
-                            @foreach ($dataclass as $pelanggan)
-                            <option value="{{$pelanggan->id_class}}">{{$pelanggan->keterangan}}</option>
-                            @endforeach
-                            </select>
-                            <br><br> --}}
-
                             <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Simpan</button>
                             <a href="/datapelanggan/index" class="btn btn-warning btn-sm" role="button"><i class="fas fa-arrow-alt-circle-left"></i> Kembali</a>
                         </form>

@@ -73,7 +73,7 @@
                         <li class="nav-item">
                             <a href="/dataharga/index" class="nav-link {{ (request()->is('dataharga/index')) ? 'active' : ' ' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Data Harga</p>
+                                <p>History Harga</p>
                             </a>
                         </li>
                         <li class="nav-item">
