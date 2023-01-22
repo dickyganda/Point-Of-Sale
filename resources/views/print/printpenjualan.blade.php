@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="style.css">
-    <title>Receipt example</title>
+    <title>Godong Jati</title>
 
     <style>
         .page {
@@ -14,10 +14,18 @@
             height: 80mm;
         }
 
+        img {
+            max-width: inherit;
+            width: 50px;
+            height: 50px;
+        }
+
         table {
             border-collapse: collapse;
             width: 98%;
-            margin: auto
+            margin: auto;
+            font-family: Arial, Helvetica, sans-serif;
+            text-transform: uppercase;
         }
 
         th,
@@ -48,6 +56,7 @@
                 display: none !important;
             }
         }
+
     </style>
 </head>
 
@@ -65,18 +74,20 @@
             </thead>
             <tbody>
                 @php
-                    $totalBayar = 0;
+                $totalBayar = 0;
                 @endphp
+                <img src="{{asset('assets/img/logo1.jpeg') }}" alt="Logo">
+                <p>No. Nota : </p>
                 @foreach ($detailPenjualan as $item)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->nama_barang }}</td>
-                        <td>{{ $item->qty_penjualan }}</td>
-                        <td>{{ $item->total_penjualan }}</td>
-                    </tr>
-                    @php
-                        $totalBayar += $item->total_penjualan;
-                    @endphp
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $item->nama_barang }}</td>
+                    <td>{{ $item->qty_penjualan }}</td>
+                    <td>{{ $item->total_penjualan }}</td>
+                </tr>
+                @php
+                $totalBayar += $item->total_penjualan;
+                @endphp
                 @endforeach
                 <tr>
                     <td colspan="3">Total Harga</td>
@@ -91,6 +102,7 @@
         $btnPrint.addEventListener("click", () => {
             window.print();
         });
+
     </script>
 </body>
 

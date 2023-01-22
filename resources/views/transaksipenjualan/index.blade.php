@@ -32,14 +32,25 @@ Transaksi Penjualan
 
                 <div class="card card-primary card-outline">
                     <div class="card-body">
-                        <a href="" class="btn btn-success btn-xs" title="Tambah Data Baru" role="button" data-toggle="modal" data-target="#modaltambahdata"><i class="fas fa-plus-circle"></i>Tambah</a><br><br>
-                        <a href="/transaksipenjualan/closingpenjualan" class="btn btn-success btn-xs"><i class="fas fa-plus-circle"></i>Closing</a><br><br>
+                        <a href="" class="btn btn-success btn-xs" title="Tambah Data Baru" role="button" data-toggle="modal" data-target="#modaltambahdata"><i class="fas fa-plus-circle"></i> Tambah</a><br><br>
 
+                        <table border="0" cellspacing="5" cellpadding="5">
+                            <tbody>
+                                <tr>
+                                    <td><input type="text" id="min" name="min" value="<?php echo date('d-m-Y');?>">
+                                    </td>
+                                    <td>-</td>
+                                    <td><input type="text" id="max" name="max" value="<?php echo date('d-m-Y');?>"></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
 
                         <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped">
                             <thead class="thead-dark">
                                 <tr>
                                     <th>No.</th>
+                                    <th>No. Nota</th>
                                     <th>Pelanggan</th>
                                     <th>Nama Barang</th>
                                     <th>Jumlah Barang</th>
@@ -54,6 +65,7 @@ Transaksi Penjualan
                                 @foreach ($dt_penjualan as $penjualan)
                                 <tr>
                                     <td>{{ $i++ }}</td>
+                                    <td>{{ $penjualan->no_nota }}</td>
                                     <td>{{ $penjualan->namaPelanggan() }}</td>
                                     <td>{{ $penjualan->namaBarang() }}</td>
                                     <td>{{ $penjualan->qty_penjualan }}</td>
@@ -61,8 +73,9 @@ Transaksi Penjualan
                                     <td>{{ $penjualan->tgl_transaksi_penjualan }}</td>
 
                                     <td>
+                                        <a href="/print/printpenjualan/{{ $penjualan->id_t_penjualan }}" class="btn btn-primary btn-xs"><i class="fa fa-print"></i></a>
+
                                         @if($penjualan->closing())
-                                        <a href="/print/printpenjualan/{{ $penjualan->id_t_penjualan }}" class="btn btn-primary"><i class="fa fa-print"></i></a>
 
                                         <a href="/transaksipenjualan/editpenjualan/{{ $penjualan->id_dt_penjualan }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>
 
@@ -76,15 +89,18 @@ Transaksi Penjualan
                             <tfoot>
                                 <tr>
                                     <th>No.</th>
+                                    <th>No. Nota</th>
+                                    <th>Pelanggan</th>
+                                    <th>Nama Barang</th>
                                     <th>Jumlah Barang</th>
                                     <th>Total Harga</th>
-                                    {{-- <th>Pelanggan</th> --}}
                                     <th>Tgl Transaksi</th>
                                     <th>Aksi</th>
-
                                 </tr>
                             </tfoot>
+
                         </table>
+                        <a href="/transaksipenjualan/closingpenjualan" class="btn btn-danger btn-xs"><i class="fa fa-times-circle"></i> Closing</a><br><br>
                     </div>
 
                     {{-- Modal Tambah Data --}}
@@ -102,7 +118,9 @@ Transaksi Penjualan
                                 <div class="modal-body">
                                     <form id="tambahtransaksipenjualan" method="post">
                                         {{ csrf_field() }}
-                                        <input type="text" name="id_pelanggan" class="form-control" placeholder="ID Pelanggan">
+                                        <input type="text" name="id_pelanggan" class="form-control" placeholder="ID Pelanggan"> <br>
+
+                                        <input type="text" name="no_meja" class="form-control" placeholder="Nomor Meja">
 
                                         <table id="form_penjualan">
                                             <tr>
@@ -172,14 +190,12 @@ Transaksi Penjualan
             @push('script')
             <script>
                 var minDate, maxDate;
-
                 // Custom filtering function which will search data in column four between two values
                 $.fn.dataTable.ext.search.push(
                     function(settings, data, dataIndex) {
                         var min = minDate.val();
                         var max = maxDate.val();
-                        var date = new Date(data[5, 6]);
-
+                        var date = new Date(data[6]);
                         if (
                             (min === null && max === null) ||
                             (min === null && date <= max) ||
@@ -191,7 +207,6 @@ Transaksi Penjualan
                         return false;
                     }
                 );
-
                 $(document).ready(function() {
                     // Create date inputs
                     minDate = new DateTime($('#min'), {
@@ -200,34 +215,20 @@ Transaksi Penjualan
                     maxDate = new DateTime($('#max'), {
                         format: 'DD-MM-YYYY'
                     });
-
-                    // DataTables initialisation
                     var table = $('#dt-basic-example').DataTable({
-                        dom: 'Bfrtip'
-                        , buttons: [
-                            'excel'
-                        , ]
-                    , });
+                        initComplete: function() {
+                            this.api()
+                                .columns()
+                                .every(function() {
 
+                                });
+                        }
+                    , });
                     // Refilter the table
                     $('#min, #max').on('change', function() {
                         table.draw();
                     });
-                    $('#status_pelanggan').on('change', function(e) {
-                        var status = $(this).val();
-                        $('#status_pelanggan').val(status)
-                        if (status == '1') {
-                            status_pelanggan = 'Aktif'
-                            console.log(status_pelanggan)
-                        } else {
-                            status_pelanggan = 'Tidak Aktif'
-                            console.log(status_pelanggan)
-                        }
 
-                        console.log(status)
-                        //dataTable.column(6).search('\\s' + status + '\\s', true, false, true).draw();
-                        table.column(4).search("^" + status_pelanggan + "$", true, false).draw();
-                    })
                 });
 
                 $("#tambahtransaksipenjualan").submit(function(event) {

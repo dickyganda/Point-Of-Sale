@@ -34,6 +34,19 @@ Data Transaksi Kas
                     <div class="card-body">
                         <a href="" class="btn btn-success btn-xs" title="Tambah Data Baru" role="button" data-toggle="modal" data-target="#modaltambahdata"><i class="fas fa-plus-circle"></i></a><br><br>
                         <h4>Total Saldo Kas : {{$dataSaldo->debit - $dataSaldo->kredit}}</h4>
+
+                        <table border="0" cellspacing="5" cellpadding="5">
+                            <tbody>
+                                <tr>
+                                    <td><input type="text" id="min" name="min" value="<?php echo date('d-m-Y');?>">
+                                    </td>
+                                    <td>-</td>
+                                    <td><input type="text" id="max" name="max" value="<?php echo date('d-m-Y');?>"></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
                         <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped">
                             <thead class="thead-dark">
                                 <tr>
@@ -42,8 +55,7 @@ Data Transaksi Kas
                                     <th>kredit</th>
                                     <th>Rekanan</th>
                                     <th>Ket</th>
-                                    <th>Tgl Debit</th>
-                                    <th>Tgl Kredit</th>
+                                    <th>Tgl Kas</th>
                                     <th>Aksi</th>
 
                                 </tr>
@@ -70,13 +82,12 @@ Data Transaksi Kas
                             <tfoot>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Nama Barang</th>
-                                    <th>Harga</th>
-                                    <th>Status</th>
+                                    <th>Debit</th>
+                                    <th>kredit</th>
                                     <th>Rekanan</th>
-                                    <th>Update</th>
+                                    <th>Ket</th>
+                                    <th>Tgl Kas</th>
                                     <th>Aksi</th>
-
                                 </tr>
                             </tfoot>
                         </table>
@@ -99,7 +110,7 @@ Data Transaksi Kas
                                         {{ csrf_field() }}
 
                                         <div class="form-group">
-                                            <select id="id_rekanan" name="id_rekanan" class="form-control form-control-sm select2">
+                                            <select id="id_rekanan" name="id_rekanan" class="form-control form-control-sm select2" style="width:100%;">
                                                 <option></option>
                                                 @foreach ($datarekanan as $rekanan)
                                                 <option value="{{$rekanan->id_rekanan}}">{{$rekanan->nama_rekanan}}</option>
@@ -108,12 +119,16 @@ Data Transaksi Kas
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="text" name="debit" class="form-control form-control-sm" placeholder="Debit">
+                                            <select id="debit_kredit" name="level_user" class="form-control form-control-sm select2" style="width:100%;" required>
+                                                <option></option>
+                                                <option value="1">Debit</option>
+                                                <option value="0">Kredit</option>
+                                            </select>
                                         </div>
 
-                                        <div class="form-group">
+                                        {{-- <div class="form-group">
                                             <input type="text" name="kredit" class="form-control form-control-sm" placeholder="Kredit">
-                                        </div>
+                                        </div> --}}
 
                                         <div class="form-group">
                                             <input type="text" name="keterangan" class="form-control form-control-sm" placeholder="Keterangan">
@@ -143,14 +158,12 @@ Data Transaksi Kas
             @push('script')
             <script>
                 var minDate, maxDate;
-
                 // Custom filtering function which will search data in column four between two values
                 $.fn.dataTable.ext.search.push(
                     function(settings, data, dataIndex) {
                         var min = minDate.val();
                         var max = maxDate.val();
-                        var date = new Date(data[5, 6]);
-
+                        var date = new Date(data[5]);
                         if (
                             (min === null && max === null) ||
                             (min === null && date <= max) ||
@@ -162,7 +175,6 @@ Data Transaksi Kas
                         return false;
                     }
                 );
-
                 $(document).ready(function() {
                     // Create date inputs
                     minDate = new DateTime($('#min'), {
@@ -171,35 +183,22 @@ Data Transaksi Kas
                     maxDate = new DateTime($('#max'), {
                         format: 'DD-MM-YYYY'
                     });
-
-                    // DataTables initialisation
                     var table = $('#dt-basic-example').DataTable({
-                        dom: 'Bfrtip'
-                        , buttons: [
+                        initComplete: function() {
+                            this.api()
+                                .columns()
+                                .every(function() {
 
-                        , ]
+                                });
+                        }
                     , });
-
                     // Refilter the table
                     $('#min, #max').on('change', function() {
                         table.draw();
                     });
-                    $('#status_pelanggan').on('change', function(e) {
-                        var status = $(this).val();
-                        $('#status_pelanggan').val(status)
-                        if (status == '1') {
-                            status_pelanggan = 'Aktif'
-                            console.log(status_pelanggan)
-                        } else {
-                            status_pelanggan = 'Tidak Aktif'
-                            console.log(status_pelanggan)
-                        }
 
-                        console.log(status)
-                        //dataTable.column(6).search('\\s' + status + '\\s', true, false, true).draw();
-                        table.column(4).search("^" + status_pelanggan + "$", true, false).draw();
-                    })
                 });
+
                 $("#tambahkas").submit(function(event) {
                     event.preventDefault();
                     var formdata = new FormData(this);
@@ -253,15 +252,14 @@ Data Transaksi Kas
                 }
 
                 $(document).ready(function() {
-                    $('#rt').select2({
-                        placeholder: "Pilih RT"
+                    $('#id_rekanan').select2({
+                        placeholder: "Pilih Rekanan"
 
                     });
-                });
 
-                $(document).ready(function() {
-                    $('#status_pelanggan').select2({
-                        placeholder: "Pilih Status"
+                    $('#debit_kredit').select2({
+                        placeholder: "Pilih Jenis Kas"
+
                     });
                 });
 

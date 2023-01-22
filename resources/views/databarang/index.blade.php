@@ -99,7 +99,7 @@ Data Master Barang
                                         </div>
 
                                         <div class="form-group">
-                                            <select id="id_rekanan" name="id_rekanan" class="form-control form-control-sm select2" required>
+                                            <select id="id_rekanan" name="id_rekanan" class="form-control form-control-sm select2" style="width:100%;" required>
                                                 <option></option>
                                                 @foreach ($datarekanan as $rekanan)
                                                 <option value="{{$rekanan->id_rekanan}}">{{$rekanan->nama_rekanan}}</option>
@@ -167,7 +167,7 @@ Data Master Barang
                     var table = $('#dt-basic-example').DataTable({
                         dom: 'Bfrtip'
                         , buttons: [
-                            'excel'
+
                         , ]
                     , });
 

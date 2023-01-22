@@ -38,7 +38,7 @@ Edit User
                             <input type="password" name="password_user" class="form-control form-control-sm" style="width:30%;" value="{{ $user->password_user }}"> <br>
 
                             <div class="form-group">
-                                <select id="level_user" name="level_user" class="form-control form-control-sm select2" style="width:100%;" required>
+                                <select id="level_user" name="level_user" class="form-control form-control-sm select2" style="width:30%;" required>
                                     <option></option>
                                     <option value="administrator">Administrator</option>
                                     <option value="kasir">Kasir</option>

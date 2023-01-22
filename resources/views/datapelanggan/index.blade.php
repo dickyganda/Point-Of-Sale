@@ -53,7 +53,7 @@ Data Master Pelanggan
                             <thead class="thead-dark">
                                 <tr>
                                     <th>No.</th>
-                                    <th>ID</th>
+                                    {{-- <th>ID</th> --}}
                                     <th>Nama</th>
                                     <th>Alamat</th>
                                     <th>Telepon</th>
@@ -69,7 +69,7 @@ Data Master Pelanggan
                                 @foreach($datapelanggan as $pelanggan)
                                 <tr>
                                     <td>{{ $i++ }}</td>
-                                    <td>{{ $pelanggan->id_pelanggan }}</td>
+                                    {{-- <td>{{ $pelanggan->id_pelanggan }}</td> --}}
                                     <td>{{ $pelanggan->nama_pelanggan }}</td>
                                     <td>{{ $pelanggan->alamat_pelanggan }}</td>
                                     <td>{{ $pelanggan->no_telepon_pelanggan }}</td>
@@ -192,7 +192,7 @@ Data Master Pelanggan
                     var table = $('#dt-basic-example').DataTable({
                         dom: 'Bfrtip'
                         , buttons: [
-                            'excel'
+
                         , ]
                     , });
 

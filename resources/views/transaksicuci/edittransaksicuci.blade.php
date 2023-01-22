@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-Edit Barang
+Edit Cuci
 @endsection
 
 @section('content')
@@ -9,7 +9,7 @@ Edit Barang
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Edit Barang</h1>
+                <h1 class="m-0">Edit Cuci</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
 
@@ -27,10 +27,10 @@ Edit Barang
 
                 <div class="card card-primary card-outline">
                     <div class="card-body">
-                        @foreach($databarang as $barang)
-                        <form id="editbarang" method="post">
+                        @foreach($t_cuci as $cuci)
+                        <form id="editcuci" method="post">
 
-                            <input type="hidden" name="id_barang" class="form-control form-control-sm" value="{{ $barang->id_barang }}" hidden>
+                            <input type="hidden" name="id_cuci" class="form-control form-control-sm" value="{{ $cuci->id_cuci }}" hidden>
 
                             <input type="text" name="nama_barang" class="form-control form-control-sm" style="width:30%;" value="{{ $barang->nama_barang }}"> <br>
 
@@ -39,7 +39,7 @@ Edit Barang
                             <div class="form-group">
                                 <select id="id_rekanan" name="id_rekanan" value="{{ $barang->id_rekanan }}" class="form-control form-control-sm select2" required>
                                     <option></option>
-                                    @foreach ($databarang as $rekanan)
+                                    @foreach ($databarang as $r)
                                     <option value="{{$rekanan->id_rekanan}}">{{$rekanan->id_rekanan}}</option>
                                     @endforeach
                                 </select>

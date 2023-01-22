@@ -36,66 +36,66 @@ Edit Barang
 
                             <input type="text" name="harga_barang" class="form-control form-control-sm" style="width:30%;" value="{{ $barang->harga_barang }}"> <br>
 
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <select id="id_rekanan" name="id_rekanan" value="{{ $barang->id_rekanan }}" class="form-control form-control-sm select2" required>
-                                    <option></option>
-                                    @foreach ($databarang as $rekanan)
-                                    <option value="{{$rekanan->id_rekanan}}">{{$rekanan->id_rekanan}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            <option></option>
+                            @foreach ($databarang as $rekanan)
+                            <option value="{{$rekanan->id_rekanan}}">{{$rekanan->id_rekanan}}</option>
+                            @endforeach
+                            </select>
+                    </div> --}}
 
 
-                            <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Simpan</button>
-                            <a href="/datarekanan/index" class="btn btn-warning btn-sm" role="button"><i class="fas fa-arrow-alt-circle-left"></i> Kembali</a>
-                        </form>
-                        @endforeach
+                    <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Simpan</button>
+                    <a href="/datarekanan/index" class="btn btn-warning btn-sm" role="button"><i class="fas fa-arrow-alt-circle-left"></i> Kembali</a>
+                    </form>
+                    @endforeach
 
-                    </div><!-- /.card -->
-                </div>
-
-                <!-- /.col-md-6 -->
+                </div><!-- /.card -->
             </div>
-            <!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content -->
-    @endsection
 
-    @push('script')
-    <script>
-        $("#editbarang").submit(function(event) {
-            event.preventDefault();
-            var formdata = new FormData(this);
-            $.ajax({
-                type: 'POST'
-                , dataType: 'json'
-                , url: '/databarang/updatebarang'
-                , data: formdata
-                , contentType: false
-                , cache: false
-                , processData: false
-                , success: function(data) {
-                    Swal.fire(
-                        'Sukses!'
-                        , data.reason
-                        , 'success'
-                    ).then(() => {
-                        location.replace("/databarang/index");
-                    });
-                }
-            });
+            <!-- /.col-md-6 -->
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content -->
+@endsection
+
+@push('script')
+<script>
+    $("#editbarang").submit(function(event) {
+        event.preventDefault();
+        var formdata = new FormData(this);
+        $.ajax({
+            type: 'POST'
+            , dataType: 'json'
+            , url: '/databarang/updatebarang'
+            , data: formdata
+            , contentType: false
+            , cache: false
+            , processData: false
+            , success: function(data) {
+                Swal.fire(
+                    'Sukses!'
+                    , data.reason
+                    , 'success'
+                ).then(() => {
+                    location.replace("/databarang/index");
+                });
+            }
         });
-        $(document).ready(function() {
-            $('#class').select2({
-                placeholder: "Pilih Kelas"
+    });
+    $(document).ready(function() {
+        $('#class').select2({
+            placeholder: "Pilih Kelas"
 
-            });
-            $('#rt').select2({
-                placeholder: "Pilih RT"
-
-            });
         });
+        $('#rt').select2({
+            placeholder: "Pilih RT"
 
-    </script>
-    @endpush
+        });
+    });
+
+</script>
+@endpush

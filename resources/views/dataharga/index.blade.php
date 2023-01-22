@@ -36,58 +36,66 @@ Data Master Harga
 
                 <div class="card card-primary card-outline">
                     <div class="card-body">
-                        {{-- <a href="" class="btn btn-success btn-xs" title="Tambah Data Baru" role="button" data-toggle="modal" data-target="#modaltambahdata"><i class="fas fa-plus-circle"></i></a><br><br> --}}
-
-                        <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped">
-                            <thead class="thead-dark">
+                        <table border="0" cellspacing="5" cellpadding="5">
+                            <tbody>
                                 <tr>
-                                    <th>No.</th>
-                                    <th>Nama Barang</th>
-                                    <th>Harga</th>
-                                    <th>Status</th>
-                                    <th>Rekanan</th>
-                                    <th>Update</th>
-                                    <th>Aksi</th>
-
-                                </tr>
-                            </thead>
-                            <tbody height="10px">
-                                @php $i=1 @endphp
-                                @foreach($dataharga as $harga)
-                                <tr>
-                                    <td>{{ $i++ }}</td>
-                                    <td>{{ $harga->nama_barang }}</td>
-                                    <td>{{ $harga->harga_satuan }}</td>
-                                    @if($harga->status_harga == '1')
-                                    <td><span class="badge badge-success">Aktif</span></td>
-                                    @else
-                                    <td><span class="badge badge-danger">Tidak Aktif</span></td>
-                                    @endif
-                                    {{-- <td>{{ $jumlahcuci->total }}</td> --}}
-                                    <td>{{ $harga->nama_rekanan }}</td>
-                                    <td>{{ $harga->tgl_edit_harga }}</td>
-                                    <td>
-
-                                        {{-- <a href="/dataharga/editharga/{{ $harga->id_harga }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a> --}}
-
-                                        {{-- <a href="#" onclick="deleteharga({{$harga->id_harga}})" title="Hapus" class="btn btn-danger btn-xs" role="button"><i class="fas fa-trash"></i></a> --}}
+                                    <td><input type="text" id="min" name="min" value="<?php echo date('d-m-Y');?>">
                                     </td>
+                                    <td>-</td>
+                                    <td><input type="text" id="max" name="max" value="<?php echo date('d-m-Y');?>"></td>
                                 </tr>
-                                @endforeach
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Nama Barang</th>
-                                    <th>Harga</th>
-                                    <th>Status</th>
-                                    <th>Rekanan</th>
-                                    <th>Update</th>
-                                    <th>Aksi</th>
+                                {{-- <a href="" class="btn btn-success btn-xs" title="Tambah Data Baru" role="button" data-toggle="modal" data-target="#modaltambahdata"><i class="fas fa-plus-circle"></i></a><br><br> --}}
 
-                                </tr>
-                            </tfoot>
-                        </table>
+                                <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Nama Barang</th>
+                                            <th>Harga</th>
+                                            <th>Status</th>
+                                            <th>Rekanan</th>
+                                            <th>Update</th>
+                                            <th>Aksi</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody height="10px">
+                                        @php $i=1 @endphp
+                                        @foreach($dataharga as $harga)
+                                        <tr>
+                                            <td>{{ $i++ }}</td>
+                                            <td>{{ $harga->nama_barang }}</td>
+                                            <td>{{ $harga->harga_satuan }}</td>
+                                            @if($harga->status_harga == '1')
+                                            <td><span class="badge badge-success">Aktif</span></td>
+                                            @else
+                                            <td><span class="badge badge-danger">Tidak Aktif</span></td>
+                                            @endif
+                                            {{-- <td>{{ $jumlahcuci->total }}</td> --}}
+                                            <td>{{ $harga->nama_rekanan }}</td>
+                                            <td>{{ $harga->tgl_edit_harga }}</td>
+                                            <td>
+
+                                                {{-- <a href="/dataharga/editharga/{{ $harga->id_harga }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a> --}}
+
+                                                {{-- <a href="#" onclick="deleteharga({{$harga->id_harga}})" title="Hapus" class="btn btn-danger btn-xs" role="button"><i class="fas fa-trash"></i></a> --}}
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Nama Barang</th>
+                                            <th>Harga</th>
+                                            <th>Status</th>
+                                            <th>Rekanan</th>
+                                            <th>Update</th>
+                                            <th>Aksi</th>
+
+                                        </tr>
+                                    </tfoot>
+                                </table>
                     </div>
 
                     {{-- Modal Tambah Data --}}
@@ -152,14 +160,12 @@ Data Master Harga
             @push('script')
             <script>
                 var minDate, maxDate;
-
                 // Custom filtering function which will search data in column four between two values
                 $.fn.dataTable.ext.search.push(
                     function(settings, data, dataIndex) {
                         var min = minDate.val();
                         var max = maxDate.val();
-                        var date = new Date(data[5, 6]);
-
+                        var date = new Date(data[5]);
                         if (
                             (min === null && max === null) ||
                             (min === null && date <= max) ||
@@ -171,7 +177,6 @@ Data Master Harga
                         return false;
                     }
                 );
-
                 $(document).ready(function() {
                     // Create date inputs
                     minDate = new DateTime($('#min'), {
@@ -180,35 +185,22 @@ Data Master Harga
                     maxDate = new DateTime($('#max'), {
                         format: 'DD-MM-YYYY'
                     });
-
-                    // DataTables initialisation
                     var table = $('#dt-basic-example').DataTable({
-                        dom: 'Bfrtip'
-                        , buttons: [
+                        initComplete: function() {
+                            this.api()
+                                .columns()
+                                .every(function() {
 
-                        , ]
+                                });
+                        }
                     , });
-
                     // Refilter the table
                     $('#min, #max').on('change', function() {
                         table.draw();
                     });
-                    $('#status_pelanggan').on('change', function(e) {
-                        var status = $(this).val();
-                        $('#status_pelanggan').val(status)
-                        if (status == '1') {
-                            status_pelanggan = 'Aktif'
-                            console.log(status_pelanggan)
-                        } else {
-                            status_pelanggan = 'Tidak Aktif'
-                            console.log(status_pelanggan)
-                        }
 
-                        console.log(status)
-                        //dataTable.column(6).search('\\s' + status + '\\s', true, false, true).draw();
-                        table.column(4).search("^" + status_pelanggan + "$", true, false).draw();
-                    })
                 });
+
                 $("#tambahharga").submit(function(event) {
                     event.preventDefault();
                     var formdata = new FormData(this);

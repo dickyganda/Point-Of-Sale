@@ -43,7 +43,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
+        @if (Session::get('level_user') == 'administrator')
         @include('layouts/sidebarleft')
+
+        @elseif(Session::get('level_user') == 'kasir')
+        @include('layouts/sidebarkasir')
+
+        @elseif(Session::get('level_user') == 'rekanan')
+        @include('layouts/sidebarrekanan')
+
+        @else
+        @php
+        header("Location: " . URL::to('/'), true, 302);
+        exit();
+        @endphp
+
+        @endif
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">

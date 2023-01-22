@@ -172,7 +172,7 @@ Data Master Rekanan
                 var table = $('#dt-basic-example').DataTable({
                     dom: 'Bfrtip'
                     , buttons: [
-                        'excel'
+
                     , ]
                 , });
 

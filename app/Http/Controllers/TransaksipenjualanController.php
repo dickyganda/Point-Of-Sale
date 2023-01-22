@@ -68,7 +68,12 @@ class TransaksipenjualanController extends Controller
             } else {
                 $add->total_penjualan = $request->total_penjualan[$key];
             }
+
             $add->tgl_transaksi_penjualan = Date('Y-m-d');
+            $i_nota = 1;
+            $i_nota++;
+            $add->no_nota = Date('m.d') . '.00' . $i_nota;
+            $add->no_meja = $request->no_meja;
             // dd($add);
             $add->save();
         }

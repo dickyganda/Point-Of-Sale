@@ -13,7 +13,7 @@
                 <img src="{{ asset('assets/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                <a href="#" class="d-block">Rekanan</a>
             </div>
         </div>
 
@@ -111,15 +111,14 @@
                         {{-- </p>
                     </a>
                 </li> --}}
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="/closing/index" class="nav-link {{ (request()->is('closing/index')) ? 'active' : ' ' }}">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Closing
-                                    {{-- <span class="right badge badge-danger">New</span> --}}
-                                </p>
-                            </a>
-                        </li>
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Closing
+                        </p>
+                        </a>
+                        </li> --}}
                         <li class="nav-item">
                             <a href="/report/index" class="nav-link {{ (request()->is('report/index')) ? 'active' : ' ' }}">
                                 <i class="nav-icon fas fa-th"></i>
