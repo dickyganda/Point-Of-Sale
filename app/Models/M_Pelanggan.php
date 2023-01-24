@@ -16,7 +16,7 @@ class M_Pelanggan extends Model
             ->join('dt_penjualan', 't_penjualan.id_penjualan', 'dt_penjualan.id_t_penjualan')
             ->join('m_barang', 'dt_penjualan.id_barang', 'm_barang.id_barang')
             ->select('m_barang.nama_barang', 'dt_penjualan.qty_penjualan')
-            ->where('m_barang.nama_barang', 'like', 'cuci motor%')
+            ->where('m_barang.nama_barang', 'like', '%motor%')
             ->sum('dt_penjualan.qty_penjualan');
         // ->get();
 
@@ -29,7 +29,7 @@ class M_Pelanggan extends Model
             ->join('dt_penjualan', 't_penjualan.id_penjualan', 'dt_penjualan.id_t_penjualan')
             ->join('m_barang', 'dt_penjualan.id_barang', 'm_barang.id_barang')
             ->select('m_barang.nama_barang', 'dt_penjualan.qty_penjualan')
-            ->where('m_barang.nama_barang', 'like', 'cuci mobil%')
+            ->where('m_barang.nama_barang', 'like', '%mobil%')
             ->sum('dt_penjualan.qty_penjualan');
         // ->get();
 
