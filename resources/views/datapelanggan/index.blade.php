@@ -61,7 +61,8 @@
                                         <th>Alamat</th>
                                         <th>Telepon</th>
                                         <th>Status</th>
-                                        <th>Jumlah Cuci</th>
+                                        <th>Cuci Motor</th>
+                                        <th>Cuci Mobil</th>
                                         <th>Tgl Add</th>
                                         <th>Aksi</th>
 
@@ -81,7 +82,9 @@
                                             @else
                                                 <td><span class="badge badge-danger">Tidak Aktif</span></td>
                                             @endif
-                                            <td>
+                                            <td>{{ $pelanggan->jumlahCuciMotor() }}</td>
+                                            <td>{{ $pelanggan->jumlahCuciMobil() }}</td>
+                                            {{-- <td>
                                                 <table style="width: 100%; height: 100%">
                                                     <tbody>
                                                         @foreach ($dataCuci as $item)
@@ -94,29 +97,9 @@
                                                                     {{ $pelanggan->jumlahCuci($item->id_barang) }}</td>
                                                             </tr>
                                                         @endforeach
-                                                        {{-- <tr style="background-color:unset">
-                                                            <td
-                                                                style="border:none; border-bottom: 2px solid #dee2e6;border-right: 2px solid #dee2e6">
-                                                                Cuci Mobil</td>
-                                                            <td style="border:none; border-bottom: 2px solid #dee2e6">
-                                                                2</td>
-                                                        </tr>
-                                                        <tr style="background-color:unset">
-                                                            <td
-                                                                style="border:none; border-bottom: 2px solid #dee2e6;border-right: 2px solid #dee2e6">
-                                                                Cuci Elf</td>
-                                                            <td style="border:none; border-bottom: 2px solid #dee2e6">
-                                                                2</td>
-                                                        </tr>
-                                                        <tr style="background-color:unset">
-                                                            <td style="border:none;border-right: 2px solid #dee2e6">
-                                                                Cuci Truck</td>
-                                                            <td style="border:none;">
-                                                                2</td>
-                                                        </tr> --}}
                                                     </tbody>
                                                 </table>
-                                            </td>
+                                            </td> --}}
                                             <td>{{ $pelanggan->tgl_add_pelanggan }}</td>
                                             <td>
 

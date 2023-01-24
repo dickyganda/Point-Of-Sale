@@ -44,7 +44,7 @@ class TransaksipenjualanController extends Controller
     function tambahtransaksipenjualan(Request $request)
     {
         // dd($request->harga_barang);
-        $barangCuci = M_Barang::where('nama_barang', 'like', 'cuci%')->pluck('id_barang')->toArray();
+        // $barangCuci = M_Barang::where('nama_barang', 'like', 'cuci%')->pluck('id_barang')->toArray();
 
         // dd($barangCuci);
         // $pelanggan = M_Pelanggan::find($request->id_pelanggan);
@@ -75,11 +75,20 @@ class TransaksipenjualanController extends Controller
             $add->id_t_penjualan = $penjualan->id_penjualan;
             // $add->id_id_pelanggan = $request->id_penjualan;
             $add->qty_penjualan = $request->qty_penjualan[$key];
-            if (in_array($value, $barangCuci)) {
+
+            $nama_barang = M_Barang::find($value);
+            $cuci = explode(' ', $nama_barang->nama_barang);
+
+            if ($cuci[1] == 'mobil') {
                 $pelanggan = M_Pelanggan::find($request->id_pelanggan);
-                if ($pelanggan->jumlahCuci($value) + 1 == 10) {
-                    // $add->total_penjualan = 0;
-                    // dd(($request->qty_penjualan[$key] - 1));
+                if ($pelanggan->jumlahCuciMobil($value) + $request->qty_penjualan[$key] >= 10) {
+                    $add->total_penjualan = ($request->qty_penjualan[$key] - 1) * $request->harga_barang[$key];
+                } else {
+                    $add->total_penjualan = $request->total_penjualan[$key];
+                }
+            } else if ($cuci[1] == 'motor') {
+                $pelanggan = M_Pelanggan::find($request->id_pelanggan);
+                if ($pelanggan->jumlahCuciMotor($value) + $request->qty_penjualan[$key] >= 10) {
                     $add->total_penjualan = ($request->qty_penjualan[$key] - 1) * $request->harga_barang[$key];
                 } else {
                     $add->total_penjualan = $request->total_penjualan[$key];
@@ -87,6 +96,7 @@ class TransaksipenjualanController extends Controller
             } else {
                 $add->total_penjualan = $request->total_penjualan[$key];
             }
+
 
             $add->tgl_transaksi_penjualan = Date('Y-m-d');
             $add->no_nota = $penjualan->no_nota;
