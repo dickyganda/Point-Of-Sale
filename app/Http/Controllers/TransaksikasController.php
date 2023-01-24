@@ -44,8 +44,14 @@ class TransaksikasController extends Controller
         $add = new T_Kas;
         $add->id_kas = $request->input('id_kas');
         $add->id_rekanan = $request->input('id_rekanan');
-        $add->debit = $request->input('debit');
-        $add->kredit = $request->input('kredit');;
+        if ($request->type) {
+            $add->kredit = null;
+            $add->debit = $request->input('jumlah');
+        } else {
+            $add->debit = null;
+            $add->kredit = $request->input('jumlah');
+        }
+
         $add->keterangan = $request->input('keterangan');
         $add->tgl_kas = Date('Y-m-d');
         $add->save();
@@ -63,10 +69,10 @@ class TransaksikasController extends Controller
     //     return response()->json(array('status' => 'success', 'reason' => 'Sukses Edit Data'));
     // }
 
-    public function deleteharga($id_harga)
+    public function deletekas($id_kas)
     {
         // menghapus data warga berdasarkan id yang dipilih
-        DB::table('m_harga')->where('id_harga', $id_harga)->delete();
+        DB::table('t_kas')->where('id_kas', $id_kas)->delete();
 
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Hapus Data'));
     }

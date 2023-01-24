@@ -18,8 +18,11 @@ class TransaksipenjualanController extends Controller
 
     function Index()
     {
+        // $dt_penjualan = DT_Penjualan::orderBy('tgl_transaksi_penjualan', 'DESC')->get();
+        $t_penjualan = T_Penjualan::latest()
+            ->get();
 
-        $dt_penjualan = DT_Penjualan::orderBy('tgl_transaksi_penjualan', 'DESC')->get();
+        // dd($t_penjualan);
         // ->join('m_barang', 'm_barang.id_barang', '=', 't_penjualan.id_barang')
 
         $databarang = DB::table('m_barang')->get();
@@ -29,7 +32,7 @@ class TransaksipenjualanController extends Controller
         return view(
             'transaksipenjualan/index',
             [
-                'dt_penjualan' => $dt_penjualan,
+                't_penjualan' => $t_penjualan,
                 // 't_cart' => $t_cart,
                 'databarang' => $databarang,
                 'datapelanggan' => $datapelanggan,
@@ -40,6 +43,7 @@ class TransaksipenjualanController extends Controller
 
     function tambahtransaksipenjualan(Request $request)
     {
+        // dd($request->harga_barang);
         $barangCuci = M_Barang::where('nama_barang', 'like', 'cuci%')->pluck('id_barang')->toArray();
 
         // dd($barangCuci);
@@ -49,8 +53,19 @@ class TransaksipenjualanController extends Controller
         // }
         // dd(false);
 
+        $tgl = date('d');
+        $bln = date('m');
+        $nota = T_Penjualan::where('no_nota', 'like', $tgl . '.' . $bln . '%')->count() + 1;
+        if ($nota < 10) {
+            $nota = '00' . $nota;
+        } else if ($nota >= 10) {
+            $nota = '0' . $nota;
+        }
+
         $penjualan = new T_Penjualan;
         $penjualan->id_pelanggan = $request->id_pelanggan;
+        $penjualan->no_nota =  $tgl . '.' . $bln . '.' . $nota;
+        $penjualan->no_meja = $request->no_meja;
         $penjualan->status_closing = 0;
         $penjualan->save();
 
@@ -62,17 +77,19 @@ class TransaksipenjualanController extends Controller
             $add->qty_penjualan = $request->qty_penjualan[$key];
             if (in_array($value, $barangCuci)) {
                 $pelanggan = M_Pelanggan::find($request->id_pelanggan);
-                if ($pelanggan->jumlahCuci() % 9 == 0) {
-                    $add->total_penjualan = 0;
+                if ($pelanggan->jumlahCuci($value) + 1 == 10) {
+                    // $add->total_penjualan = 0;
+                    // dd(($request->qty_penjualan[$key] - 1));
+                    $add->total_penjualan = ($request->qty_penjualan[$key] - 1) * $request->harga_barang[$key];
+                } else {
+                    $add->total_penjualan = $request->total_penjualan[$key];
                 }
             } else {
                 $add->total_penjualan = $request->total_penjualan[$key];
             }
 
             $add->tgl_transaksi_penjualan = Date('Y-m-d');
-            $i_nota = 1;
-            $i_nota++;
-            $add->no_nota = Date('m.d') . '.00' . $i_nota;
+            $add->no_nota = $penjualan->no_nota;
             $add->no_meja = $request->no_meja;
             // dd($add);
             $add->save();
@@ -123,7 +140,16 @@ class TransaksipenjualanController extends Controller
     public function deletepenjualan($id_dt_penjualan)
     {
         // menghapus data warga berdasarkan id yang dipilih
-        DB::table('dt_penjualan')->where('id_dt_penjualan', $id_dt_penjualan)->delete();
+        $dt_penjualan = DB::table('dt_penjualan')->where('id_dt_penjualan', $id_dt_penjualan);
+        $id_penjualan = $dt_penjualan->first('id_t_penjualan');
+        $dt_penjualan->delete();
+
+        $penjualan = DT_Penjualan::where('id_t_penjualan', $id_penjualan->id_t_penjualan)->count();
+        // dd($penjualan);
+
+        if (!$penjualan) {
+            DB::table('t_penjualan')->where('id_penjualan', $id_penjualan->id_t_penjualan)->delete();
+        }
 
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Hapus Data'));
     }
@@ -144,10 +170,13 @@ class TransaksipenjualanController extends Controller
             ->join('m_barang', 'm_barang.id_barang', '=', 'dt_penjualan.id_barang')
             ->where('id_penjualan', $id_penjualan)
             ->get();
+
+        $penjualan = T_Penjualan::find($id_penjualan);
         // dd($detailPenjualan);
 
         return view('/print/printpenjualan', [
             'detailPenjualan' => $detailPenjualan,
+            'penjualan' => $penjualan
         ]);
     }
 

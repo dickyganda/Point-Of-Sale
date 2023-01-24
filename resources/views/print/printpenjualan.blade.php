@@ -56,7 +56,6 @@
                 display: none !important;
             }
         }
-
     </style>
 </head>
 
@@ -74,20 +73,30 @@
             </thead>
             <tbody>
                 @php
-                $totalBayar = 0;
+                    $totalBayar = 0;
                 @endphp
-                <img src="{{asset('assets/img/logo1.jpeg') }}" alt="Logo">
-                <p>No. Nota : </p>
+                <div style="display: flex;justify-content: space-between">
+                    <img src="{{ asset('assets/img/logo1.jpeg') }}" alt="Logo">
+                    <p style="margin-bottom: 0;font-size:.8rem">Godong Jati Pusat Kuliner Lamongan</p>
+                </div>
+                <p style="margin-bottom: 0;font-size:.8rem">No. Nota : {{ $penjualan->no_nota }}</p>
+                <div style="display: flex;justify-content: space-between">
+                    <p style="margin-bottom: 10px; margin-top:0px;font-size:.8rem">Nama Pelanggan :
+                        {{ isset($penjualan->pelanggan()->nama_pelanggan) ? $penjualan->pelanggan()->nama_pelanggan : '' }}
+                    </p>
+                    <p style="margin-bottom: 10px; margin-top:0px;font-size:.8rem">No. Meja : {{ $penjualan->no_meja }}
+                    </p>
+                </div>
                 @foreach ($detailPenjualan as $item)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->nama_barang }}</td>
-                    <td>{{ $item->qty_penjualan }}</td>
-                    <td>{{ $item->total_penjualan }}</td>
-                </tr>
-                @php
-                $totalBayar += $item->total_penjualan;
-                @endphp
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $item->nama_barang }}</td>
+                        <td>{{ $item->qty_penjualan }}</td>
+                        <td>{{ $item->total_penjualan }}</td>
+                    </tr>
+                    @php
+                        $totalBayar += $item->total_penjualan;
+                    @endphp
                 @endforeach
                 <tr>
                     <td colspan="3">Total Harga</td>
@@ -102,7 +111,6 @@
         $btnPrint.addEventListener("click", () => {
             window.print();
         });
-
     </script>
 </body>
 

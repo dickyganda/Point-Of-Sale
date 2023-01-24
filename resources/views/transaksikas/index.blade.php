@@ -1,267 +1,274 @@
 @extends('layouts.main')
 
 @section('title')
-Data Transaksi Kas
+    Data Transaksi Kas
 @endsection
 
 @push('styles')
-<style>
-</style>
+    <style>
+    </style>
 @endpush
 
 @section('content')
-<div class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0">Data Transaksi Kas</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
-</div>
-<!-- /.content-header -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Data Transaksi Kas</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
 
-<!-- Main content -->
-<div class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg">
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg">
 
 
-                <div class="card card-primary card-outline">
-                    <div class="card-body">
-                        <a href="" class="btn btn-success btn-xs" title="Tambah Data Baru" role="button" data-toggle="modal" data-target="#modaltambahdata"><i class="fas fa-plus-circle"></i></a><br><br>
-                        <h4>Total Saldo Kas : {{$dataSaldo->debit - $dataSaldo->kredit}}</h4>
+                    <div class="card card-primary card-outline">
+                        <div class="card-body">
+                            <a href="" class="btn btn-success btn-xs" title="Tambah Data Baru" role="button"
+                               data-toggle="modal" data-target="#modaltambahdata"><i
+                                   class="fas fa-plus-circle"></i></a><br><br>
+                            <h4>Total Saldo Kas : {{ $dataSaldo->debit - $dataSaldo->kredit }}</h4>
 
-                        <table border="0" cellspacing="5" cellpadding="5">
-                            <tbody>
-                                <tr>
-                                    <td><input type="text" id="min" name="min" value="<?php echo date('d-m-Y');?>">
-                                    </td>
-                                    <td>-</td>
-                                    <td><input type="text" id="max" name="max" value="<?php echo date('d-m-Y');?>"></td>
-                                </tr>
+                            <table border="0" cellspacing="5" cellpadding="5">
+                                <tbody>
+                                    <tr>
+                                        <td><input type="text" id="min" name="min" value="<?php echo date('d-m-Y'); ?>">
+                                        </td>
+                                        <td>-</td>
+                                        <td><input type="text" id="max" name="max" value="<?php echo date('d-m-Y'); ?>">
+                                        </td>
+                                    </tr>
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
 
-                        <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Debit</th>
-                                    <th>kredit</th>
-                                    <th>Rekanan</th>
-                                    <th>Ket</th>
-                                    <th>Tgl Kas</th>
-                                    <th>Aksi</th>
+                            <table id="dt-basic-example"
+                                   class="table table-bordered table-responsive table-hover table-striped">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Debit</th>
+                                        <th>kredit</th>
+                                        <th>Rekanan</th>
+                                        <th>Ket</th>
+                                        <th>Tgl Kas</th>
+                                        <th>Aksi</th>
 
-                                </tr>
-                            </thead>
-                            <tbody height="10px">
-                                @php $i=1 @endphp
-                                @foreach($t_kas as $kas)
-                                <tr>
-                                    <td>{{ $i++ }}</td>
-                                    <td>{{ $kas->debit }}</td>
-                                    <td>{{ $kas->kredit }}</td>
-                                    <td>{{ $kas->nama_rekanan }}</td>
-                                    <td>{{ $kas->keterangan }}</td>
-                                    <td>{{ $kas->tgl_kas }}</td>
-                                    <td>
+                                    </tr>
+                                </thead>
+                                <tbody height="10px">
+                                    @php $i=1 @endphp
+                                    @foreach ($t_kas as $kas)
+                                        <tr>
+                                            <td>{{ $i++ }}</td>
+                                            <td>{{ $kas->debit }}</td>
+                                            <td>{{ $kas->kredit }}</td>
+                                            <td>{{ $kas->nama_rekanan }}</td>
+                                            <td>{{ $kas->keterangan }}</td>
+                                            <td>{{ $kas->tgl_kas }}</td>
+                                            <td>
 
-                                        {{-- <a href="/dataharga/editharga/{{ $harga->id_harga }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a> --}}
+                                                {{-- <a href="/dataharga/editharga/{{ $harga->id_harga }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a> --}}
 
-                                        <a href="#" onclick="deleteharga({{$kas->id_kas}})" title="Hapus" class="btn btn-danger btn-xs" role="button"><i class="fas fa-trash"></i></a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Debit</th>
-                                    <th>kredit</th>
-                                    <th>Rekanan</th>
-                                    <th>Ket</th>
-                                    <th>Tgl Kas</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-
-                    {{-- Modal Tambah Data --}}
-                    <div class="modal fade" id="modaltambahdata">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-
-                                <!-- Modal Header -->
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Tambah Transaksi Kas</h4>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                </div>
-
-                                <!-- Modal body -->
-                                <div class="modal-body">
-                                    <form id="tambahkas" method="post">
-                                        {{ csrf_field() }}
-
-                                        <div class="form-group">
-                                            <select id="id_rekanan" name="id_rekanan" class="form-control form-control-sm select2" style="width:100%;">
-                                                <option></option>
-                                                @foreach ($datarekanan as $rekanan)
-                                                <option value="{{$rekanan->id_rekanan}}">{{$rekanan->nama_rekanan}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <select id="debit_kredit" name="level_user" class="form-control form-control-sm select2" style="width:100%;" required>
-                                                <option></option>
-                                                <option value="1">Debit</option>
-                                                <option value="0">Kredit</option>
-                                            </select>
-                                        </div>
-
-                                        {{-- <div class="form-group">
-                                            <input type="text" name="kredit" class="form-control form-control-sm" placeholder="Kredit">
-                                        </div> --}}
-
-                                        <div class="form-group">
-                                            <input type="text" name="keterangan" class="form-control form-control-sm" placeholder="Keterangan">
-                                        </div>
-
-                                        <br>
-                                        <button class="btn btn-primary" type="submit">Tambah</button>
-                                    </form>
-                                </div>
-
-                                <!-- Modal footer -->
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                </div>
-
-                            </div><!-- /.card -->
+                                                <a href="#" onclick="deletekas({{ $kas->id_kas }})" title="Hapus"
+                                                   class="btn btn-danger btn-xs" role="button"><i
+                                                       class="fas fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Debit</th>
+                                        <th>kredit</th>
+                                        <th>Rekanan</th>
+                                        <th>Ket</th>
+                                        <th>Tgl Kas</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
                         </div>
 
-                        <!-- /.col-md-6 -->
-                    </div>
-                    <!-- /.row -->
-                </div><!-- /.container-fluid -->
-            </div>
-            <!-- /.content -->
+                        {{-- Modal Tambah Data --}}
+                        <div class="modal fade" id="modaltambahdata">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Tambah Transaksi Kas</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        <form id="tambahkas" method="post">
+                                            {{ csrf_field() }}
+
+                                            <div class="form-group">
+                                                <select id="id_rekanan" name="id_rekanan"
+                                                        class="form-control form-control-sm select2" style="width:100%;">
+                                                    <option></option>
+                                                    @foreach ($datarekanan as $rekanan)
+                                                        <option value="{{ $rekanan->id_rekanan }}">
+                                                            {{ $rekanan->nama_rekanan }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <select id="debit_kredit" name="type"
+                                                        class="form-control form-control-sm select2" style="width:100%;"
+                                                        required>
+                                                    <option></option>
+                                                    <option value="1">Debit</option>
+                                                    <option value="0">Kredit</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input type="number" name="jumlah" class="form-control form-control-sm"
+                                                       placeholder="Jumlah Rupiah">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input type="text" name="keterangan" class="form-control form-control-sm"
+                                                       placeholder="Keterangan">
+                                            </div>
+
+                                            <br>
+                                            <button class="btn btn-primary" type="submit">Tambah</button>
+                                        </form>
+                                    </div>
+
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    </div>
+
+                                </div><!-- /.card -->
+                            </div>
+
+                            <!-- /.col-md-6 -->
+                        </div>
+                        <!-- /.row -->
+                    </div><!-- /.container-fluid -->
+                </div>
+                <!-- /.content -->
             @endsection
 
             @push('script')
-            <script>
-                var minDate, maxDate;
-                // Custom filtering function which will search data in column four between two values
-                $.fn.dataTable.ext.search.push(
-                    function(settings, data, dataIndex) {
-                        var min = minDate.val();
-                        var max = maxDate.val();
-                        var date = new Date(data[5]);
-                        if (
-                            (min === null && max === null) ||
-                            (min === null && date <= max) ||
-                            (min <= date && max === null) ||
-                            (min <= date && date <= max)
-                        ) {
-                            return true;
+                <script>
+                    var minDate, maxDate;
+                    // Custom filtering function which will search data in column four between two values
+                    $.fn.dataTable.ext.search.push(
+                        function(settings, data, dataIndex) {
+                            var min = minDate.val();
+                            var max = maxDate.val();
+                            var date = new Date(data[5]);
+                            if (
+                                (min === null && max === null) ||
+                                (min === null && date <= max) ||
+                                (min <= date && max === null) ||
+                                (min <= date && date <= max)
+                            ) {
+                                return true;
+                            }
+                            return false;
                         }
-                        return false;
-                    }
-                );
-                $(document).ready(function() {
-                    // Create date inputs
-                    minDate = new DateTime($('#min'), {
-                        format: 'DD-MM-YYYY'
-                    });
-                    maxDate = new DateTime($('#max'), {
-                        format: 'DD-MM-YYYY'
-                    });
-                    var table = $('#dt-basic-example').DataTable({
-                        initComplete: function() {
-                            this.api()
-                                .columns()
-                                .every(function() {
+                    );
+                    $(document).ready(function() {
+                        // Create date inputs
+                        minDate = new DateTime($('#min'), {
+                            format: 'DD-MM-YYYY'
+                        });
+                        maxDate = new DateTime($('#max'), {
+                            format: 'DD-MM-YYYY'
+                        });
+                        var table = $('#dt-basic-example').DataTable({
+                            initComplete: function() {
+                                this.api()
+                                    .columns()
+                                    .every(function() {
 
-                                });
-                        }
-                    , });
-                    // Refilter the table
-                    $('#min, #max').on('change', function() {
-                        table.draw();
-                    });
-
-                });
-
-                $("#tambahkas").submit(function(event) {
-                    event.preventDefault();
-                    var formdata = new FormData(this);
-                    $.ajax({
-                        type: 'POST'
-                        , dataType: 'json'
-                        , url: '/transaksikas/tambahkas'
-                        , data: formdata
-                        , contentType: false
-                        , cache: false
-                        , processData: false
-                        , success: function(data) {
-                            Swal.fire(
-                                'Sukses!'
-                                , data.reason
-                                , 'success'
-                            ).then(() => {
-                                location.replace("/transaksikas/index");
-                            });
-                        }
-                    });
-                });
-
-                function deleteharga(id_harga) {
-                    Swal.fire({
-                        title: 'Hapus Data ?'
-                        , text: "Anda tidak akan dapat mengembalikan ini!"
-                        , icon: 'warning'
-                        , showCancelButton: true
-                        , confirmButtonColor: '#3085d6'
-                        , cancelButtonColor: '#d33'
-                        , confirmButtonText: 'Hapus'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            $.ajax({
-                                type: 'GET'
-                                , dataType: 'json'
-                                , url: '/dataharga/deleteharga/' + id_harga
-                                , success: function(data) {
-                                    Swal.fire(
-                                        'Sukses!'
-                                        , data.reason
-                                        , 'success'
-                                    ).then(() => {
-                                        location.reload();
                                     });
-                                }
-                            });
-                        }
-                    })
-                }
-
-                $(document).ready(function() {
-                    $('#id_rekanan').select2({
-                        placeholder: "Pilih Rekanan"
+                            },
+                        });
+                        // Refilter the table
+                        $('#min, #max').on('change', function() {
+                            table.draw();
+                        });
 
                     });
 
-                    $('#debit_kredit').select2({
-                        placeholder: "Pilih Jenis Kas"
-
+                    $("#tambahkas").submit(function(event) {
+                        event.preventDefault();
+                        var formdata = new FormData(this);
+                        $.ajax({
+                            type: 'POST',
+                            dataType: 'json',
+                            url: '/transaksikas/tambahkas',
+                            data: formdata,
+                            contentType: false,
+                            cache: false,
+                            processData: false,
+                            success: function(data) {
+                                Swal.fire(
+                                    'Sukses!', data.reason, 'success'
+                                ).then(() => {
+                                    location.replace("/transaksikas/index");
+                                });
+                            }
+                        });
                     });
-                });
 
-            </script>
+                    function deletekas(id_harga) {
+                        Swal.fire({
+                            title: 'Hapus Data ?',
+                            text: "Anda tidak akan dapat mengembalikan ini!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Hapus'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $.ajax({
+                                    type: 'GET',
+                                    dataType: 'json',
+                                    url: '/transaksikas/deletekas/' + id_harga,
+                                    success: function(data) {
+                                        Swal.fire(
+                                            'Sukses!', data.reason, 'success'
+                                        ).then(() => {
+                                            location.reload();
+                                        });
+                                    }
+                                });
+                            }
+                        })
+                    }
+
+                    $(document).ready(function() {
+                        $('#id_rekanan').select2({
+                            placeholder: "Pilih Rekanan"
+
+                        });
+
+                        $('#debit_kredit').select2({
+                            placeholder: "Pilih Jenis Kas"
+
+                        });
+                    });
+                </script>
             @endpush

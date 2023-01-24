@@ -72,7 +72,7 @@ Route::get('/transaksikas/index', 'TransaksikasController@index');
 Route::post('transaksikas/tambahkas', 'TransaksikasController@tambahkas');
 Route::get('transaksikas/editkas/{id_kas}', 'TransaksikasController@edituser');
 Route::post('transaksikas/updatekas', 'TransaksikasController@updateuser');
-Route::get('transaksikas/deletekas/{id_kas}', 'TransaksikasController@deleteuser');
+Route::get('transaksikas/deletekas/{id_kas}', 'TransaksikasController@deletekas');
 
 Route::get('/transaksicuci/index', 'TransaksicuciController@index');
 Route::post('transaksicuci/tambahtransaksicuci', 'TransaksicuciController@tambahtransaksicuci');
