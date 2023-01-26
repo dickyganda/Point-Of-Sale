@@ -10,6 +10,19 @@ class M_Pelanggan extends Model
     public $timestamps = false;
     protected $primaryKey = 'id_pelanggan';
 
+    public function jumlahType()
+    {
+        return $this->belongsTo(T_Penjualan::class, 'id_pelanggan', 'id_pelanggan')
+            ->join('dt_penjualan', 't_penjualan.id_penjualan', 'dt_penjualan.id_t_penjualan')
+            ->join('m_barang', 'dt_penjualan.id_barang', 'm_barang.id_barang')
+            ->select('m_barang.id_barang')
+            ->where('m_barang.nama_barang', 'like', '%cuci%')
+            ->groupBy('m_barang.id_barang')
+            ->get();
+
+        // dd(count($barang));
+    }
+
     public function jumlahCuciMotor()
     {
         $jmlCuci = $this->belongsTo(T_Penjualan::class, 'id_pelanggan', 'id_pelanggan')

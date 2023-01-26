@@ -79,14 +79,14 @@ class TransaksipenjualanController extends Controller
             $nama_barang = M_Barang::find($value);
             $cuci = explode(' ', $nama_barang->nama_barang);
 
-            if ($cuci[1] == 'mobil') {
+            if (isset($cuci[1]) && $cuci[1] == 'mobil') {
                 $pelanggan = M_Pelanggan::find($request->id_pelanggan);
                 if ($pelanggan->jumlahCuciMobil($value) + $request->qty_penjualan[$key] >= 10) {
                     $add->total_penjualan = ($request->qty_penjualan[$key] - 1) * $request->harga_barang[$key];
                 } else {
                     $add->total_penjualan = $request->total_penjualan[$key];
                 }
-            } else if ($cuci[1] == 'motor') {
+            } else if (isset($cuci[1]) && $cuci[1] == 'motor') {
                 $pelanggan = M_Pelanggan::find($request->id_pelanggan);
                 if ($pelanggan->jumlahCuciMotor($value) + $request->qty_penjualan[$key] >= 10) {
                     $add->total_penjualan = ($request->qty_penjualan[$key] - 1) * $request->harga_barang[$key];

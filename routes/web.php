@@ -83,6 +83,8 @@ Route::get('transaksicuci/deleteuser/{id_user}', 'TransaksicuciController@delete
 Route::get('/closing/index', 'ClosingController@index');
 
 Route::get('/report/index', 'ReportController@index');
+Route::get('/report/pelanggan', 'ReportController@pelanggan');
+Route::post('/report/print', 'ReportController@print');
 
 
 
