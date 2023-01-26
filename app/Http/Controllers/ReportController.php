@@ -14,10 +14,13 @@ class ReportController extends Controller
 
     function Index()
     {
+        // item per pelanggan
         $report_all = DB::table('t_penjualan')
             ->join('dt_penjualan', 'dt_penjualan.id_t_penjualan', '=', 't_penjualan.id_penjualan')
             ->join('m_barang', 'm_barang.id_barang', '=', 'dt_penjualan.id_barang')
             ->join('m_rekanan', 'm_rekanan.id_rekanan', '=', 'm_barang.id_rekanan')
+            ->select('m_rekanan.nama_rekanan', 'm_barang.nama_barang')
+            ->groupBy('nama_rekanan', 'nama_barang')
             ->get();
 
         $grand_total = DT_Penjualan::selectRaw('sum(total_penjualan) as total')

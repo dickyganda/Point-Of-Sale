@@ -24,7 +24,7 @@
             border-collapse: collapse;
             width: 98%;
             margin: auto;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: Arial;
             text-transform: uppercase;
         }
 
@@ -56,6 +56,11 @@
                 display: none !important;
             }
         }
+
+        p {
+            font-family: Arial;
+        }
+
     </style>
 </head>
 
@@ -73,7 +78,7 @@
             </thead>
             <tbody>
                 @php
-                    $totalBayar = 0;
+                $totalBayar = 0;
                 @endphp
                 <div style="display: flex;justify-content: space-between">
                     <img src="{{ asset('assets/img/logo1.jpeg') }}" alt="Logo">
@@ -88,15 +93,15 @@
                     </p>
                 </div>
                 @foreach ($detailPenjualan as $item)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->nama_barang }}</td>
-                        <td>{{ $item->qty_penjualan }}</td>
-                        <td>{{ $item->total_penjualan }}</td>
-                    </tr>
-                    @php
-                        $totalBayar += $item->total_penjualan;
-                    @endphp
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $item->nama_barang }}</td>
+                    <td>{{ $item->qty_penjualan }}</td>
+                    <td>{{ $item->total_penjualan }}</td>
+                </tr>
+                @php
+                $totalBayar += $item->total_penjualan;
+                @endphp
                 @endforeach
                 <tr>
                     <td colspan="3">Total Harga</td>
@@ -111,6 +116,7 @@
         $btnPrint.addEventListener("click", () => {
             window.print();
         });
+
     </script>
 </body>
 
