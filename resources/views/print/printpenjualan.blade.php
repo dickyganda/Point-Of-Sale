@@ -82,7 +82,7 @@
                 @endphp
                 <div style="display: flex;justify-content: space-between">
                     <img src="{{ asset('assets/img/logo1.jpeg') }}" alt="Logo">
-                    <p style="margin-bottom: 0;font-size:.8rem">Godong Jati Pusat Kuliner Lamongan</p>
+                    <p style="margin-bottom: 0;font-size:.8rem">Godong Jati Car Wash & Kuliner</p>
                 </div>
                 <p style="margin-bottom: 0;font-size:.8rem">No. Nota : {{ $penjualan->no_nota }}</p>
                 <div style="display: flex;justify-content: space-between">
@@ -95,9 +95,9 @@
                 @foreach ($detailPenjualan as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->nama_barang }}</td>
+                    <td style="text-align:left;">{{ $item->nama_barang }}</td>
                     <td>{{ $item->qty_penjualan }}</td>
-                    <td>{{ $item->total_penjualan }}</td>
+                    <td style="text-align:right;">{{ $item->total_penjualan }}</td>
                 </tr>
                 @php
                 $totalBayar += $item->total_penjualan;
@@ -105,7 +105,7 @@
                 @endforeach
                 <tr>
                     <td colspan="3">Total Harga</td>
-                    <td>{{ $totalBayar }}</td>
+                    <td style="text-align:right;">{{ $totalBayar }}</td>
                 </tr>
             </tbody>
         </table>
