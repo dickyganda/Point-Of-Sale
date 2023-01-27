@@ -89,6 +89,21 @@ class ReportController extends Controller
 
         // dd($barang);
         return view(
+            'report/indexCuci',
+            [
+                'dataPelanggan' => $pelanggan,
+                'dataBarang' => $barang,
+            ]
+        );
+    }
+
+    public function pelangganPrint()
+    {
+        $pelanggan = M_Pelanggan::get();
+        $barang = M_Barang::where('nama_barang', 'like', '%cuci%')->get();
+
+        // dd($barang);
+        return view(
             'report/reportpelanggan',
             [
                 'dataPelanggan' => $pelanggan,

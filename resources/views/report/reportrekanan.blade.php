@@ -210,9 +210,12 @@
                             @php
                                 $subTotal += $totalMotor;
                                 
-                                $grandTotal += $subTotal;
                             @endphp
                         @endif
+                        @php
+                            $grandTotal += $subTotal;
+                            
+                        @endphp
                         <tr style="background-color: #f2f2f2">
                             <td colspan="4" class="text-center">SubTotal</td>
                             <td style="text-align:right;">{{ $subTotal }}</td>

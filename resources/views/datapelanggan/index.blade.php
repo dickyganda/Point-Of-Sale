@@ -38,7 +38,7 @@
                         <div class="card-body">
                             <a href="" class="btn btn-success btn-xs" title="Tambah Data Baru" role="button"
                                data-toggle="modal" data-target="#modaltambahdata"><i class="fas fa-plus-circle"></i></a>
-                            <a href="/report/pelanggan" class="btn btn-primary btn-xs">Report</a>
+                            {{-- <a href="/report/pelanggan" class="btn btn-primary btn-xs">Report</a> --}}
 
                             {{-- filter --}}
                             {{-- <div class="row">

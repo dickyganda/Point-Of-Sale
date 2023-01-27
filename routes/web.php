@@ -84,6 +84,7 @@ Route::get('/closing/index', 'ClosingController@index');
 
 Route::get('/report/index', 'ReportController@index');
 Route::get('/report/pelanggan', 'ReportController@pelanggan');
+Route::get('/report/pelanggan/print', 'ReportController@pelangganPrint');
 Route::post('/report/print', 'ReportController@print');
 
 
