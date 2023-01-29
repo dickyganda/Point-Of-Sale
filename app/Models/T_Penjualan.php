@@ -30,6 +30,7 @@ class T_Penjualan extends Model
     {
         return $this->belongsTo(DT_Penjualan::class, 'id_penjualan', 'id_t_penjualan')
             ->join('m_barang', 'm_barang.id_barang', 'dt_penjualan.id_barang')
+            ->where('dt_penjualan.deleted_at', '=', null)
             ->select('dt_penjualan.*', 'm_barang.nama_barang', 'm_barang.harga_barang')
             ->get();
     }

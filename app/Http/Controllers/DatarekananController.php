@@ -14,7 +14,7 @@ class DatarekananController extends Controller
     function Index()
     {
 
-        $datarekanan = DB::table('m_rekanan')->get();
+        $datarekanan = DB::table('m_rekanan')->where('deleted_at', '=', null)->get();
 
         return view(
             'datarekanan/index',
@@ -66,7 +66,9 @@ class DatarekananController extends Controller
     public function deleterekanan($id_rekanan)
     {
         // menghapus data warga berdasarkan id yang dipilih
-        DB::table('m_rekanan')->where('id_rekanan', $id_rekanan)->delete();
+        DB::table('m_rekanan')->where('id_rekanan', $id_rekanan)->update([
+            'deleted_at' => date('Y-m-d h:i:s')
+        ]);
 
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Hapus Data'));
     }

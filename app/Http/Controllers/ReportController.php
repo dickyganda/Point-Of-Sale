@@ -97,7 +97,7 @@ class ReportController extends Controller
         );
     }
 
-    public function pelangganPrint()
+    public function pelangganPrint(Request $request)
     {
         $pelanggan = M_Pelanggan::get();
         $barang = M_Barang::where('nama_barang', 'like', '%cuci%')->get();
@@ -108,7 +108,60 @@ class ReportController extends Controller
             [
                 'dataPelanggan' => $pelanggan,
                 'dataBarang' => $barang,
+                'request' => $request,
             ]
         );
+    }
+
+    public function data(Request $request)
+    {
+        $min = isset($request->min) && $request->min != null ? date('Y-m-d', strtotime($request->min)) : date('Y-m-d');
+        $max = isset($request->max) && $request->max != null ? date('Y-m-d', strtotime($request->max)) : date('Y-m-d');
+
+        $pelanggan = M_Pelanggan::join('t_penjualan', 't_penjualan.id_pelanggan', 'm_pelanggan.id_pelanggan')
+            ->join('dt_penjualan', 'dt_penjualan.id_t_penjualan', 't_penjualan.id_penjualan')
+            ->join('m_barang', 'm_barang.id_barang', 'dt_penjualan.id_barang')
+            ->where('m_barang.nama_barang', 'like', 'cuci%')
+            ->where('dt_penjualan.deleted_at', '=', null)
+            ->whereBetween('dt_penjualan.tgl_transaksi_penjualan', [$min, $max])
+            ->select('m_pelanggan.id_pelanggan', 'm_pelanggan.nama_pelanggan', 'm_barang.id_barang', 'm_barang.nama_barang', DB::raw('sum(dt_penjualan.qty_penjualan) as jumlah'))
+            ->orderBy('m_pelanggan.id_pelanggan', 'asc')
+            ->orderBy('m_barang.id_barang', 'asc')
+            ->groupBy('m_barang.id_barang', 'm_pelanggan.id_pelanggan', 'm_pelanggan.nama_pelanggan', 'm_barang.nama_barang',)
+            ->get();
+
+        $return = null;
+        foreach ($pelanggan as $key => $value) {
+            $nama = explode(' ', $value->nama_barang);
+            if ($nama[1] == 'motor') {
+                $return[$key] = array(
+                    'nama_pelanggan' => $value->nama_pelanggan,
+                    'nama_barang' => $value->nama_barang,
+                    'jumlah_motor' => $value->jumlah,
+                    'jumlah_mobil' => '0',
+                    'gratis_cuci_motor' => floor($value->jumlah / 10),
+                    'gratis_cuci_mobil' => '0'
+                );
+            } else {
+                $return[$key] = array(
+                    'nama_pelanggan' => $value->nama_pelanggan,
+                    'nama_barang' => $value->nama_barang,
+                    'jumlah_motor' => '0',
+                    'jumlah_mobil' => $value->jumlah,
+                    'gratis_cuci_motor' => '0',
+                    'gratis_cuci_mobil' => floor($value->jumlah / 10)
+                );
+            }
+        }
+
+        // dd($pelanggan, $return);
+        echo json_encode(array('data' => $return));
+        // $return = null;
+        // foreach ($pelanggan as $key => $value) {
+        //     $return[] = array(
+        //         'nama_barang' => $value->nama_barang
+        //         // 'nama_barang' => $value->nama_barang
+        //     );
+        // }
     }
 }

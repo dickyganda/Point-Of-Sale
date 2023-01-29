@@ -14,7 +14,7 @@ class DatauserController extends Controller
     function Index()
     {
 
-        $datauser = DB::table('m_user')->get();
+        $datauser = DB::table('m_user')->where('deleted_at', '=', null)->get();
 
         return view(
             'datauser/index',
@@ -67,7 +67,9 @@ class DatauserController extends Controller
     public function deleteuser($id_user)
     {
         // menghapus data warga berdasarkan id yang dipilih
-        DB::table('m_user')->where('id_user', $id_user)->delete();
+        DB::table('m_user')->where('id_user', $id_user)->update([
+            'deleted_at' => date('Y-m-d h:i:s')
+        ]);
 
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Hapus Data'));
     }

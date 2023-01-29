@@ -17,6 +17,7 @@ class TransaksikasController extends Controller
 
         $t_kas = DB::table('t_kas')
             ->leftJoin('m_rekanan', 'm_rekanan.id_rekanan', '=', 't_kas.id_rekanan')
+            ->where('t_kas.deleted_at', '=', null)
             ->get();
 
         $dataSaldo = DB::table('t_kas')->select(DB::raw('sum(t_kas.debit) as debit, sum(t_kas.kredit) as kredit'))->first();
@@ -72,7 +73,9 @@ class TransaksikasController extends Controller
     public function deletekas($id_kas)
     {
         // menghapus data warga berdasarkan id yang dipilih
-        DB::table('t_kas')->where('id_kas', $id_kas)->delete();
+        DB::table('t_kas')->where('id_kas', $id_kas)->update([
+            'deleted_at' => date('Y-m-d h:i:s')
+        ]);
 
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Hapus Data'));
     }

@@ -20,39 +20,40 @@
                 <th>Barang</th>
                 <th>Total Motor</th>
                 <th>Total Mobil</th>
+                <th>Gratis Cuci Motor</th>
+                <th>Gratis Cuci Mobil</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($dataPelanggan as $pelanggan)
-                <tr>
-
-                    {{-- <td rowspan="{{ count($dataBarang->toArray()) + 1 }}">{{ $pelanggan->nama_pelanggan }}</td> --}}
-                    <td rowspan="{{ count($pelanggan->jumlahType()) ? count($pelanggan->jumlahType()) + 1 : 2 }}">
-                        {{ $pelanggan->nama_pelanggan }}</td>
-                </tr>
-                @php
-                    $jumlahCuci = 0;
-                @endphp
-                @foreach ($dataBarang as $barang)
-                    @if ($barang->jumlah($pelanggan->id_pelanggan))
-                        @php
-                            $type = explode(' ', $barang->nama_barang);
-                            $jumlahCuci++;
-                        @endphp
-                        <tr>
-                            <td>{{ $barang->nama_barang }}</td>
-                            <td>{{ $type[1] == 'motor' ? $barang->jumlah($pelanggan->id_pelanggan) : 0 }}</td>
-                            <td>{{ $type[1] == 'mobil' ? $barang->jumlah($pelanggan->id_pelanggan) : 0 }}</td>
-                        </tr>
-                    @endif
-                @endforeach
-
-                @if ($jumlahCuci == 0)
+                @if ($pelanggan->jumlahType($request))
                     <tr>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
+
+                        {{-- <td rowspan="{{ count($dataBarang->toArray()) + 1 }}">{{ $pelanggan->nama_pelanggan }}</td> --}}
+                        <td
+                            rowspan="{{ $pelanggan->jumlahType($request) > 1 ? $pelanggan->jumlahType($request) + 1 : 2 }}">
+                            {{ $pelanggan->nama_pelanggan }}</td>
                     </tr>
+                    @foreach ($dataBarang as $barang)
+                        @if ($barang->jumlah($pelanggan->id_pelanggan, $request))
+                            @php
+                                $type = explode(' ', $barang->nama_barang);
+                            @endphp
+                            <tr>
+                                <td>{{ $barang->nama_barang }}</td>
+                                <td>{{ $type[1] == 'motor' ? $barang->jumlah($pelanggan->id_pelanggan, $request) : 0 }}
+                                </td>
+                                <td>{{ $type[1] == 'mobil' ? $barang->jumlah($pelanggan->id_pelanggan, $request) : 0 }}
+                                </td>
+                                <td>
+                                    {{ $type[1] == 'motor' ? floor($barang->jumlah($pelanggan->id_pelanggan, $request) / 10) : 0 }}
+                                </td>
+                                <td>
+                                    {{ $type[1] == 'mobil' ? floor($barang->jumlah($pelanggan->id_pelanggan, $request) / 10) : 0 }}
+                                </td>
+                            </tr>
+                        @endif
+                    @endforeach
                 @endif
             @endforeach
         </tbody>

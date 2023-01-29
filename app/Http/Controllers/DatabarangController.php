@@ -18,6 +18,7 @@ class DatabarangController extends Controller
 
         $databarang = DB::table('m_barang')
             ->join('m_rekanan', 'm_rekanan.id_rekanan', '=', 'm_barang.id_rekanan')
+            ->where('m_barang.deleted_at', '=', null)
             ->get();
 
         $datarekanan = DB::table('m_rekanan')
@@ -94,7 +95,9 @@ class DatabarangController extends Controller
     public function deletebarang($id_barang)
     {
         // menghapus data warga berdasarkan id yang dipilih
-        DB::table('m_barang')->where('id_barang', $id_barang)->delete();
+        DB::table('m_barang')->where('id_barang', $id_barang)->update([
+            'deleted_at' => date('Y-m-d h:i:s')
+        ]);
 
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Hapus Data'));
     }

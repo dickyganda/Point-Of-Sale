@@ -180,8 +180,10 @@
                                 </tfoot>
 
                             </table>
-                            <a href="/transaksipenjualan/closingpenjualan" class="btn btn-danger btn-xs"><i
-                                   class="fa fa-times-circle"></i> Closing</a><br><br>
+                            <button class="btn btn-danger btn-xs" onclick="closing()"><i class="fa fa-times-circle"></i>
+                                Closing</button>
+                            {{-- <a href="/transaksipenjualan/closingpenjualan" class="btn btn-danger btn-xs"><i
+                                   class="fa fa-times-circle"></i> Closing</a><br><br> --}}
                         </div>
 
                         {{-- Modal Tambah Data --}}
@@ -305,6 +307,29 @@
                             return false;
                         }
                     );
+
+                    function closing() {
+                        min = $('#min').val();
+                        max = $('#max').val();
+
+                        $.ajax({
+                            type: 'POST',
+                            dataType: 'json',
+                            url: '/transaksipenjualan/closingpenjualan',
+                            data: {
+                                'min': min,
+                                'max': max,
+                            },
+                            success: function(data) {
+                                Swal.fire(
+                                    'Sukses!', data.reason, 'success'
+                                ).then(() => {
+                                    location.reload();
+                                });
+                            }
+                        });
+                    }
+
                     $(document).ready(function() {
                         // Create date inputs
                         minDate = new DateTime($('#min'), {

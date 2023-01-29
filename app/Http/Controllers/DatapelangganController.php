@@ -17,7 +17,7 @@ class DatapelangganController extends Controller
     {
 
         // $datapelanggan = DB::table('m_pelanggan')->get();
-        $datapelanggan = M_Pelanggan::get();
+        $datapelanggan = M_Pelanggan::where('deleted_at', '=', null)->get();
 
         // $dataCuci = M_Barang::where('nama_barang', 'like', 'cuci%')->get();
 
@@ -72,7 +72,11 @@ class DatapelangganController extends Controller
     public function deletepelanggan($id_pelanggan)
     {
         // menghapus data warga berdasarkan id yang dipilih
-        DB::table('m_pelanggan')->where('id_pelanggan', $id_pelanggan)->delete();
+        // DB::table('m_pelanggan')->where('id_pelanggan', $id_pelanggan)->delete();
+        $pelanggan = M_Pelanggan::find($id_pelanggan);
+        $pelanggan->update([
+            'deleted_at' => date('Y-m-d h:i:s')
+        ]);
 
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Hapus Data'));
     }

@@ -144,10 +144,10 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/report/pelanggan"
-                               class="nav-link {{ request()->is('datarekanan/index') ? 'active' : ' ' }}">
+                            <a href="/report/cuci"
+                               class="nav-link {{ request()->is('report/cuci') ? 'active' : ' ' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Report Pelanggan</p>
+                                <p>Report Cuci</p>
                             </a>
                         </li>
                     </ul>

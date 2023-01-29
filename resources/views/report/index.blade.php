@@ -80,7 +80,7 @@
                                             <td>{{ $report->qty_penjualan }}</td>
                                             <td>{{ $report->harga_barang }}</td>
                                             <td>{{ $report->tgl_transaksi_penjualan }}</td>
-                                            <td>{{ $report->total_penjualan }}</td>
+                                            <td>{{ $report->qty_penjualan * $report->harga_barang }}</td>
                                             {{-- <td>
 
                                         <a href="/transaksicuci/edittransaksicuci/{{ $cuci->id_cuci }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>
@@ -105,7 +105,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="6"> Grand Total</td>
-                                        <td>{{ $grand_total }}</td>
+                                        <td id="grandTotal">{{ $grand_total }}</td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -123,7 +123,7 @@
 
     @push('script')
         <script>
-            var minDate, maxDate;
+            var minDate, maxDate, grandTotal;
             // Custom filtering function which will search data in column four between two values
             $.fn.dataTable.ext.search.push(
                 function(settings, data, dataIndex) {
@@ -150,6 +150,14 @@
                     format: 'DD-MM-YYYY'
                 });
                 var table = $('#dt-basic-example').DataTable({
+                    drawCallback: function() {
+                        var api = this.api();
+                        $('#grandTotal').html(api.column(6, {
+                            page: 'current'
+                        }).data().reduce(function(acc, val) {
+                            return parseInt(acc) + parseInt(val);
+                        }, 0));
+                    },
                     // dom: 'Bfrtip'
                     // , buttons: [
                     //     'excel', 

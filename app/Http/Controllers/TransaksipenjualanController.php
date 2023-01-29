@@ -20,6 +20,10 @@ class TransaksipenjualanController extends Controller
     {
         // $dt_penjualan = DT_Penjualan::orderBy('tgl_transaksi_penjualan', 'DESC')->get();
         $t_penjualan = T_Penjualan::latest()
+            ->join('dt_penjualan', 'dt_penjualan.id_t_penjualan', 't_penjualan.id_penjualan')
+            ->where('dt_penjualan.deleted_at', '=', null)
+            ->select('t_penjualan.*', DB::raw('count(dt_penjualan.id_dt_penjualan) as jumlah_dt'))
+            ->groupBy('dt_penjualan.id_t_penjualan', 't_penjualan.id_penjualan', 't_penjualan.id_pelanggan', 't_penjualan.no_nota', 't_penjualan.no_meja', 't_penjualan.status_closing', 't_penjualan.created_at', 't_penjualan.updated_at')
             ->get();
 
         // dd($t_penjualan);
@@ -152,14 +156,16 @@ class TransaksipenjualanController extends Controller
         // menghapus data warga berdasarkan id yang dipilih
         $dt_penjualan = DB::table('dt_penjualan')->where('id_dt_penjualan', $id_dt_penjualan);
         $id_penjualan = $dt_penjualan->first('id_t_penjualan');
-        $dt_penjualan->delete();
+        $dt_penjualan->update([
+            'deleted_at' => date('Y-m-d h:i:s')
+        ]);
 
-        $penjualan = DT_Penjualan::where('id_t_penjualan', $id_penjualan->id_t_penjualan)->count();
-        // dd($penjualan);
+        // $penjualan = DT_Penjualan::where('id_t_penjualan', $id_penjualan->id_t_penjualan)->count();
+        // // dd($penjualan);
 
-        if (!$penjualan) {
-            DB::table('t_penjualan')->where('id_penjualan', $id_penjualan->id_t_penjualan)->delete();
-        }
+        // if (!$penjualan) {
+        //     DB::table('t_penjualan')->where('id_penjualan', $id_penjualan->id_t_penjualan)->delete();
+        // }
 
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Hapus Data'));
     }
@@ -190,17 +196,26 @@ class TransaksipenjualanController extends Controller
         ]);
     }
 
-    public function closingpenjualan()
+    public function closingpenjualan(Request $request)
     {
+        $min = date('Y-m-d', strtotime($request->min));
+        $max = date('Y-m-d', strtotime($request->max . '+ 24 hours'));
         // menghapus data warga berdasarkan id yang dipilih
-        $dataClosing = DB::table('t_penjualan')->where('status_closing', '0');
+        // $dataClosing = DB::table('t_penjualan')->where('status_closing', '0');
+        $dataClosing = T_Penjualan::latest()->where('status_closing', '0')->whereBetween('created_at', [$min, $max]);
+        // ->join('dt_penjualan', 'dt_penjualan.id_t_penjualan', 't_penjualan.id_penjualan')
+        // ->where('dt_penjualan.deleted_at', '=', null)
+        // ->select('t_penjualan.*', DB::raw('count(dt_penjualan.id_dt_penjualan) as jumlah_dt'), DB::raw('sum(total_penjualan) as totalClosing'))
+        // ->groupBy('dt_penjualan.id_t_penjualan', 't_penjualan.id_penjualan', 't_penjualan.id_pelanggan', 't_penjualan.no_nota', 't_penjualan.no_meja', 't_penjualan.status_closing', 't_penjualan.created_at', 't_penjualan.updated_at');
+        // ->get();
 
         $totalClosing = $dataClosing->join('dt_penjualan', 'dt_penjualan.id_t_penjualan', 't_penjualan.id_penjualan')
+            ->where('dt_penjualan.deleted_at', '=', null)
             ->sum('total_penjualan');
 
         $debit = $totalClosing * 5 / 100;
         // dd($totalClosing, $debit);
-
+        // dd($dataClosing->get(), $min, $max);
         $dataClosing->update([
             'status_closing' => 1,
             //     'total_penjualan' => $request->qty_penjualan * $databarang->harga_barang,
@@ -212,7 +227,8 @@ class TransaksipenjualanController extends Controller
             'keterangan' => 'Kas Masuk'
         ]);
 
-        return redirect('/transaksipenjualan/index');
+        return response()->json(array('status' => 'success', 'reason' => 'Sukses Closing Data'));
+        // return redirect('/transaksipenjualan/index');
         // view('/transaksipenjualan/index', [
         //     'detailPenjualan' => $detailPenjualan,
         // ]);
