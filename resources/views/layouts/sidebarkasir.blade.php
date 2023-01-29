@@ -111,15 +111,15 @@
                     </p>
                 </a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a href="/closing/index" class="nav-link {{ (request()->is('closing/index')) ? 'active' : ' ' }}">
-                    <i class="nav-icon fas fa-th"></i>
-                    <p>
-                        Closing
-                        {{-- <span class="right badge badge-danger">New</span> --}}
-                    </p>
-                </a>
-            </li>
+            <i class="nav-icon fas fa-th"></i>
+            <p>
+                Closing
+
+            </p>
+            </a>
+            </li> --}}
             <li class="nav-item">
                 <a href="/report/index" class="nav-link {{ (request()->is('report/index')) ? 'active' : ' ' }}">
                     <i class="nav-icon fas fa-th"></i>

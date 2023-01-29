@@ -26,6 +26,10 @@ class TransaksipenjualanController extends Controller
             ->groupBy('dt_penjualan.id_t_penjualan', 't_penjualan.id_penjualan', 't_penjualan.id_pelanggan', 't_penjualan.no_nota', 't_penjualan.no_meja', 't_penjualan.status_closing', 't_penjualan.created_at', 't_penjualan.updated_at')
             ->get();
 
+        $grand_total = DT_Penjualan::selectRaw('sum(total_penjualan) as total')
+            ->whereDate('tgl_transaksi_penjualan', Date('Y-m-d'))
+            ->first()->total;
+
         // dd($t_penjualan);
         // ->join('m_barang', 'm_barang.id_barang', '=', 't_penjualan.id_barang')
 
@@ -37,7 +41,7 @@ class TransaksipenjualanController extends Controller
             'transaksipenjualan/index',
             [
                 't_penjualan' => $t_penjualan,
-                // 't_cart' => $t_cart,
+                'grand_total' => $grand_total,
                 'databarang' => $databarang,
                 'datapelanggan' => $datapelanggan,
 

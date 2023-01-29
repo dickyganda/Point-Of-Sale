@@ -40,7 +40,7 @@ Data Master User
                             <tr>
                                 <th>No.</th>
                                 <th>Nama</th>
-                                <th>Password</th>
+                                {{-- <th>Password</th> --}}
                                 <th>Level</th>
                                 <th>Tgl Edit</th>
                                 <th>Aksi</th>
@@ -53,7 +53,7 @@ Data Master User
                             <tr>
                                 <td>{{ $i++ }}</td>
                                 <td>{{ $user->nama_user }}</td>
-                                <td>{{ $user->password_user }}</td>
+                                {{-- <td>{{ $user->password_user }}</td> --}}
                                 <td>{{ $user->level_user }}</td>
                                 <td>{{ $user->tgl_edit_user }}</td>
                                 <td>
@@ -69,7 +69,7 @@ Data Master User
                             <tr>
                                 <th>No.</th>
                                 <th>Nama</th>
-                                <th>Password</th>
+                                {{-- <th>Password</th> --}}
                                 <th>Level</th>
                                 <th>Tgl Edit</th>
                                 <th>Aksi</th>
