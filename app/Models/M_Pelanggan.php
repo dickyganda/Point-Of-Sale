@@ -50,6 +50,23 @@ class M_Pelanggan extends Model
         return $jmlCuci % 10;
     }
 
+    public function totalCuciMotor($request)
+    {
+        $min = isset($request->min) && $request->min != null ? date('Y-m-d', strtotime($request->min)) : date('Y-m-d');
+        $max = isset($request->max) && $request->max != null ? date('Y-m-d', strtotime($request->max)) : date('Y-m-d');
+
+        $jmlCuci = $this->belongsTo(T_Penjualan::class, 'id_pelanggan', 'id_pelanggan')
+            ->join('dt_penjualan', 't_penjualan.id_penjualan', 'dt_penjualan.id_t_penjualan')
+            ->join('m_barang', 'dt_penjualan.id_barang', 'm_barang.id_barang')
+            ->whereBetween('dt_penjualan.tgl_transaksi_penjualan', [$min, $max])
+            ->select('m_barang.nama_barang', 'dt_penjualan.qty_penjualan')
+            ->where('m_barang.nama_barang', 'like', '%motor%')
+            ->sum('dt_penjualan.qty_penjualan');
+        // ->get();
+
+        return $jmlCuci;
+    }
+
     public function jumlahCuciMobil()
     {
         $jmlCuci = $this->belongsTo(T_Penjualan::class, 'id_pelanggan', 'id_pelanggan')
@@ -61,5 +78,22 @@ class M_Pelanggan extends Model
         // ->get();
 
         return $jmlCuci % 10;
+    }
+
+    public function totalCuciMobil($request)
+    {
+        $min = isset($request->min) && $request->min != null ? date('Y-m-d', strtotime($request->min)) : date('Y-m-d');
+        $max = isset($request->max) && $request->max != null ? date('Y-m-d', strtotime($request->max)) : date('Y-m-d');
+
+        $jmlCuci = $this->belongsTo(T_Penjualan::class, 'id_pelanggan', 'id_pelanggan')
+            ->join('dt_penjualan', 't_penjualan.id_penjualan', 'dt_penjualan.id_t_penjualan')
+            ->join('m_barang', 'dt_penjualan.id_barang', 'm_barang.id_barang')
+            ->whereBetween('dt_penjualan.tgl_transaksi_penjualan', [$min, $max])
+            ->select('m_barang.nama_barang', 'dt_penjualan.qty_penjualan')
+            ->where('m_barang.nama_barang', 'like', '%mobil%')
+            ->sum('dt_penjualan.qty_penjualan');
+        // ->get();
+
+        return $jmlCuci;
     }
 }

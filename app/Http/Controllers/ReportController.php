@@ -118,6 +118,31 @@ class ReportController extends Controller
         $min = isset($request->min) && $request->min != null ? date('Y-m-d', strtotime($request->min)) : date('Y-m-d');
         $max = isset($request->max) && $request->max != null ? date('Y-m-d', strtotime($request->max)) : date('Y-m-d');
 
+        $pelanggan = M_Pelanggan::get();
+
+
+        $return = null;
+        foreach ($pelanggan as $key => $value) {
+            // dd($value->totalCuciMotor());
+            if ($value->totalCuciMotor($request) || $value->totalCuciMobil($request)) {
+                $return[] = array(
+                    'nama_pelanggan' => $value->nama_pelanggan,
+                    'cuci_motor' => $value->totalCuciMotor($request),
+                    'cuci_mobil' => $value->totalCuciMobil($request),
+                    'gratis_cuci_motor' => floor($value->totalCuciMotor($request) / 10),
+                    'gratis_cuci_mobil' => floor($value->totalCuciMobil($request) / 10),
+                );
+            }
+        }
+
+        echo json_encode(array('data' => $return));
+    }
+
+    public function data1(Request $request)
+    {
+        $min = isset($request->min) && $request->min != null ? date('Y-m-d', strtotime($request->min)) : date('Y-m-d');
+        $max = isset($request->max) && $request->max != null ? date('Y-m-d', strtotime($request->max)) : date('Y-m-d');
+
         $pelanggan = M_Pelanggan::join('t_penjualan', 't_penjualan.id_pelanggan', 'm_pelanggan.id_pelanggan')
             ->join('dt_penjualan', 'dt_penjualan.id_t_penjualan', 't_penjualan.id_penjualan')
             ->join('m_barang', 'm_barang.id_barang', 'dt_penjualan.id_barang')
@@ -154,14 +179,6 @@ class ReportController extends Controller
             }
         }
 
-        // dd($pelanggan, $return);
         echo json_encode(array('data' => $return));
-        // $return = null;
-        // foreach ($pelanggan as $key => $value) {
-        //     $return[] = array(
-        //         'nama_barang' => $value->nama_barang
-        //         // 'nama_barang' => $value->nama_barang
-        //     );
-        // }
     }
 }

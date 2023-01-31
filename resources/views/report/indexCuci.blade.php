@@ -64,7 +64,7 @@
                                 <thead class="thead-dark">
                                     <tr>
                                         <th>Pelanggan</th>
-                                        <th>Barang</th>
+                                        {{-- <th>Barang</th> --}}
                                         <th>Total Motor</th>
                                         <th>Total Mobil</th>
                                         <th>Gratis Cuci Motor</th>
@@ -117,13 +117,10 @@
                         "data": "nama_pelanggan"
                     },
                     {
-                        "data": "nama_barang"
+                        "data": "cuci_motor"
                     },
                     {
-                        "data": "jumlah_motor"
-                    },
-                    {
-                        "data": "jumlah_mobil"
+                        "data": "cuci_mobil"
                     },
                     {
                         "data": "gratis_cuci_motor"
@@ -132,6 +129,25 @@
                         "data": "gratis_cuci_mobil"
                     },
                 ],
+                // "columns": [{
+                //         "data": "nama_pelanggan"
+                //     },
+                //     {
+                //         "data": "nama_barang"
+                //     },
+                //     {
+                //         "data": "jumlah_motor"
+                //     },
+                //     {
+                //         "data": "jumlah_mobil"
+                //     },
+                //     {
+                //         "data": "gratis_cuci_motor"
+                //     },
+                //     {
+                //         "data": "gratis_cuci_mobil"
+                //     },
+                // ],
             });
 
             function filter() {
