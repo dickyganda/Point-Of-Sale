@@ -94,15 +94,6 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="/transaksicuci/index" class="nav-link {{ (request()->is('transaksicuci/index')) ? 'active' : ' ' }}">
-                    <i class="nav-icon fas fa-th"></i>
-                    <p>
-                        Transaksi Cuci
-                        {{-- <span class="right badge badge-danger">New</span> --}}
-                    </p>
-                </a>
-            </li>
-            <li class="nav-item">
                 <a href="/transaksikas/index" class="nav-link {{ (request()->is('transaksikas/index')) ? 'active' : ' ' }}">
                     <i class="nav-icon fas fa-th"></i>
                     <p>
@@ -120,14 +111,28 @@
             </p>
             </a>
             </li> --}}
-            <li class="nav-item">
-                <a href="/report/index" class="nav-link {{ (request()->is('report/index')) ? 'active' : ' ' }}">
-                    <i class="nav-icon fas fa-th"></i>
+            <li class="nav-item menu-open">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-database"></i>
                     <p>
                         Report
-                        {{-- <span class="right badge badge-danger">New</span> --}}
+                        <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="/report/index" class="nav-link {{ request()->is('report/index') ? 'active' : ' ' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Report Penjualan</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/report/cuci" class="nav-link {{ request()->is('report/cuci') ? 'active' : ' ' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Report Cuci</p>
+                        </a>
+                    </li>
+                </ul>
             </li>
             </ul>
         </nav>

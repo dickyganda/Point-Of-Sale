@@ -33,7 +33,8 @@ class TransaksipenjualanController extends Controller
         // dd($t_penjualan);
         // ->join('m_barang', 'm_barang.id_barang', '=', 't_penjualan.id_barang')
 
-        $databarang = DB::table('m_barang')->get();
+        $databarang = DB::table('m_barang')
+            ->where('deleted_at', '=', null)->get();
 
         $datapelanggan = DB::table('m_pelanggan')->get();
 

@@ -365,15 +365,9 @@ Transaksi Penjualan
                 }
 
                 $(document).ready(function() {
-                    $('#rt').select2({
-                        placeholder: "Pilih RT"
+                    $('#id_barang').select2({
+                        placeholder: "Pilih Item"
 
-                    });
-                });
-
-                $(document).ready(function() {
-                    $('#status_pelanggan').select2({
-                        placeholder: "Pilih Status"
                     });
                 });
 

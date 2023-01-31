@@ -64,17 +64,7 @@ Data Master Barang
                                 </tr>
                                 @endforeach
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Nama Barang</th>
-                                    <th>Rekanan</th>
-                                    <th>Harga</th>
-                                    <th>Update</th>
-                                    <th>Aksi</th>
 
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
 

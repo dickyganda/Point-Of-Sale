@@ -60,8 +60,8 @@ Data Master Pelanggan
                                     <th>Alamat</th>
                                     <th>Telepon</th>
                                     <th>Status</th>
-                                    <th>Cuci Motor</th>
-                                    <th>Cuci Mobil</th>
+                                    {{-- <th>Cuci Motor</th>
+                                    <th>Cuci Mobil</th> --}}
                                     <th>Tgl Add</th>
                                     <th>Aksi</th>
 
@@ -81,8 +81,8 @@ Data Master Pelanggan
                                     @else
                                     <td><span class="badge badge-danger">Tidak Aktif</span></td>
                                     @endif
-                                    <td>{{ $pelanggan->jumlahCuciMotor() }}</td>
-                                    <td>{{ $pelanggan->jumlahCuciMobil() }}</td>
+                                    {{-- <td>{{ $pelanggan->jumlahCuciMotor() }}</td>
+                                    <td>{{ $pelanggan->jumlahCuciMobil() }}</td> --}}
                                     {{-- <td>
                                                 <table style="width: 100%; height: 100%">
                                                     <tbody>
@@ -108,19 +108,7 @@ Data Master Pelanggan
                         </tr>
                         @endforeach
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nama</th>
-                                <th>Alamat</th>
-                                <th>Telepon</th>
-                                <th>Status</th>
-                                <th>jumlah Cuci</th>
-                                <th>Tgl Add</th>
-                                <th>Aksi</th>
 
-                            </tr>
-                        </tfoot>
                         </table>
                     </div>
 

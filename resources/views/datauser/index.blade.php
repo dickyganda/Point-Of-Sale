@@ -65,17 +65,7 @@ Data Master User
                             </tr>
                             @endforeach
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>No.</th>
-                                <th>Nama</th>
-                                {{-- <th>Password</th> --}}
-                                <th>Level</th>
-                                <th>Tgl Edit</th>
-                                <th>Aksi</th>
 
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
 

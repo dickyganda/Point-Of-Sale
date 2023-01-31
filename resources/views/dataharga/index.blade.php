@@ -83,18 +83,7 @@ Data Master Harga
                                         </tr>
                                         @endforeach
                                     </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>No.</th>
-                                            <th>Nama Barang</th>
-                                            <th>Harga</th>
-                                            <th>Status</th>
-                                            <th>Rekanan</th>
-                                            <th>Update</th>
-                                            <th>Aksi</th>
 
-                                        </tr>
-                                    </tfoot>
                                 </table>
                     </div>
 

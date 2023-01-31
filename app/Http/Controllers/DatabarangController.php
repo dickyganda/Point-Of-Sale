@@ -21,9 +21,7 @@ class DatabarangController extends Controller
             ->where('m_barang.deleted_at', '=', null)
             ->get();
 
-        $datarekanan = DB::table('m_rekanan')
-            // ->groupBy('nama_rekanan')
-            ->get();
+        $datarekanan = DB::table('m_rekanan')->where('deleted_at', '=', null)->get();
         // dd($datarekanan);
 
         $dataharga = DB::table('m_harga')

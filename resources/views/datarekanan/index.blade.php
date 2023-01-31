@@ -69,17 +69,7 @@ Data Master Rekanan
                             </tr>
                             @endforeach
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>No.</th>
-                                <th>Nama</th>
-                                <th>Alamat</th>
-                                <th>Telepon</th>
-                                <th>Email</th>
-                                <th>Aksi</th>
 
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
 
@@ -104,15 +94,15 @@ Data Master Rekanan
                                     </div>
 
                                     <div class="form-group">
-                                        <input type="textarea" name="alamat_rekanan" required="required" class="form-control form-control-sm" placeholder="Alamat">
+                                        <input type="textarea" name="alamat_rekanan" class="form-control form-control-sm" placeholder="Alamat">
                                     </div>
 
                                     <div class="form-group">
-                                        <input type="text" name="no_telepon_rekanan" required="required" class="form-control form-control-sm" placeholder="Telepon">
+                                        <input type="text" name="no_telepon_rekanan" class="form-control form-control-sm" placeholder="Telepon">
                                     </div>
 
                                     <div class="form-group">
-                                        <input type="email" name="email_rekanan" required="required" class="form-control form-control-sm" placeholder="Email">
+                                        <input type="email" name="email_rekanan" class="form-control form-control-sm" placeholder="Email">
                                     </div>
 
                                     <br>

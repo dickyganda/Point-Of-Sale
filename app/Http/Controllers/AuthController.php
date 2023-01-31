@@ -31,6 +31,7 @@ class AuthController extends Controller
         $query = DB::table('m_user')
             ->where('nama_user', $nama_user)
             ->where('password_user', md5($password_user))
+            ->where('status_user', '=', '1')
             ->first();
         if (empty($query)) {
             return response()->json(array('status' => 'failed', 'reason' => 'data tidak ada'));

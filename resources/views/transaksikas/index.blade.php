@@ -71,27 +71,16 @@ Data Transaksi Kas
                                     <td>{{ $kas->nama_rekanan }}</td>
                                     <td>{{ $kas->keterangan }}</td>
                                     <td>{{ $kas->tgl_kas }}</td>
-                                    <td>
+                                    {{-- <td>
 
-                                        {{-- <a href="/dataharga/editharga/{{ $harga->id_harga }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a> --}}
+                                        <a href="/dataharga/editharga/{{ $harga->id_harga }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>
 
-                                        {{-- <a href="#" onclick="deletekas({{ $kas->id_kas }})" title="Hapus"
-                                        class="btn btn-danger btn-xs" role="button"><i class="fas fa-trash"></i></a> --}}
-                                    </td>
+                                    <a href="#" onclick="deletekas({{ $kas->id_kas }})" title="Hapus" class="btn btn-danger btn-xs" role="button"><i class="fas fa-trash"></i></a>
+                                    </td> --}}
                                 </tr>
                                 @endforeach
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Debit</th>
-                                    <th>kredit</th>
-                                    <th>Rekanan</th>
-                                    <th>Ket</th>
-                                    <th>Tgl Kas</th>
-                                    {{-- <th>Aksi</th> --}}
-                                </tr>
-                            </tfoot>
+
                         </table>
                     </div>
 

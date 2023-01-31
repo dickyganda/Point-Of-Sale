@@ -31,8 +31,8 @@ class DatauserController extends Controller
         $add = new M_User();
         $add->id_user = $request->input('id_user');
         $add->nama_user = $request->input('nama_user');
-        $add->password_user = $request->input('password_user');
-        $add->level_user = md5($request->input('level_user'));
+        $add->password_user = md5($request->input('password_user'));
+        $add->level_user = $request->input('level_user');
         $add->status_user = 1;
         $add->tgl_edit_user = Date('Y-m-d');
         $add->save();
@@ -68,7 +68,8 @@ class DatauserController extends Controller
     {
         // menghapus data warga berdasarkan id yang dipilih
         DB::table('m_user')->where('id_user', $id_user)->update([
-            'deleted_at' => date('Y-m-d h:i:s')
+            'deleted_at' => date('Y-m-d h:i:s'),
+            'status_user' => 0
         ]);
 
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Hapus Data'));
