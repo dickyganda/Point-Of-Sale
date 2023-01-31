@@ -77,10 +77,12 @@ class DatabarangController extends Controller
             'tgl_edit_harga' => Date('Y-m-d')
         ]);
 
+        $barang = DB::table('m_barang')->where('id_barang', $request->id_barang)->first();
+
         $add = new M_Harga;
         $add->id_harga = $request->id_harga;
         $add->id_barang = $request->id_barang;
-        $add->id_rekanan = $request->id_rekanan;
+        $add->id_rekanan = $barang->id_rekanan;
         $add->harga_satuan = $request->harga_barang;
         $add->status_harga = 1;
         $add->tgl_edit_harga = Date('Y-m-d');
