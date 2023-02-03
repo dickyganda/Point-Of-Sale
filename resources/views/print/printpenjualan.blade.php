@@ -84,12 +84,12 @@
                     <img src="{{ asset('assets/img/logo1.jpeg') }}" alt="Logo">
                     <p style="margin-bottom: 0;font-size:.8rem">Godong Jati Car Wash & Kuliner</p>
                 </div>
-                <p style="margin-bottom: 0;font-size:.8rem">No. Nota : {{ $penjualan->no_nota }}</p>
+                <p style="margin-bottom: 0;font-size:.8rem"> {{ $penjualan->no_nota }}</p>
                 <div style="display: flex;justify-content: space-between">
-                    <p style="margin-bottom: 10px; margin-top:0px;font-size:.8rem">Nama Pelanggan :
+                    <p style="margin-bottom: 10px; margin-top:0px;font-size:.8rem">
                         {{ isset($penjualan->pelanggan()->nama_pelanggan) ? $penjualan->pelanggan()->nama_pelanggan : '' }}
                     </p>
-                    <p style="margin-bottom: 10px; margin-top:0px;font-size:.8rem">No. Meja : {{ $penjualan->no_meja }}
+                    <p style="margin-bottom: 10px; margin-top:0px;font-size:.8rem"> {{ $penjualan->no_meja }}
                     </p>
                 </div>
                 @foreach ($detailPenjualan as $item)

@@ -53,7 +53,7 @@ Data Master Barang
                                     <td>{{ $i++ }}</td>
                                     <td>{{ $barang->nama_barang }}</td>
                                     <td>{{ $barang->nama_rekanan }}</td>
-                                    <td>{{ $barang->harga_barang }}</td>
+                                    <td align="right"> @currency($barang->harga_barang) </td>
                                     <td>{{ $barang->tgl_edit_barang }}</td>
                                     <td>
 

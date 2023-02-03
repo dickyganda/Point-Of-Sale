@@ -37,6 +37,8 @@ class AuthController extends Controller
             return response()->json(array('status' => 'failed', 'reason' => 'data tidak ada'));
         }
         Session::put('level_user', $query->level_user);
+
+        // dd($query->nama_user);
         return response()->json(array('status' => 'success', 'reason' => 'sukses'));
 
         // if($request->Session()->has('email', 'password'))

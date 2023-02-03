@@ -39,7 +39,7 @@ Dashboard
                 <div class="small-box bg-info">
                     <div class="inner">
                         <p>Penjualan Hari Ini</p>
-                        <h3>{{ $total_penjualan_day }}</h3>
+                        <h3>@currency($total_penjualan_day)</h3>
 
                     </div>
                     <div class="icon">
@@ -54,7 +54,7 @@ Dashboard
                 <div class="small-box bg-success">
                     <div class="inner">
                         <p>Penjualan Bulan Ini</p>
-                        <h3> {{ $total_penjualan_month }}</h3>
+                        <h3>@currency($total_penjualan_month)</h3>
 
                     </div>
                     <div class="icon">

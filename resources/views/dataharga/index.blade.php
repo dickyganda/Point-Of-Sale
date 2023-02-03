@@ -65,7 +65,7 @@ Data Master Harga
                                         <tr>
                                             <td>{{ $i++ }}</td>
                                             <td>{{ $harga->nama_barang }}</td>
-                                            <td>{{ $harga->harga_satuan }}</td>
+                                            <td align="right"> @currency($harga->harga_satuan)</td>
                                             @if($harga->status_harga == '1')
                                             <td><span class="badge badge-success">Aktif</span></td>
                                             @else
