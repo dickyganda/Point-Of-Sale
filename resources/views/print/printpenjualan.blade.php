@@ -10,8 +10,8 @@
 
     <style>
         .page {
-            width: 80mm;
-            height: 80mm;
+            width: 58mm;
+
         }
 
         img {
