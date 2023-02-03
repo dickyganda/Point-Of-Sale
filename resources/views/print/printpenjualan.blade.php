@@ -39,7 +39,7 @@
             font-weight: normal;
             font-size: .7rem;
             color: #666;
-            background: #eee;
+            background: #ffffff;
         }
 
         td {
@@ -48,8 +48,8 @@
 
         @media print {
             .page {
-                width: 80mm;
-                height: 80mm;
+                width: 58mm;
+
             }
 
             .hidden-print {
