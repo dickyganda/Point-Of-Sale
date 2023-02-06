@@ -10,8 +10,7 @@
 
     <style>
         .page {
-            width: 58mm;
-
+            width: 80mm;
         }
 
         img {
@@ -37,7 +36,7 @@
 
         th {
             font-weight: normal;
-            font-size: .7rem;
+            font-size: .6rem;
             color: #666;
             background: #ffffff;
         }
@@ -49,7 +48,6 @@
         @media print {
             .page {
                 width: 58mm;
-
             }
 
             .hidden-print {
@@ -70,31 +68,33 @@
         <table>
             <thead>
                 <tr>
-                    <th>No</th>
-                    <th>Nama Barang</th>
-                    <th>Qty</th>
-                    <th>Harga</th>
+                    {{-- <th>N0</th> --}}
+                    <th>ITEM</th>
+                    <th>QTY</th>
+                    <th>PRICE</th>
                 </tr>
             </thead>
             <tbody>
                 @php
                 $totalBayar = 0;
                 @endphp
-                <div style="display: flex;justify-content: space-between">
-                    <img src="{{ asset('assets/img/logo1.jpeg') }}" alt="Logo">
-                    <p style="margin-bottom: 0;font-size:.8rem">Godong Jati Car Wash & Kuliner</p>
+                <div style="display: flex;font-size:.8rem; justify-content:center;">
+                    <img src="{{ asset('assets/img/logo1.jpeg') }}" alt="Logo">&nbsp;
+                    <p style="font-size:.8rem">Godong Jati</p>
+
                 </div>
-                <p style="margin-bottom: 0;font-size:.8rem"> {{ $penjualan->no_nota }}</p>
+                <p style="font-size:.6rem;text-align: center; ">Jl. KH. Achmad Dahlan No. 73 Lamongan</p>
+                <p style="margin-bottom: 0;font-size:.6rem"> {{ $penjualan->no_nota }}</p>
                 <div style="display: flex;justify-content: space-between">
-                    <p style="margin-bottom: 10px; margin-top:0px;font-size:.8rem">
+                    <p style="margin-bottom: 10px; margin-top:0px;font-size:.6rem">
                         {{ isset($penjualan->pelanggan()->nama_pelanggan) ? $penjualan->pelanggan()->nama_pelanggan : '' }}
                     </p>
-                    <p style="margin-bottom: 10px; margin-top:0px;font-size:.8rem"> {{ $penjualan->no_meja }}
+                    <p style="margin-bottom: 10px; margin-top:0px;font-size:.6rem"> {{ $penjualan->no_meja }}
                     </p>
                 </div>
                 @foreach ($detailPenjualan as $item)
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
+                    {{-- <td>{{ $loop->iteration }}</td> --}}
                     <td style="text-align:left;">{{ $item->nama_barang }}</td>
                     <td>{{ $item->qty_penjualan }}</td>
                     <td style="text-align:right;">{{ $item->total_penjualan }}</td>
@@ -104,9 +104,14 @@
                 @endphp
                 @endforeach
                 <tr>
-                    <td colspan="3">Total Harga</td>
+                    <td colspan="2" style="text-align:left;">Total Harga</td>
                     <td style="text-align:right;">{{ $totalBayar }}</td>
                 </tr>
+                <tr>
+                    <td colspan="3">MATUR SUWUN</td>
+
+                </tr>
+
             </tbody>
         </table>
     </div>
