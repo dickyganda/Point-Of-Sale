@@ -155,6 +155,7 @@ Transaksi Penjualan
                                 <tr>
                                     <td colspan="7"> Grand Total</td>
                                     <td id="grandTotal" align="right"> @currency($grand_total)</td>
+                                    <td colspan="3"></td>
                                 </tr>
                             </tfoot>
 

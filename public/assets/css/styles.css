@@ -55,7 +55,7 @@ body {
 .avatar {
   margin: 0 auto 16px;
   border-radius: 50%;
-  background: linear-gradient(-45deg, #157ae1, #c7a1ff);
+  background: #161616;
   padding: 2px;
   width: 120px;
   height: 120px;
@@ -66,7 +66,6 @@ body {
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
-
   border: 4px solid #161616;
 }
 
@@ -74,10 +73,11 @@ body {
   font-size: 36px;
   font-weight: 500;
   margin: 0 0 4px;
+  color: #ffffff;
 }
 
 .login > h3 {
-  color: rgba(255, 255, 255, 0.38);
+  color: #ffffff;
   margin: 0 0 30px;
   font-weight: 500;
   font-size: 16px;
@@ -101,7 +101,7 @@ body {
   top: 50%;
   left: 16px;
   translate: 0 -50%;
-  color: rgba(255, 255, 255, 0.38);
+  color: #157ae1;
 }
 
 .login-form input,
@@ -116,7 +116,7 @@ body {
 }
 
 .login-form input {
-  background: transparent;
+  background-color: #ffffff;
   border: 2px solid rgba(255, 255, 255, 0.1);
   font-size: 18px;
   padding: 0 20px 0 50px;
