@@ -161,8 +161,8 @@ Transaksi Penjualan
                             </tfoot>
 
                         </table>
-                        <button class="btn btn-danger btn-xs" onclick="closing()"><i class="fa fa-times-circle"></i>
-                            Closing</button>
+                        {{-- <button class="btn btn-danger btn-xs" onclick="closing()"><i class="fa fa-times-circle"></i>
+                            Closing</button> --}}
                         {{-- <a href="/transaksipenjualan/closingpenjualan" class="btn btn-danger btn-xs"><i
                                    class="fa fa-times-circle"></i> Closing</a><br><br> --}}
                     </div>
@@ -225,10 +225,10 @@ Transaksi Penjualan
                                         </table>
                                         <table>
                                             <tr>
-                                                <td><input type="button" value="Add Row" onclick="addRows()" /></td>
-                                                <td><input type="button" value="Delete Row" onclick="deleteRows()" />
+                                                <td><input type="button" class="btn btn-primary btn-xs" value="Add Row" onclick="addRows()" /></td>
+                                                <td><input type="button" class="btn btn-danger btn-xs" value="Delete Row" onclick="deleteRows()" />
                                                 </td>
-                                                <td><input type="submit" value="Submit" /></td>
+                                                <td><input type="submit" class="btn btn-success btn-xs" value="Submit" /></td>
                                             </tr>
                                         </table>
                                         <br>
@@ -238,7 +238,7 @@ Transaksi Penjualan
 
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    {{-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> --}}
                                 </div>
 
                             </div><!-- /.card -->
