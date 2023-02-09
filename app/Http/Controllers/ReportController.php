@@ -127,6 +127,8 @@ class ReportController extends Controller
             if ($value->totalCuciMotor($request) || $value->totalCuciMobil($request)) {
                 $return[] = array(
                     'nama_pelanggan' => $value->nama_pelanggan,
+                    'total_motor' => $value->totalMotor($request),
+                    'total_mobil' => $value->totalMobil($request),
                     'cuci_motor' => $value->totalCuciMotor($request),
                     'cuci_mobil' => $value->totalCuciMobil($request),
                     'gratis_cuci_motor' => floor($value->totalCuciMotor($request) / 10),

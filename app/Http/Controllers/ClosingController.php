@@ -54,7 +54,7 @@ class ClosingController extends Controller
                 INNER JOIN m_rekanan ON m_barang.id_rekanan = m_rekanan.id_rekanan 
             WHERE
                 dt_penjualan.deleted_at IS NULL 
-                AND dt_penjualan.tgl_transaksi_penjualan <= '2023-02-05' 
+                -- AND dt_penjualan.tgl_transaksi_penjualan <= date('Y-m-d')
                 AND t_penjualan.status_closing = '0' 
             GROUP BY
                 m_rekanan.nama_rekanan")

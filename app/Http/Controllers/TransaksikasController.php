@@ -22,6 +22,12 @@ class TransaksikasController extends Controller
 
         $dataSaldo = DB::table('t_kas')->select(DB::raw('sum(t_kas.debit) as debit, sum(t_kas.kredit) as kredit'))->first();
 
+        $last_saldo = DB::table('t_kas')
+            ->join('m_rekanan', 'm_rekanan.id_rekanan', '=', 't_kas.id_rekanan')
+            ->select('t_kas.saldo_kas')
+            ->latest('tgl_kas')
+            ->first();
+
 
         $databarang = DB::table('m_barang')->get();
 
@@ -31,6 +37,7 @@ class TransaksikasController extends Controller
             'transaksikas/index',
             [
                 'dataSaldo' => $dataSaldo,
+                'last_saldo' => $last_saldo,
                 't_kas' => $t_kas,
                 'databarang' => $databarang,
                 'datarekanan' => $datarekanan,

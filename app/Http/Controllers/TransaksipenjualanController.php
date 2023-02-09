@@ -203,11 +203,11 @@ class TransaksipenjualanController extends Controller
 
     public function closingpenjualan(Request $request)
     {
-        $min = date('Y-m-d', strtotime($request->min));
-        $max = date('Y-m-d', strtotime($request->max . '+ 24 hours'));
+        // $min = date('Y-m-d', strtotime($request->min));
+        // $max = date('Y-m-d', strtotime($request->max . '+ 24 hours'));
         // menghapus data warga berdasarkan id yang dipilih
         // $dataClosing = DB::table('t_penjualan')->where('status_closing', '0');
-        $dataClosing = T_Penjualan::latest()->where('status_closing', '0')->whereBetween('created_at', [$min, $max]);
+        $dataClosing = T_Penjualan::latest()->where('status_closing', '0');
         // ->join('dt_penjualan', 'dt_penjualan.id_t_penjualan', 't_penjualan.id_penjualan')
         // ->where('dt_penjualan.deleted_at', '=', null)
         // ->select('t_penjualan.*', DB::raw('count(dt_penjualan.id_dt_penjualan) as jumlah_dt'), DB::raw('sum(total_penjualan) as totalClosing'))
@@ -217,6 +217,19 @@ class TransaksipenjualanController extends Controller
         $totalClosing = $dataClosing->join('dt_penjualan', 'dt_penjualan.id_t_penjualan', 't_penjualan.id_penjualan')
             ->where('dt_penjualan.deleted_at', '=', null)
             ->sum('total_penjualan');
+
+        // $last_saldo = DB::table('t_kas')
+        //     ->join('m_rekanan', 'm_rekanan.id_rekanan', '=', 't_kas.id_rekanan')
+        //     ->select('t_kas.saldo_kas')
+        //     ->latest('tgl_kas')
+        //     ->first();
+        $last_saldo = DB::table('t_kas')->select(DB::raw('sum(t_kas.debit) as debit, sum(t_kas.kredit) as kredit'))
+            ->latest('tgl_kas')->first();
+        $saldo_terakhir = $last_saldo->debit - $last_saldo->kredit;
+
+        // dd($saldo_terakhir);
+        // ->where('m_pelanggan.kode_pelanggan', $request->kode_pelanggan)
+        // ->orderBy('m_pelanggan.kode_pelanggan', 'desc')
 
         $debit = $totalClosing * 5 / 100;
         // dd($totalClosing, $debit);
@@ -229,8 +242,10 @@ class TransaksipenjualanController extends Controller
         DB::table('t_kas')->insert([
             'debit' => $debit,
             'tgl_kas' => Date('Y-m-d'),
-            'keterangan' => 'Kas Masuk'
+            'keterangan' => 'Kas Masuk Closing',
+            'saldo_kas' => $saldo_terakhir + $debit,
         ]);
+        // dd($dataClosing);
 
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Closing Data'));
         // return redirect('/transaksipenjualan/index');
