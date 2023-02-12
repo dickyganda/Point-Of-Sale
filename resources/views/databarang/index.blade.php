@@ -39,11 +39,11 @@ Data Master Barang
                             <thead class="thead-dark">
                                 <tr>
                                     <th>No.</th>
-                                    <th>Nama Barang</th>
-                                    <th>Rekanan</th>
-                                    <th>Harga</th>
+                                    <th>Item</th>
+                                    <th>Partner</th>
+                                    <th>Price</th>
                                     <th>Update</th>
-                                    <th>Aksi</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody height="10px">
@@ -85,7 +85,7 @@ Data Master Barang
                                         {{ csrf_field() }}
 
                                         <div class="form-group">
-                                            <input type="text" name="nama_barang" required="required" class="form-control form-control-sm" placeholder="Nama Barang">
+                                            <input type="text" name="nama_barang" required="required" class="form-control form-control-sm" placeholder="Item">
                                         </div>
 
                                         <div class="form-group">
@@ -98,16 +98,16 @@ Data Master Barang
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="text" name="harga_barang" required="required" class="form-control form-control-sm" placeholder="Harga">
+                                            <input type="text" name="harga_barang" required="required" class="form-control form-control-sm" placeholder="Price">
                                         </div>
                                         <br>
-                                        <button class="btn btn-primary" type="submit">Tambah</button>
+                                        <button class="btn btn-primary btn-xs" type="submit"><i class="fas fa-save"></i> Save</button>
                                     </form>
                                 </div>
 
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    {{-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> --}}
                                 </div>
 
                             </div><!-- /.card -->

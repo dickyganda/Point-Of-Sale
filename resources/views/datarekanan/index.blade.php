@@ -43,11 +43,11 @@ Data Master Rekanan
                         <thead class="thead-dark">
                             <tr>
                                 <th>No.</th>
-                                <th>Nama</th>
-                                <th>Alamat</th>
-                                <th>Telepon</th>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Phone</th>
                                 <th>Email</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
 
                             </tr>
                         </thead>
@@ -90,15 +90,15 @@ Data Master Rekanan
                                     {{ csrf_field() }}
 
                                     <div class="form-group">
-                                        <input type="text" name="nama_rekanan" required="required" class="form-control form-control-sm" placeholder="Nama">
+                                        <input type="text" name="nama_rekanan" required="required" class="form-control form-control-sm" placeholder="Name">
                                     </div>
 
                                     <div class="form-group">
-                                        <input type="textarea" name="alamat_rekanan" class="form-control form-control-sm" placeholder="Alamat">
+                                        <input type="textarea" name="alamat_rekanan" class="form-control form-control-sm" placeholder="Address">
                                     </div>
 
                                     <div class="form-group">
-                                        <input type="text" name="no_telepon_rekanan" class="form-control form-control-sm" placeholder="Telepon">
+                                        <input type="text" name="no_telepon_rekanan" class="form-control form-control-sm" placeholder="Phone">
                                     </div>
 
                                     <div class="form-group">
@@ -106,13 +106,13 @@ Data Master Rekanan
                                     </div>
 
                                     <br>
-                                    <button class="btn btn-primary" type="submit">Tambah</button>
+                                    <button class="btn btn-primary btn-xs" type="submit"><i class="fas fa-save"></i> Save</button>
                                 </form>
                             </div>
 
                             <!-- Modal footer -->
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                {{-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> --}}
                             </div>
 
                         </div><!-- /.card -->

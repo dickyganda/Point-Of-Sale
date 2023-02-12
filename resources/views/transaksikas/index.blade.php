@@ -1,3 +1,4 @@
+@inject('carbon', 'Carbon\Carbon')
 @extends('layouts.main')
 
 @section('title')
@@ -33,7 +34,7 @@ Data Transaksi Kas
                 <div class="card card-primary card-outline">
                     <div class="card-body">
                         <a href="" class="btn btn-success btn-xs" title="Tambah Data Baru" role="button" data-toggle="modal" data-target="#modaltambahdata"><i class="fas fa-plus-circle"></i></a><br><br>
-                        <h4>Total Saldo Kas : @currency($dataSaldo->debit - $dataSaldo->kredit)</h4>
+                        {{-- <h4>Total Saldo Kas : @currency($dataSaldo->debit - $dataSaldo->kredit)</h4> --}}
 
                         <table border="0" cellspacing="5" cellpadding="5">
                             <tbody>
@@ -52,9 +53,9 @@ Data Transaksi Kas
                             <thead class="thead-dark">
                                 <tr>
                                     <th>No.</th>
-                                    <th>Ket</th>
-                                    <th>Rekanan</th>
-                                    <th>Tgl Kas</th>
+                                    <th>Description</th>
+                                    <th>Partner</th>
+                                    <th>Date</th>
                                     <th>Debit</th>
                                     <th>kredit</th>
                                     <th>Saldo</th>
@@ -68,8 +69,13 @@ Data Transaksi Kas
                                 <tr>
                                     <td>{{ $i++ }}</td>
                                     <td>{{ $kas->keterangan }}</td>
+                                    @if(!empty($kas->nama_rekanan))
                                     <td>{{ $kas->nama_rekanan }}</td>
-                                    <td>{{ $kas->tgl_kas }}</td>
+                                    @else
+                                    <td>Lainnya</td>
+                                    @endif
+                                    {{-- <td>{{ $kas->nama_rekanan }}</td> --}}
+                                    <td>{{ $carbon::parse($kas->tgl_kas)->format('Y-m-d') }}</td>
                                     <td align="right">@currency($kas->debit)</td>
                                     <td align="right">@currency($kas->kredit)</td>
                                     <td align="right">{{ $kas->saldo_kas }}</td>
@@ -82,6 +88,12 @@ Data Transaksi Kas
                                 </tr>
                                 @endforeach
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="6">Total Saldo</td>
+                                    <td>@currency($dataSaldo->debit - $dataSaldo->kredit)</td>
+                                </tr>
+                            </tfoot>
 
                         </table>
                     </div>
@@ -130,13 +142,13 @@ Data Transaksi Kas
                                         </div>
 
                                         <br>
-                                        <button class="btn btn-primary" type="submit">Tambah</button>
+                                        <button class="btn btn-primary btn-xs" type="submit">Tambah</button>
                                     </form>
                                 </div>
 
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    {{-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> --}}
                                 </div>
 
                             </div><!-- /.card -->

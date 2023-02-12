@@ -50,10 +50,10 @@ Data Master Harga
                                     <thead class="thead-dark">
                                         <tr>
                                             <th>No.</th>
-                                            <th>Nama Barang</th>
-                                            <th>Harga</th>
+                                            <th>Item</th>
+                                            <th>Price</th>
                                             <th>Status</th>
-                                            <th>Rekanan</th>
+                                            <th>Partner</th>
                                             <th>Update</th>
                                             <th>Aksi</th>
 

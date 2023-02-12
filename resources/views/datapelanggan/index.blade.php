@@ -56,14 +56,14 @@ Data Master Pelanggan
                                 <tr>
                                     {{-- <th>No.</th> --}}
                                     <th>ID</th>
-                                    <th>Nama</th>
-                                    <th>Alamat</th>
-                                    <th>Telepon</th>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>Phone</th>
                                     <th>Status</th>
                                     {{-- <th>Cuci Motor</th>
                                     <th>Cuci Mobil</th> --}}
                                     <th>Tgl Add</th>
-                                    <th>Aksi</th>
+                                    <th>Action</th>
 
                                 </tr>
                             </thead>
@@ -119,7 +119,7 @@ Data Master Pelanggan
 
                                 <!-- Modal Header -->
                                 <div class="modal-header">
-                                    <h4 class="modal-title">Tambah Data Pelanggan</h4>
+                                    <h4 class="modal-title">Add Pelanggan</h4>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
 
@@ -129,27 +129,27 @@ Data Master Pelanggan
                                         {{ csrf_field() }}
 
                                         <div class="form-group">
-                                            <input type="text" name="nama_pelanggan" required="required" class="form-control form-control-sm" placeholder="Nama">
+                                            <input type="text" name="nama_pelanggan" required="required" class="form-control form-control-sm" placeholder="Name">
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="textarea" name="alamat_pelanggan" required="required" class="form-control form-control-sm" placeholder="Alamat">
+                                            <input type="textarea" name="alamat_pelanggan" required="required" class="form-control form-control-sm" placeholder="Address">
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="text" name="no_telepon_pelanggan" required="required" class="form-control form-control-sm" placeholder="Telepon">
+                                            <input type="text" name="no_telepon_pelanggan" required="required" class="form-control form-control-sm" placeholder="Phone">
                                         </div>
 
                                         </td>
 
                                         <br>
-                                        <button class="btn btn-primary" type="submit">Tambah</button>
+                                        <button class="btn btn-primary btn-xs" type="submit"><i class="fas fa-save"></i> Save</button>
                                     </form>
                                 </div>
 
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    {{-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> --}}
                                 </div>
 
                             </div><!-- /.card -->

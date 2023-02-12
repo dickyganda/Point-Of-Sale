@@ -85,7 +85,7 @@ Transaksi Penjualan
                                             <tbody>
                                                 @foreach ($dt_penjualan as $item)
                                                 <tr style="background-color:unset">
-                                                    <td style="border:none; {{ $loop->last ? '' : 'border-bottom: 2px solid #dee2e6' }}">
+                                                    <td align="left" style="border:none; {{ $loop->last ? '' : 'border-bottom: 2px solid #dee2e6' }}">
                                                         {{ $item->nama_barang }}</td>
                                                 </tr>
                                                 @endforeach

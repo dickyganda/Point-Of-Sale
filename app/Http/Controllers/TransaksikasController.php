@@ -48,6 +48,9 @@ class TransaksikasController extends Controller
 
     function tambahkas(Request $request)
     {
+        $last_saldo = DB::table('t_kas')->select(DB::raw('sum(t_kas.debit) as debit, sum(t_kas.kredit) as kredit'))
+            ->latest('tgl_kas')->first();
+        $saldo_terakhir = $last_saldo->debit - $last_saldo->kredit;
 
         $add = new T_Kas;
         $add->id_kas = $request->input('id_kas');
@@ -55,9 +58,11 @@ class TransaksikasController extends Controller
         if ($request->type) {
             $add->kredit = null;
             $add->debit = $request->input('jumlah');
+            $add->saldo_kas = ($saldo_terakhir + $request->input('jumlah'));
         } else {
             $add->debit = null;
             $add->kredit = $request->input('jumlah');
+            $add->saldo_kas = ($saldo_terakhir - $request->input('jumlah'));
         }
 
         $add->keterangan = $request->input('keterangan');

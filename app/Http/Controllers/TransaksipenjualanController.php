@@ -27,10 +27,13 @@ class TransaksipenjualanController extends Controller
             ->get();
 
         $grand_total = DT_Penjualan::selectRaw('sum(total_penjualan) as total')
-            ->whereDate('tgl_transaksi_penjualan', Date('Y-m-d'))
+            ->join('t_penjualan', 't_penjualan.id_penjualan', 'dt_penjualan.id_t_penjualan')
+            // ->whereDate('tgl_transaksi_penjualan', Date('Y-m-d'))
+            ->where('t_penjualan.status_closing', '=', 0)
+            ->where('dt_penjualan.deleted_at', '=', null)
             ->first()->total;
+        // dd($grand_total);
 
-        // dd($t_penjualan);
         // ->join('m_barang', 'm_barang.id_barang', '=', 't_penjualan.id_barang')
 
         $databarang = DB::table('m_barang')
@@ -64,7 +67,8 @@ class TransaksipenjualanController extends Controller
 
         $tgl = date('d');
         $bln = date('m');
-        $nota = T_Penjualan::where('no_nota', 'like', $tgl . '.' . $bln . '%')->count() + 1;
+        $tahun = date('y');
+        $nota = T_Penjualan::where('no_nota', 'like', $tgl . '.' . $bln . '.' . $tahun . '%')->count() + 1;
         if ($nota < 10) {
             $nota = '00' . $nota;
         } else if ($nota >= 10) {
@@ -73,7 +77,7 @@ class TransaksipenjualanController extends Controller
 
         $penjualan = new T_Penjualan;
         $penjualan->id_pelanggan = $request->id_pelanggan;
-        $penjualan->no_nota =  $tgl . '.' . $bln . '.' . $nota;
+        $penjualan->no_nota =  $tgl . '.' . $bln . '.' . $tahun . '.' . $nota;
         $penjualan->no_meja = $request->no_meja;
         $penjualan->status_closing = 0;
         $penjualan->save();

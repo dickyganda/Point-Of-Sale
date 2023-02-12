@@ -39,11 +39,11 @@ Data Master User
                         <thead class="thead-dark">
                             <tr>
                                 <th>No.</th>
-                                <th>Nama</th>
+                                <th>Name</th>
                                 {{-- <th>Password</th> --}}
                                 <th>Level</th>
-                                <th>Tgl Edit</th>
-                                <th>Aksi</th>
+                                <th>Date</th>
+                                <th>Action</th>
 
                             </tr>
                         </thead>
@@ -86,7 +86,7 @@ Data Master User
                                     {{ csrf_field() }}
 
                                     <div class="form-group">
-                                        <input type="text" name="nama_user" required="required" class="form-control form-control-sm" placeholder="Nama">
+                                        <input type="text" name="nama_user" required="required" class="form-control form-control-sm" placeholder="Name">
                                     </div>
 
                                     <div class="form-group">
@@ -103,13 +103,13 @@ Data Master User
                                     </div>
 
                                     <br>
-                                    <button class="btn btn-primary" type="submit">Tambah</button>
+                                    <button class="btn btn-primary btn-xs" type="submit"><i class="fas fa-save"></i> Save</button>
                                 </form>
                             </div>
 
                             <!-- Modal footer -->
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                {{-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> --}}
                             </div>
 
                         </div><!-- /.card -->

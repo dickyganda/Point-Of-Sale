@@ -61,8 +61,8 @@ Edit User
                             <label for="tidakaktif">Tidak Aktif</label>
                             <br />
 
-                            <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Simpan</button>
-                            <a href="/datarekanan/index" class="btn btn-warning btn-sm" role="button"><i class="fas fa-arrow-alt-circle-left"></i> Kembali</a>
+                            <button class="btn btn-primary btn-xs" type="submit"><i class="fas fa-save"></i> Save</button>
+                            <a href="/datarekanan/index" class="btn btn-warning btn-xs" role="button"><i class="fas fa-arrow-alt-circle-left"></i> Back</a>
                         </form>
                         @endforeach
 
