@@ -56,26 +56,27 @@ Closing
                                     <td>{{ $i++ }}</td>
                                     <td>{{ $closing->tanggal }}</td>
                                     <td>{{ $closing->partner }}</td>
-                                    <td>{{ $closing->sum_qty }}</td>
-                                    <td>{{ $closing->sum_price }}</td>
-                                    <td>{{ $closing->sum_kas }}</td>
-                                    <td>{{ $closing->income }}</td>
+                                    <td align="right">{{ $closing->sum_qty }}</td>
+                                    <td align="right">{{ $closing->sum_price }}</td>
+                                    <td align="right">{{ $closing->sum_kas }}</td>
+                                    <td align="right">{{ $closing->income }}</td>
                                     <td>{{ $closing->status_closing }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
-                            {{-- <tfoot>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Tanggal</th>
-                                        <th>Nama Rekanan</th>
-                                        <th>Jumlah Penjualan</th>
-                                        <th>Total Penjualan</th>
-                                        <th>Kas 5%</th>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="3">Total</th>
+                                    <th style="text-align:right;"></th>
+                                    <th style="text-align:right;"></th>
+                                    <th style="text-align:right;"></th>
+                                    <th style="text-align:right;"></th>
+                                    <th style="text-align:right;"></th>
+                                    {{-- <th>Kas 5%</th>
                                         <th>Income</th>
-                                        <th>Status Closing</th>
-                                    </tr>
-                                </tfoot> --}}
+                                        <th>Status Closing</th> --}}
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
 
@@ -206,30 +207,54 @@ Closing
         // DataTables initialisation
         var table = $('#dt-basic-example').DataTable({
             dom: 'Bfrtip'
-            , buttons: [
+            , buttons: []
+            , footerCallback: function(row, data, start, end, display) {
+                var api = this.api();
 
-            , ]
-        , });
+                pageTotal3 = api
+                    .column(3, {
+                        page: 'current'
+                    })
+                    .data()
+                    .reduce(function(a, b) {
+                        return parseInt(a) + parseInt(b);
+                    }, 0);
 
-        // Refilter the table
-        $('#min, #max').on('change', function() {
-            table.draw();
-        });
-        $('#status_pelanggan').on('change', function(e) {
-            var status = $(this).val();
-            $('#status_pelanggan').val(status)
-            if (status == '1') {
-                status_pelanggan = 'Aktif'
-                console.log(status_pelanggan)
-            } else {
-                status_pelanggan = 'Tidak Aktif'
-                console.log(status_pelanggan)
+                pageTotal4 = api
+                    .column(4, {
+                        page: 'current'
+                    })
+                    .data()
+                    .reduce(function(a, b) {
+                        return parseInt(a) + parseInt(b);
+                    }, 0);
+
+                pageTotal5 = api
+                    .column(5, {
+                        page: 'current'
+                    })
+                    .data()
+                    .reduce(function(a, b) {
+                        return parseInt(a) + parseInt(b);
+                    }, 0);
+
+                pageTotal6 = api
+                    .column(6, {
+                        page: 'current'
+                    })
+                    .data()
+                    .reduce(function(a, b) {
+                        return parseInt(a) + parseInt(b);
+                    }, 0);
+
+                // Update footer
+                $(api.column(3).footer()).html(pageTotal3);
+                $(api.column(4).footer()).html(pageTotal4);
+                $(api.column(5).footer()).html(pageTotal5);
+                $(api.column(6).footer()).html(pageTotal6);
+
             }
-
-            console.log(status)
-            //dataTable.column(6).search('\\s' + status + '\\s', true, false, true).draw();
-            table.column(4).search("^" + status_pelanggan + "$", true, false).draw();
-        })
+        });
     });
 
     $("#tambahtransaksipenjualan").submit(function(event) {

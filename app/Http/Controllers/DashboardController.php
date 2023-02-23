@@ -11,6 +11,7 @@ class DashboardController extends Controller
     public function index()
     {
         $total_penjualan_day = DT_Penjualan::selectRaw('sum(total_penjualan) as total')
+            ->where('dt_penjualan.deleted_at', '=', null)
             ->whereDay('tgl_transaksi_penjualan', date('d'))
             ->first()->total;
 

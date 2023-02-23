@@ -47,7 +47,7 @@ class M_Pelanggan extends Model
             ->sum('dt_penjualan.qty_penjualan');
         // ->get();
 
-        return $jmlCuci % 10;
+        return $jmlCuci % 7;
     }
 
     public function totalCuciMotor($request)
@@ -92,7 +92,7 @@ class M_Pelanggan extends Model
             ->sum('dt_penjualan.qty_penjualan');
         // ->get();
 
-        return $jmlCuci % 10;
+        return $jmlCuci % 7;
     }
 
     public function totalCuciMobil($request)

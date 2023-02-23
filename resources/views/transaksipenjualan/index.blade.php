@@ -155,7 +155,7 @@ Transaksi Penjualan
                             <tfoot>
                                 <tr>
                                     <td colspan="7"> Grand Total</td>
-                                    <td id="grandTotal" align="right"> @currency($grand_total)</td>
+                                    <td id="grandTotalPenjualan" align="right"> @currency($grand_total)</td>
                                     <td colspan="3"></td>
                                 </tr>
                             </tfoot>
@@ -299,8 +299,17 @@ Transaksi Penjualan
                     maxDate = new DateTime($('#max'), {
                         format: 'DD-MM-YYYY'
                     });
+                    var numFormat = $.fn.dataTable.render.number(',', '.', 3).display;
                     var table = $('#dt-basic-example').DataTable({
-                        initComplete: function() {
+                        drawCallback: function() {
+                            var api = this.api();
+                            $('#grandTotalPenjualan').html(api.column(7, {
+                                page: 'current'
+                            }).data().reduce(function(acc, val) {
+                                return numFormat(parseFloat(acc) + (parseFloat(val)));
+                            }, 0));
+                        }
+                        , initComplete: function() {
                             this.api()
                                 .columns()
                                 .every(function() {
@@ -330,7 +339,7 @@ Transaksi Penjualan
                             Swal.fire(
                                 'Sukses!', data.reason, 'success'
                             ).then(() => {
-                                location.reload();
+                                location.replace('/print/printpenjualan/' + data.id_penjualan);
                             });
                         }
                     });

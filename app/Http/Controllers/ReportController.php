@@ -62,7 +62,17 @@ class ReportController extends Controller
             ->join('m_barang', 'dt_penjualan.id_barang', 'm_barang.id_barang')
             ->join('m_rekanan', 'm_rekanan.id_rekanan', 'm_barang.id_rekanan')
             ->orderBy('m_barang.id_rekanan')
-            ->select('dt_penjualan.*', 'm_barang.nama_barang', 'm_barang.harga_barang', 'm_rekanan.nama_rekanan', 'm_rekanan.id_rekanan')
+            ->select(
+                'dt_penjualan.*',
+                'm_barang.nama_barang',
+                'm_barang.harga_barang',
+                'm_rekanan.nama_rekanan',
+                'm_rekanan.id_rekanan',
+                DB::raw('SUM(dt_penjualan.qty_penjualan) AS sum_total_penjualan'),
+                DB::raw('SUM(dt_penjualan.total_penjualan) as harga_total_penjualan'),
+                DB::raw('SUM(dt_penjualan.gratis_cuci) as total_gratis_cuci')
+            )
+            ->groupBy('dt_penjualan.id_barang')
             ->get();
 
         $mobil = M_Barang::where('nama_barang', 'like', '%mobil%')->pluck('id_barang')->toArray();
@@ -122,6 +132,12 @@ class ReportController extends Controller
 
 
         $return = null;
+        $total_motor = 0;
+        $total_mobil = 0;
+        $cuci_motor = 0;
+        $cuci_mobil = 0;
+        $gratis_cuci_motor = 0;
+        $gratis_cuci_mobil = 0;
         foreach ($pelanggan as $key => $value) {
             // dd($value->totalCuciMotor());
             if ($value->totalCuciMotor($request) || $value->totalCuciMobil($request)) {
@@ -131,11 +147,27 @@ class ReportController extends Controller
                     'total_mobil' => $value->totalMobil($request),
                     'cuci_motor' => $value->totalCuciMotor($request),
                     'cuci_mobil' => $value->totalCuciMobil($request),
-                    'gratis_cuci_motor' => floor($value->totalCuciMotor($request) / 10),
-                    'gratis_cuci_mobil' => floor($value->totalCuciMobil($request) / 10),
+                    'gratis_cuci_motor' => floor($value->totalCuciMotor($request) / 7),
+                    'gratis_cuci_mobil' => floor($value->totalCuciMobil($request) / 7),
                 );
+                $total_motor += $value->totalMotor($request);
+                $total_mobil += $value->totalMobil($request);
+                $cuci_motor += $value->totalCuciMotor($request);
+                $cuci_mobil += $value->totalCuciMobil($request);
+                $gratis_cuci_motor += floor($value->totalCuciMotor($request) / 7);
+                $gratis_cuci_mobil += floor($value->totalCuciMobil($request) / 7);
             }
         }
+
+        $return[] = array(
+            'nama_pelanggan' => 'Total',
+            'total_motor' => $total_motor,
+            'total_mobil' => $total_mobil,
+            'cuci_motor' => $cuci_motor,
+            'cuci_mobil' => $cuci_mobil,
+            'gratis_cuci_motor' => $gratis_cuci_motor,
+            'gratis_cuci_mobil' => $gratis_cuci_mobil,
+        );
 
         echo json_encode(array('data' => $return));
     }

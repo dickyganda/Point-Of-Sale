@@ -16,7 +16,7 @@ use App\Models\M_Pelanggan;
 class TransaksipenjualanController extends Controller
 {
 
-    function Index()
+    function Index(Request $request)
     {
         // $dt_penjualan = DT_Penjualan::orderBy('tgl_transaksi_penjualan', 'DESC')->get();
         $t_penjualan = T_Penjualan::latest()
@@ -26,11 +26,14 @@ class TransaksipenjualanController extends Controller
             ->groupBy('dt_penjualan.id_t_penjualan', 't_penjualan.id_penjualan', 't_penjualan.id_pelanggan', 't_penjualan.no_nota', 't_penjualan.no_meja', 't_penjualan.status_closing', 't_penjualan.created_at', 't_penjualan.updated_at')
             ->get();
 
+        $min = isset($request->min) && $request->min != null ? date('Y-m-d', strtotime($request->min)) : date('Y-m-d');
+        $max = isset($request->max) && $request->max != null ? date('Y-m-d', strtotime($request->max)) : date('Y-m-d');
         $grand_total = DT_Penjualan::selectRaw('sum(total_penjualan) as total')
             ->join('t_penjualan', 't_penjualan.id_penjualan', 'dt_penjualan.id_t_penjualan')
-            // ->whereDate('tgl_transaksi_penjualan', Date('Y-m-d'))
-            ->where('t_penjualan.status_closing', '=', 0)
             ->where('dt_penjualan.deleted_at', '=', null)
+            ->whereBetween('dt_penjualan.tgl_transaksi_penjualan', [$min, $max])
+            // ->whereDate('tgl_transaksi_penjualan', Date('Y-m-d'))
+            // ->where('t_penjualan.status_closing', '=', 0)
             ->first()->total;
         // dd($grand_total);
 
@@ -76,8 +79,15 @@ class TransaksipenjualanController extends Controller
         }
 
         $penjualan = new T_Penjualan;
-        $penjualan->id_pelanggan = $request->id_pelanggan;
-        $penjualan->no_nota =  $tgl . '.' . $bln . '.' . $tahun . '.' . $nota;
+        if (isset($request->id_pelanggan) || $request->id_pelanggan != null) {
+            $penjualan->id_pelanggan = $request->id_pelanggan;
+            $pelanggan = M_Pelanggan::find($request->id_pelanggan);
+        } else {
+            $penjualan->id_pelanggan = 12;
+            $pelanggan = M_Pelanggan::find(12);
+        }
+        // $penjualan->id_pelanggan = $request->id_pelanggan;
+        $penjualan->no_nota = $tgl . '.' . $bln . '.' . $tahun . '.' . $nota;
         $penjualan->no_meja = $request->no_meja;
         $penjualan->status_closing = 0;
         $penjualan->save();
@@ -92,21 +102,27 @@ class TransaksipenjualanController extends Controller
             $nama_barang = M_Barang::find($value);
             $cuci = explode(' ', $nama_barang->nama_barang);
 
-            if (isset($cuci[1]) && $cuci[1] == 'mobil') {
-                $pelanggan = M_Pelanggan::find($request->id_pelanggan);
-                if ($pelanggan->jumlahCuciMobil($value) + $request->qty_penjualan[$key] >= 10) {
+            if (isset($cuci[1]) && $cuci[1] == 'MOBIL') {
+                // $pelanggan = M_Pelanggan::find($request->id_pelanggan);
+                // dd($pelanggan);
+                if ($pelanggan->jumlahCuciMobil($value) + $request->qty_penjualan[$key] >= 7) {
                     $add->total_penjualan = ($request->qty_penjualan[$key] - 1) * $request->harga_barang[$key];
+                    $add->gratis_cuci = 1;
                 } else {
+                    $add->gratis_cuci = 0;
                     $add->total_penjualan = $request->total_penjualan[$key];
                 }
-            } else if (isset($cuci[1]) && $cuci[1] == 'motor') {
-                $pelanggan = M_Pelanggan::find($request->id_pelanggan);
-                if ($pelanggan->jumlahCuciMotor($value) + $request->qty_penjualan[$key] >= 10) {
+            } else if (isset($cuci[1]) && $cuci[1] == 'MOTOR') {
+                // $pelanggan = M_Pelanggan::find($request->id_pelanggan);
+                if ($pelanggan->jumlahCuciMotor($value) + $request->qty_penjualan[$key] >= 7) {
                     $add->total_penjualan = ($request->qty_penjualan[$key] - 1) * $request->harga_barang[$key];
+                    $add->gratis_cuci = 1;
                 } else {
+                    $add->gratis_cuci = 0;
                     $add->total_penjualan = $request->total_penjualan[$key];
                 }
             } else {
+                $add->gratis_cuci = 0;
                 $add->total_penjualan = $request->total_penjualan[$key];
             }
 
@@ -114,7 +130,7 @@ class TransaksipenjualanController extends Controller
             $add->tgl_transaksi_penjualan = Date('Y-m-d');
             $add->no_nota = $penjualan->no_nota;
             $add->no_meja = $request->no_meja;
-            // dd($add);
+            // dd($penjualan);
             $add->save();
         }
 
@@ -197,7 +213,7 @@ class TransaksipenjualanController extends Controller
             ->get();
 
         $penjualan = T_Penjualan::find($id_penjualan);
-        // dd($detailPenjualan);
+        // dd($penjualan);
 
         return view('/print/printpenjualan', [
             'detailPenjualan' => $detailPenjualan,

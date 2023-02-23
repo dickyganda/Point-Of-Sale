@@ -85,7 +85,7 @@
                 <td style="margin-bottom: 10px; margin-top:0px;font-size:6pt">
                     {{ isset($penjualan->pelanggan()->nama_pelanggan) ? $penjualan->pelanggan()->nama_pelanggan : '' }}
                 </td>
-                <td style="margin-bottom: 10px; margin-top:0px;font-size:.8rem"> {{ $penjualan->no_meja }}
+                <td style="margin-bottom: 10px; margin-top:0px;font-size:6pt"> {{ $penjualan->no_meja }}
                 </td>
             </tr>
             @foreach ($detailPenjualan as $item)

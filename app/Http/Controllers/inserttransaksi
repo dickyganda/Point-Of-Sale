@@ -1,0 +1,72 @@
+function tambahtransaksipenjualan(Request $request)
+{
+// dd($request->harga_barang);
+// $barangCuci = M_Barang::where('nama_barang', 'like', 'cuci%')->pluck('id_barang')->toArray();
+
+// dd($barangCuci);
+// $pelanggan = M_Pelanggan::find($request->id_pelanggan);
+// if ($pelanggan->jumlahCuci() % 9 == 0) {
+// dd(true);
+// }
+// dd(false);
+
+$tgl = date('d');
+$bln = date('m');
+$tahun = date('y');
+$nota = T_Penjualan::where('no_nota', 'like', $bln . '.' . $tahun . '%')->count() + 1;
+if ($nota < 10) { $nota='00' . $nota; } else if ($nota>= 10) {
+    $nota = '0' . $nota;
+    }
+
+    $penjualan = new T_Penjualan;
+    if (!empty($penjualan->id_pelanggan = $request->id_pelanggan)) {
+    $penjualan->id_pelanggan = $request->id_pelanggan;
+    } else {
+    $penjualan->id_pelanggan = 12;
+    }
+    // $penjualan->id_pelanggan = $request->id_pelanggan;
+    $penjualan->no_nota = $bln . '.' . $tahun . '.' . $nota;
+    $penjualan->no_meja = $request->no_meja;
+    $penjualan->status_closing = 0;
+    $penjualan->save();
+
+    foreach ($request->id_barang as $key => $value) {
+    $add = new DT_Penjualan();
+    $add->id_barang = $value;
+    $add->id_t_penjualan = $penjualan->id_penjualan;
+    // $add->id_id_pelanggan = $request->id_penjualan;
+    $add->qty_penjualan = $request->qty_penjualan[$key];
+
+    $nama_barang = M_Barang::find($value);
+    $cuci = explode(' ', $nama_barang->nama_barang);
+
+    if (isset($cuci[1]) && $cuci[1] == 'MOBIL') {
+    $pelanggan = M_Pelanggan::find($request->id_pelanggan);
+    if ($pelanggan->jumlahCuciMobil($value) + $request->qty_penjualan[$key] >= 7) {
+    $add->total_penjualan = ($request->qty_penjualan[$key] - 1) * $request->harga_barang[$key];
+    $add->gratis_cuci = 1;
+    } else {
+    $add->gratis_cuci = 0;
+    $add->total_penjualan = $request->total_penjualan[$key];
+    }
+    } else if (isset($cuci[1]) && $cuci[1] == 'MOTOR') {
+    $pelanggan = M_Pelanggan::find($request->id_pelanggan);
+    if ($pelanggan->jumlahCuciMotor($value) + $request->qty_penjualan[$key] >= 7) {
+    $add->total_penjualan = ($request->qty_penjualan[$key] - 1) * $request->harga_barang[$key];
+    $add->gratis_cuci = 1;
+    } else {
+    $add->gratis_cuci = 0;
+    $add->total_penjualan = $request->total_penjualan[$key];
+    }
+    } else {
+    $add->gratis_cuci = 0;
+    $add->total_penjualan = $request->total_penjualan[$key];
+    }
+
+
+    $add->tgl_transaksi_penjualan = Date('Y-m-d');
+    $add->no_nota = $penjualan->no_nota;
+    $add->no_meja = $request->no_meja;
+    // dd($add);
+    $add->save();
+    }

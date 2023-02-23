@@ -78,7 +78,7 @@ Data Transaksi Kas
                                     <td>{{ $carbon::parse($kas->tgl_kas)->format('Y-m-d') }}</td>
                                     <td align="right">@currency($kas->debit)</td>
                                     <td align="right">@currency($kas->kredit)</td>
-                                    <td align="right">{{ $kas->saldo_kas }}</td>
+                                    <td align="right">@currency(intval($kas->saldo_kas))</td>
                                     {{-- <td>
 
                                         <a href="/dataharga/editharga/{{ $harga->id_harga }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>

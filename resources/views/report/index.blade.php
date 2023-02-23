@@ -77,7 +77,7 @@ Report Penjualan
                                     <td>{{ $report->qty_penjualan }}</td>
                                     <td>@currency($report->harga_barang)</td>
                                     <td>{{ $report->tgl_transaksi_penjualan }}</td>
-                                    <td>@currency($report->qty_penjualan * $report->harga_barang)</td>
+                                    <td align="right">{{$report->qty_penjualan * $report->harga_barang}}</td>
                                     {{-- <td>
 
                                         <a href="/transaksicuci/edittransaksicuci/{{ $cuci->id_cuci }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>
@@ -152,7 +152,7 @@ Report Penjualan
                     $('#grandTotal').html(api.column(6, {
                         page: 'current'
                     }).data().reduce(function(acc, val) {
-                        return parseInt(acc) + parseInt(val);
+                        return parseFloat(acc) + parseFloat(val);
                     }, 0));
                 },
                 // dom: 'Bfrtip'
