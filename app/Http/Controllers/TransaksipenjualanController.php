@@ -58,6 +58,7 @@ class TransaksipenjualanController extends Controller
 
     function tambahtransaksipenjualan(Request $request)
     {
+
         // dd($request->harga_barang);
         // $barangCuci = M_Barang::where('nama_barang', 'like', 'cuci%')->pluck('id_barang')->toArray();
 
@@ -134,7 +135,47 @@ class TransaksipenjualanController extends Controller
             $add->save();
         }
 
+        // $totalMotor = DB::table('t_penjualan')
+        //     ->join('m_pelanggan', 't_penjualan.id_pelanggan', 'm_pelanggan.id_pelanggan')
+        //     // $totalMotor = $this->belongsTo(T_Penjualan::class, 'id_pelanggan', 'id_pelanggan')
+        //     ->join('dt_penjualan', 't_penjualan.id_penjualan', 'dt_penjualan.id_t_penjualan')
+        //     ->join('m_barang', 'dt_penjualan.id_barang', 'm_barang.id_barang')
+        //     // ->whereBetween('dt_penjualan.tgl_transaksi_penjualan', [$min, $max])
+        //     ->select('m_barang.nama_barang', 'dt_penjualan.qty_penjualan')
+        //     ->where('m_barang.nama_barang', 'like', '%motor%')
+        //     ->where('dt_penjualan.deleted_at', '=', null)
+        //     ->where('t_penjualan.id_pelanggan', $penjualan->id_pelanggan)
+        //     ->sum('dt_penjualan.qty_penjualan');
+        // ->first();
+        // dd($totalMotor);
+        // $totalMobil = DB::table('t_penjualan')
+        //     ->join('m_pelanggan', 't_penjualan.id_pelanggan', 'm_pelanggan.id_pelanggan')
+        //     // $totalMotor = $this->belongsTo(T_Penjualan::class, 'id_pelanggan', 'id_pelanggan')
+        //     ->join('dt_penjualan', 't_penjualan.id_penjualan', 'dt_penjualan.id_t_penjualan')
+        //     ->join('m_barang', 'dt_penjualan.id_barang', 'm_barang.id_barang')
+        //     // ->whereBetween('dt_penjualan.tgl_transaksi_penjualan', [$min, $max])
+        //     ->select('m_barang.nama_barang', 'dt_penjualan.qty_penjualan')
+        //     ->where('m_barang.nama_barang', 'like', '%mobil%')
+        //     ->where('dt_penjualan.deleted_at', '=', null)
+        //     ->where('t_penjualan.id_pelanggan', $penjualan->id_pelanggan)
+        //     ->sum('dt_penjualan.qty_penjualan');
+        // ->first();
+
+        // $totalCuciPelanggan = $totalMotor + $totalMobil;
+        // return $totalCuciPelanggan;
+        // dd($totalCuciPelanggan);
+
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Tambah Data', 'id_penjualan' => $penjualan->id_penjualan));
+        // return view(
+        //     'print/printpenjualan',
+        //     [
+        //         'id_penjualan' => $penjualan->id_penjualan,
+        //         'totalCuciPelanggan' => $totalCuciPelanggan,
+        //         // 'databarang' => $databarang,
+        //         // 'datapelanggan' => $datapelanggan,
+
+        //     ]
+        // );
     }
 
     public function editpenjualan($id_dt_penjualan)
@@ -214,10 +255,42 @@ class TransaksipenjualanController extends Controller
 
         $penjualan = T_Penjualan::find($id_penjualan);
         // dd($penjualan);
+        $totalMotor = DB::table('t_penjualan')
+            ->join('m_pelanggan', 't_penjualan.id_pelanggan', 'm_pelanggan.id_pelanggan')
+            // $totalMotor = $this->belongsTo(T_Penjualan::class, 'id_pelanggan', 'id_pelanggan')
+            ->join('dt_penjualan', 't_penjualan.id_penjualan', 'dt_penjualan.id_t_penjualan')
+            ->join('m_barang', 'dt_penjualan.id_barang', 'm_barang.id_barang')
+            // ->whereBetween('dt_penjualan.tgl_transaksi_penjualan', [$min, $max])
+            ->select('m_barang.nama_barang', 'dt_penjualan.qty_penjualan')
+            ->where('m_barang.nama_barang', 'like', '%motor%')
+            ->where('dt_penjualan.deleted_at', '=', null)
+            ->where('t_penjualan.id_pelanggan', '=', $penjualan->id_pelanggan)
+            ->sum('dt_penjualan.qty_penjualan');
+        // ->first();
+        // dd($totalMotor);
+        $totalMobil = DB::table('t_penjualan')
+            ->join('m_pelanggan', 't_penjualan.id_pelanggan', 'm_pelanggan.id_pelanggan')
+            // $totalMotor = $this->belongsTo(T_Penjualan::class, 'id_pelanggan', 'id_pelanggan')
+            ->join('dt_penjualan', 't_penjualan.id_penjualan', 'dt_penjualan.id_t_penjualan')
+            ->join('m_barang', 'dt_penjualan.id_barang', 'm_barang.id_barang')
+            // ->whereBetween('dt_penjualan.tgl_transaksi_penjualan', [$min, $max])
+            ->select('m_barang.nama_barang', 'dt_penjualan.qty_penjualan')
+            ->where('m_barang.nama_barang', 'like', '%mobil%')
+            ->where('dt_penjualan.deleted_at', '=', null)
+            ->where('t_penjualan.id_pelanggan', $penjualan->id_pelanggan)
+            ->sum('dt_penjualan.qty_penjualan');
+        // dd($totalMobil);
+        // ->first()->totalMobil;
+
+        $totalCuciPelanggan = $totalMotor + $totalMobil;
+        // dd($totalCuciPelanggan);
 
         return view('/print/printpenjualan', [
             'detailPenjualan' => $detailPenjualan,
-            'penjualan' => $penjualan
+            'penjualan' => $penjualan,
+            'totalMotor' => $totalMotor,
+            'totalMobil' => $totalMobil,
+            'totalCuciPelanggan' => $totalCuciPelanggan,
         ]);
     }
 

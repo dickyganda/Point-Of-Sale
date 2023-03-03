@@ -84,7 +84,10 @@
 
                 </div>
                 <p style="font-size:.6rem;text-align: center; ">Jl. KH. Achmad Dahlan No. 73 Lamongan</p>
-                <p style="margin-bottom: 0;font-size:.6rem"> {{ $penjualan->no_nota }}</p>
+                <div style="display: flex;justify-content: space-between">
+                    <p style="margin-bottom: 0;font-size:.6rem"> {{ $penjualan->no_nota }}</p>
+                    <p style="margin-bottom: 0;font-size:.6rem">{{$totalCuciPelanggan}}</p>
+                </div>
                 <div style="display: flex;justify-content: space-between">
                     <p style="margin-bottom: 10px; margin-top:0px;font-size:.6rem">
                         {{ isset($penjualan->pelanggan()->nama_pelanggan) ? $penjualan->pelanggan()->nama_pelanggan : '' }}
