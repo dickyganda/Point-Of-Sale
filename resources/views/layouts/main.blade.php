@@ -92,6 +92,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ asset('assets/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('assets/js/select2.min.js') }}"></script>
     <script src="{{ asset('assets/js/chart.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/utils.js') }}"></script> --}}
     <script src="{{ asset('assets/js/jspdf.umd.min.js') }}"></script>
     <script src="{{ asset('assets/js/jspdf.debug.js') }}"></script>
     <script src="{{ asset('assets/js/jszip.min.js') }}"></script>

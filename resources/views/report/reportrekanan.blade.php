@@ -230,7 +230,31 @@
 
             </tbody> --}}
             <tbody>
+            @php
+            $rekananloop = null ;
+            $subtotal = 0;
+            $grandtotal = 0;
+            @endphp
                 @foreach ($report as $key => $item)
+                @if($rekananloop !== null && $rekananloop != $item->nama_rekanan)
+                <tr>
+                    <td colspan="4" style="text-align:center;">subtotal</td>
+                    <td style="text-align:right;">{{$subtotal}}</td>
+                </tr>
+                @php
+                $rekananloop = $item->nama_rekanan;
+                $subtotal = $item->harga_total_penjualan;
+                @endphp
+                
+                @else
+                @php
+                $rekananloop = $item->nama_rekanan;
+                $subtotal += $item->harga_total_penjualan
+              @endphp
+                @endif
+                @php
+$grandtotal += $item->harga_total_penjualan;
+@endphp
                 <tr>
                     <td>{{ $item->nama_rekanan }}</td>
                     <td>{{ $item->nama_barang }}</td>
@@ -239,7 +263,16 @@
                     <td style="text-align:right;">{{ $item->harga_total_penjualan }}</td>
                     <td>{{ $item->total_gratis_cuci }}</td>
                 </tr>
+                
                 @endforeach
+                <tr>
+                <td colspan="4" style="text-align:center;">subtotal</td>
+                <td style="text-align:right;">{{$subtotal}}</td>
+                </tr>
+                    <tr>
+                    <td colspan="4" style="text-align:center;">Grand Total</td>
+                    <td style="text-align:right;">{{$grandtotal}}</td>
+                    </tr>
             </tbody>
         </table>
     </div>
